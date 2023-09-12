@@ -1,2 +1,6 @@
 # DApp - Ethereum 50.037: Blockchain 
-A Decentralised Application 
+Team:
+1. Umang Gupta
+2. Eric Chandra
+3. Tianqing Zhang
+4. Visshal Natarajan 
