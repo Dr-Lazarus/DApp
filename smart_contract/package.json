@@ -1,0 +1,17 @@
+{
+    "name": "DApp",
+    "main": "truffle-config.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "dev": "lite-server",
+        "test": "echo \"Error: no test specified\" && sexit 1"
+    },
+    "devDependencies": {
+        "truffle": "5.11.5"
+    },
+    "dependencies": {
+        "truffle-contract": "^4.0.31"
+    }
+}
