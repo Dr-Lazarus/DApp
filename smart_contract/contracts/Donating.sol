@@ -2,7 +2,6 @@
 pragma solidity >=0.4.22 <0.9.0;
 contract Donating {
 
-  /*
     struct Donation {
       uint amount; 
       uint date; 
@@ -11,19 +10,7 @@ contract Donating {
     Donation[] public donations;
     address public owner;
 
-    constructor() {
-        owner = msg.sender;
-    }
-    event DonationMade(uint indexed donationIndex, uint amount, uint date, address sender);
-
-    function makeDonation(uint _amount, string memory _message) public {
-        donations.push(Donation(_amount, block.timestamp, _message));
-        
-
-    }
-
-    */
- uint public taskCount = 0;
+    uint public taskCount = 0;
 
     struct Task {
         uint id;
