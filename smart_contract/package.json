@@ -1,0 +1,19 @@
+{
+    "name": "DApp",
+    "main": "truffle-config.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "dev": "lite-server",
+        "test": "echo \"Error: no test specified\" && sexit 1"
+    },
+    "devDependencies": {
+        "truffle": "5.11.5"
+    },
+    "dependencies": {
+        "@truffle/hdwallet-provider": "^2.1.15",
+        "dotenv": "^16.3.1",
+        "truffle-contract": "^4.0.31"
+    }
+}
