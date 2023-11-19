@@ -34,6 +34,7 @@ contract FundraiserFactory {
     return _fundraisers.length;
   }
 
+  // {info} this should be showing the list of projects
   function fundraisers(uint256 limit, uint256 offset)
     public
     view

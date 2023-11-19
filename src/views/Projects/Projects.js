@@ -34,7 +34,7 @@ export default function Projects() {
       );
       setContract(instance);
       setAccounts(accounts);
-
+        // {info} funds mean list of projects
       const funds = await instance.methods.fundraisers(1000, 0).call();
 
       setFunds(funds);

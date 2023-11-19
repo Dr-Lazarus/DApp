@@ -58,6 +58,8 @@ const FundraiserCard = ({ fundraiser }) => {
       setAccounts(account);
       //console.log('----account0--', accounts[0]);
 
+      // {info or to do} why use instance instead of contract
+      // getting properties of the project
       setFundName(await instance.methods.name().call());
       setImage(await instance.methods.image().call());
       setDescription(await instance.methods.description().call());
@@ -73,13 +75,16 @@ const FundraiserCard = ({ fundraiser }) => {
           setExchangeRate(prices.USD);
         })
         .catch(console.error);
-
+        
       const eth = web3.utils.fromWei(web3.utils.toBN(totalDonation), 'ether');
-
+    // {to change} fixed the decimal
       setTotalDonationsEth(parseFloat(eth).toFixed(4));
       const dollarDonationAmount = exchangeRate * eth;
       setTotalDonations(dollarDonationAmount.toFixed(2));
 
+      // info of retrieving the donors donation history from Fundraiser Contract (value and date) for frontend but it is not project specific
+      // {to change} add the address also
+      // 
       const userDonation = await instance.methods
         .myDonations()
         .call({ from: accounts[0] });

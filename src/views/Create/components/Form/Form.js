@@ -44,6 +44,7 @@ const Form = () => {
       name: '',
       description: '',
       beneficiary: '',
+      // {to change} remove the beneficiary, fix it with NGO address 
       goalAmount: '',
     },
     validationSchema: validationSchema,
@@ -95,6 +96,7 @@ const Form = () => {
       console.log('Network', FundraiserFactoryContract.networks[80001]);
       const deployedNetwork = FundraiserFactoryContract.networks[networkId];
       const accounts = await web3.eth.getAccounts();
+      console.log('Account is',accounts)
       const instance = new web3.eth.Contract(
         FundraiserFactoryContract.abi,
         deployedNetwork && deployedNetwork.address,
@@ -129,7 +131,6 @@ const Form = () => {
 
   async function handleSubmit() {
     const { name, description, beneficiary, goalAmount } = formik.values;
-
     const data = JSON.stringify({
       name,
       image,

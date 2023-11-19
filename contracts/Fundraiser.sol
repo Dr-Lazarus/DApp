@@ -62,6 +62,7 @@ contract Fundraiser is Ownable {
   }
 
   function myDonations() public view returns (
+    // {to change} must put project also
       uint256[] memory values,
       uint256[] memory dates
   )

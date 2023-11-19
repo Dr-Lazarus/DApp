@@ -1,6 +1,6 @@
 const pages = [
   {
-    title: 'Create Campaign',
+    title: 'Create Project',
     href: '/create',
   },
   {
