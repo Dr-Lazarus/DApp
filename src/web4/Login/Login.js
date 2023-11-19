@@ -7,6 +7,19 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers } from 'ethers';
 import Web3Modal from 'web3modal';
 
+async function storeUserAddress(walletAddress) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+  try {
+    const transaction = await contract.setUser(walletAddress);
+    await transaction.wait();
+    console.log(`User address stored: ${walletAddress}`);
+  } catch (error) {
+    console.error('Error storing user address:', error);
+  }
+}
 export const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
@@ -22,6 +35,8 @@ if (typeof window !== 'undefined') {
     cacheProvider: true,
     providerOptions, // required
   });
+
+
 }
 
 const initialState = {
@@ -73,6 +88,7 @@ export const Login = () => {
     const address = await signer.getAddress();
 
     const network = await web3Provider.getNetwork();
+    await storeUserAddress(walletAddress);
 
     dispatch({
       type: 'SET_WEB3_PROVIDER',
