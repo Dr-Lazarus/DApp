@@ -90,6 +90,8 @@ const FundraiserCard = ({ fundraiser }) => {
         .call({ from: accounts[0] });
       setUserDonations(userDonation);
 
+      console.log("user donation",userDonation)
+
       const isUser = accounts[0];
       const isOwner = await instance.methods.owner().call();
       if (isOwner === accounts[0]) {
@@ -109,11 +111,15 @@ const FundraiserCard = ({ fundraiser }) => {
   };
 
   const renderDonationsList = () => {
+
+    console.log("renderDonationList is called")
     var donations = userDonations;
     if (donations === null) {
+      console.log("null")
       return null;
     }
     const totalDonations = donations.length;
+    console.log("donation legnth", totalDonations, donations)
     let donationList = [];
     var i;
     for (i = 0; i < totalDonations; i++) {
