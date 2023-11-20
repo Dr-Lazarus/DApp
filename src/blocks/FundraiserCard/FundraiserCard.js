@@ -118,12 +118,14 @@ const FundraiserCard = ({ fundraiser }) => {
       console.log("null")
       return null;
     }
-    const totalDonations = donations.length;
-    console.log("donation legnth", totalDonations, donations)
+    // const totalDonations = donations.length;
+    const totalDonations = donations.values.length;
+    // console.log("donation legnth", totalDonations, donations)
     let donationList = [];
     var i;
     for (i = 0; i < totalDonations; i++) {
       const ethAmount = web3.utils.fromWei(donations.values[i], 'ether');
+      console.log(ethAmount,"eth amount")
       const userDonation = exchangeRate * ethAmount;
       const donationDate = donations.dates[i];
       donationList.push({
@@ -132,8 +134,9 @@ const FundraiserCard = ({ fundraiser }) => {
       });
       console.log('<<<<', donationList);
     }
-
+    console.log("donationlist",donationList)
     return donationList.map((donation) => {
+      console.log("donationlist map[ing is called",donation.donationAmount,donation.date)
       return (
         <Box>
           <Typography component={'span'} fontWeight={700}>
