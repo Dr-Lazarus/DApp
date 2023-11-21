@@ -16,8 +16,8 @@ contract('Fundraiser', (accounts) => {
       name,
       image,
       description,
-      beneficiary,
       goalAmount,
+      beneficiary,
       owner,
     );
   });

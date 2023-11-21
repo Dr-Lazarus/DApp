@@ -16,6 +16,11 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true,
     },
+    sepolia: {
+      provider: () => new HDWalletProvider(PRIVATE_KEY, INFURA_API_KEY),
+      network_id: "11155111",
+      gas: 4465030,
+    },
     smartChain: {
       provider: () =>
         new HDWalletProvider(
