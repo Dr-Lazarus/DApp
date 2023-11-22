@@ -22,7 +22,7 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         display={'flex'}
         component="a"
         href="/"
-        title="crypto charity"
+        title="HeartLedger"
         width={{ xs: 360, md: 360 }}
       >
         <Box

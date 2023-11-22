@@ -31,8 +31,28 @@ contract UserAccessControl {
         users[user] = User(role, true);
     }
 
+
     function getUserRole(address user) public view returns (UserRole) {
         require(users[user].isRegistered, "User not registered");
+        return users[user].role;
+
+
+    }
+
+    function register(address user, UserRole role) public {
+        // 确保用户尚未注册
+        require(!users[user].isRegistered, "User already registered.");
+
+        // 注册用户
+        users[user] = User(role, true);
+
+        // 触发注册事件
+        emit UserRegistered(user, role);
+    }
+
+    // 获取用户角色
+    function getUserRole(address user) public view returns (UserRole) {
+        require(users[user].isRegistered, "User not registered.");
         return users[user].role;
     }
 }

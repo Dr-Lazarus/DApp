@@ -1,24 +1,127 @@
-// const ethers = require('ethers');
+const ethers = require('ethers');
+// const Web3Modal = require('web3modal');
+const Web3Modal = require('web3modal').default;
 
-// require('dotenv').config(); // Ensure that your environment variables are loaded
 
-// async function checkUserRole(contractAddress, userAddress) {
-//     const provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.infura.io/v3/${process.env.INFURA_API_KEY}`);
+const contractAddress = "0x252AC17D1580e56B567eb0112e04F10b373fd8";
+const contractABI = [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "admin",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "users",
+      "outputs": [
+        {
+          "internalType": "enum UserAccessControl.UserRole",
+          "name": "role",
+          "type": "uint8"
+        },
+        {
+          "internalType": "bool",
+          "name": "isRegistered",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "enum UserAccessControl.UserRole",
+          "name": "role",
+          "type": "uint8"
+        }
+      ],
+      "name": "registerUser",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "enum UserAccessControl.UserRole",
+          "name": "role",
+          "type": "uint8"
+        }
+      ],
+      "name": "setUser",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserRole",
+      "outputs": [
+        {
+          "internalType": "enum UserAccessControl.UserRole",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    }
+  ]
+async function checkIfUserRegistered(userAddress) {
+    const web3Modal = new Web3Modal();
+    const provider = await web3Modal.connect();
+    const web3Provider = new ethers.providers.Web3Provider(provider);
+    const contract = new ethers.Contract(contractAddress, contractABI, web3Provider.getSigner());
 
-//     // Update this ABI to match your UserAccessControl contract's ABI
-//     const contractABI = [/* ... Your Contract ABI ... */];
+    try {
+        const role = await contract.getUserRole(userAddress);
+        console.log(`User role is: ${role}`);
+        const isRegistered = role !== ethers.constants.Zero;  
+        console.log(`Is user registered: ${isRegistered}`);
+        return isRegistered;
+    } catch (error) {
+        console.error('Error checking if user is registered:', error);
+        return false;
+    }
+}
 
-//     const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
-//     try {
-//         // Call the getUserRole function
-//         const role = await contract.getUserRole(userAddress);
-//         console.log(`User role is: ${role}`);
-//         return role;
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// }
-
-// // Replace with your actual contract address and the user address you want to check
-// checkUserRole("your_contract_address", "user_address_to_check");
+checkIfUserRegistered("0x321c7Fc9b2B2f277Ec58170dD6865C8e4ff4198D");
