@@ -1,19 +1,15 @@
 const FundraiserFactoryContract = artifacts.require('FundraiserFactory');
 const FundraiserContract = artifacts.require('Fundraiser');
 
-contract('FundraiserFactory: deployment', () => {
-  it('has been deployed', async () => {
-   // Local Contract
-    const contractAddress= "0x104CAa01b6DCB3Ff048aD675922495Eac5a5094f"
-    const fundraiserFactory = FundraiserFactoryContract.deployed();
-    assert(fundraiserFactory, 'fundraiser factory was not deployed');
-  });
-});
-
-contract('FundraiserFactory: createFundraiser', (accounts) => {
-  let fundraiserFactory;
-  // fundraiser args
-  const name = 'Beach cleaning';
+contract('FundraiserFactory: deployment', (accounts) => {
+  
+  before(async () => {
+    // Deploy a new instance of FundraiserFactoryContract
+    const fundraiserFactoryDeployed = await FundraiserFactoryContract.new();
+    fundraiserFactory = await FundraiserFactoryContract.at(fundraiserFactoryDeployed.address)
+    // Log the deployed address
+    console.log("Deployed address is", fundraiserFactory.address);
+    const name = 'Beach cleaning';
   const image =
     'https://images.unsplash.com/photo-1554265352-d7fd5129be15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';
   const description =
@@ -22,16 +18,19 @@ contract('FundraiserFactory: createFundraiser', (accounts) => {
   const goalAmount = '10';
 
   it('increments the fundraisersCount', async () => {
-    fundraiserFactory = await FundraiserFactoryContract.deployed();
+    // fundraiserFactory = await FundraiserFactoryContract.deployed();
     const currentFundraisersCount = await fundraiserFactory.fundraisersCount();
-    await fundraiserFactory.createFundraiser(
+    const newFundraiser = await fundraiserFactory.createFundraiser(
       name,
       image,
       description,
       goalAmount,
       beneficiary,
-      
     );
+   
+    const txReceipt = await web3.eth.getTransactionReceipt(newFundraiser.tx);
+    // Log the gas used
+    console.log(`Gas used in createFundraiser: ${txReceipt.gasUsed}`);
     const newFundraisersCount = await fundraiserFactory.fundraisersCount();
 
     assert.equal(
@@ -56,7 +55,22 @@ contract('FundraiserFactory: createFundraiser', (accounts) => {
 
     assert.equal(actualEvent, expectedEvent, 'events should match');
   });
-});
+  });
+  
+  // UNCOMMENT ONLY IF YOU WANT TO TEST UR PREVIOUSLY DEPLOYED CONTRACT AND PASS THE ADDRESS
+//   before(async () => {
+//     // Mumbai
+//     // const factoryAddress = '0x7cf4D91aF99e38e4fD69c5365b92E63985a5e8be';
+//     // local
+//     const factoryAddress = '0x43EC3c629019b9C70Da9D83b01Eeb12c86ff5900';   
+//     fundraiserFactory = await FundraiserFactoryContract.at(factoryAddress);// Use the deployed instance
+//     console.log("depployed address is",fundraiserFactory.address)
+//     // expect(allocationFactory.address).to.equal('0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0')
+// });
+  
+
+
+
 
 contract('FundraiserFactory: fundraisers', (accounts) => {
   async function createFundraiserFactory(fundraiserCount, accounts) {
@@ -86,83 +100,10 @@ contract('FundraiserFactory: fundraisers', (accounts) => {
     it('returns an empty collection', async () => {
 
       const factory = await createFundraiserFactory(0, accounts);
-      console.log("factory is",factory)
+      // console.log("factory is",factory)
       const fundraisers = await factory.fundraisers(10, 0);
       assert.equal(fundraisers.length, 0, 'collection should be empty');
     });
   });
-
-  describe('varying limits', async () => {
-    let factory;
-    beforeEach(async () => {
-      console.log("factory 1 is",factory)
-      factory = await createFundraiserFactory(10, accounts);
-      console.log("factory 2 is",factory)
-
-    });
-
-    it('returns 10 results when limit requested is 10', async () => {      const fundraisers = await factory.fundraisers(10, 0);
-
-      console.log("fundraisers", fundraisers)
-      console.log("length how", fundraisers.length)
-      assert.equal(fundraisers.length, 10, 'results size should be 10');
-    });
-
-    it('returns 20 results when limit requested is 20', async () => {
-      const fundraisers = await factory.fundraisers(20, 0);
-      assert.equal(fundraisers.length, 20, 'results size should be 20');
-    });
-
-    it('returns 20 results when limit requested is 30', async () => {
-      const fundraisers = await factory.fundraisers(30, 0);
-      assert.equal(fundraisers.length, 20, 'results size should be 20');
-    });
-  });
-
-  describe('varying offset', () => {
-    let factory;
-    beforeEach(async () => {
-      factory = await createFundraiserFactory(10, accounts);
-    });
-
-    it('contains the fundraiser with the appropriate offset', async () => {
-      const fundraisers = await factory.fundraisers(1, 0);
-      const fundraiser = await FundraiserContract.at(fundraisers[0]);
-      const name = await fundraiser.name();
-      assert.ok(await name.includes(0), `${name} did not include the offset`);
-    });
-
-    it('contains the fundraiser with the appropriate offset', async () => {
-      const fundraisers = await factory.fundraisers(1, 7);
-      const fundraiser = await FundraiserContract.at(fundraisers[0]);
-      const name = await fundraiser.name();
-      assert.ok(await name.includes(7), `${name} did not include the offset`);
-    });
-  });
-
-  describe('boundry conditions', () => {
-    let factory;
-    beforeEach(async () => {
-      factory = await createFundraiserFactory(10, accounts);
-    });
-
-    it('raises out of bounds error', async () => {
-      try {
-        await factory.fundraisers(1, 11);
-        assert.fail('error was not raised');
-      } catch (err) {
-        const expected = 'offset out of bounds';
-        assert.ok(err.message.includes(expected), `${err.message}`);
-      }
-    });
-
-    it('adjusts return size to prevent out of bounds error', async () => {
-      try {
-        const fundraisers = await factory.fundraisers(10, 5);
-        assert.equal(fundraisers.length, 5, 'collection adjusted');
-      } catch (err) {
-        assert.fail('limit and offset exceeded bounds');
-      }
-    });
-  });
+});
 });

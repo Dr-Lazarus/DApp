@@ -5,6 +5,8 @@ const INFURA_ID = process.env.INFURA_ID;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const MNEMONIC_KEY = process.env.MNEMONIC_KEY;
 
+const INFURA_API_KEY= process.env.INFURA_API_KEY;
+
 module.exports = {
   networks: {
     // -------------- TESTNET ---------------------
@@ -24,7 +26,10 @@ module.exports = {
       skipDryRun: true,
     },
     sepolia: {
-      provider: () => new HDWalletProvider(PRIVATE_KEY, INFURA_API_KEY),
+      provider: () => new HDWalletProvider(
+        PRIVATE_KEY, 
+        `https://sepolia.infura.io/v3/${INFURA_API_KEY}`
+      ),
       network_id: "11155111",
       gas: 4465030,
     },

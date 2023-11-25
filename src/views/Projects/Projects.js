@@ -33,7 +33,8 @@ export default function Projects() {
         deployedNetwork && deployedNetwork.address,
       );
       
-      console.log("Instance",instance)
+      const contractAddress = instance.options.address;
+      console.log("Deployed Contract Address:", contractAddress);
 
       setContract(instance);
       setAccounts(accounts);
