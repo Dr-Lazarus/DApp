@@ -31,29 +31,13 @@ const validationSchema = yup.object({
     .max(50, 'Name too long')
     .required('Please specify the name'),
   description: yup.string().trim().required('Please describe your project'),
-  beneficiary: yup
-    .string()
-    .min(6, 'Beneficiary address should be correct')
-    .required('Please specify beneficiary address')
-    .matches(/0x[a-fA-F0-9]{40}/, 'Enter correct wallet address!'),
+  goalAmount: yup
+    .number('Please enter a valid number')
+    .required('Goal amount is required')
+    .positive('Goal amount must be greater than zero'),
 });
 
 const Form = () => {
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      description: '',
-      beneficiary: '',
-      goalAmount: '',
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      setLoading(true);
-      handleSubmit();
-    },
-  });
-
   const [contract, setContract] = useState(null);
   const [web3, setWeb3] = useState(null);
   const [image, setImage] = useState('');
@@ -91,8 +75,6 @@ const Form = () => {
       const connection = await web3Modal.connect();
       const web3 = new Web3(connection);
       const networkId = await web3.eth.net.getId();
-      console.log('ID:', networkId);
-      console.log('Network', FundraiserFactoryContract.networks[80001]);
       const deployedNetwork = FundraiserFactoryContract.networks[networkId];
       const accounts = await web3.eth.getAccounts();
       const instance = new web3.eth.Contract(
@@ -118,7 +100,6 @@ const Form = () => {
       });
       const fileUrl = `https://ac12644.infura-ipfs.io/ipfs/${added.path}`;
       setImage(fileUrl);
-      console.log(image);
       setOpen(true);
     } catch (error) {
       console.log('Error uploading file: ', error);
@@ -128,14 +109,13 @@ const Form = () => {
   }
 
   async function handleSubmit() {
-    const { name, description, beneficiary, goalAmount } = formik.values;
+    const { name, description, goalAmount } = formik.values;
 
     const data = JSON.stringify({
       name,
       image,
       description,
       goalAmount,
-      beneficiary,
     });
     console.log(data);
     try {
@@ -143,13 +123,11 @@ const Form = () => {
         console.log('Address SET');
       } else {
         console.log('Address NOT SET');
-      
       }
 
       const transaction = await contract.methods
-        .createFundraiser(name, image, description, goalAmount, beneficiary)
+        .createFundraiser(name, image, description, goalAmount )
         .send({ from: accounts[0] });
-        console.log("reacjer her");
       setHash(transaction.transactionHash);
       setDialogBoxOpen(true);
       setAlertOpen(false);
@@ -163,6 +141,27 @@ const Form = () => {
     }
     setLoading(false);
   }
+
+  const onSubmit = async (values) => {
+    if (formik.errors && Object.keys(formik.errors).length > 0) {
+      setAlertOpen(true);
+      return;
+    }
+
+    setLoading(true);
+    handleSubmit();
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      description: '',
+      goalAmount: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: onSubmit,
+  });
+
   return (
     <Box>
       <form onSubmit={formik.handleSubmit}>
@@ -183,7 +182,7 @@ const Form = () => {
                 'image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp'
               }
               id="upload"
-              onChange={saveToIpfs} // fix here change to image
+              onChange={saveToIpfs}
               style={{ display: 'none', cursor: 'pointer' }}
             />
             <IconButton aria-label="upload" size="small">
@@ -230,7 +229,7 @@ const Form = () => {
                   }
                   sx={{ mb: 2 }}
                 >
-                  Please upload a file!
+                  Please fill out all required fields correctly.
                 </Alert>
               </Collapse>
             </Box>
@@ -276,28 +275,6 @@ const Form = () => {
               }
               helperText={
                 formik.touched.description && formik.errors.description
-              }
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <Box display="flex" alignItems="center">
-              <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
-                Beneficiary Address *
-              </Typography>
-            </Box>
-            <TextField
-              label="Wallet address 0x..."
-              variant="outlined"
-              name={'beneficiary'}
-              fullWidth
-              onChange={formik.handleChange}
-              value={formik.values?.beneficiary}
-              error={
-                formik.touched.beneficiary && Boolean(formik.errors.beneficiary)
-              }
-              helperText={
-                formik.touched.beneficiary && formik.errors.beneficiary
               }
             />
           </Grid>

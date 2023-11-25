@@ -15,6 +15,11 @@ const pages = [
     title: 'Requests',
     href: '/requests',
   },
+  {
+  title: 'View Requests',
+  href: '/view-requests',
+  }
+
   // {
   //   title: 'Projects',
   //   href: '/projects',
