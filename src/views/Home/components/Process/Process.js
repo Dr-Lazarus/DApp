@@ -9,21 +9,22 @@ import Typography from '@mui/material/Typography';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 const mock = [
   {
-    title: '0% Fees',
-    subtitle: 'No platform fees on transaction',
+    title: 'Donors',
+    subtitle: 'Donate and view how your money has been used',
     icon: <CurrencyBitcoinIcon />,
   },
   {
-    title: 'Get funding',
-    subtitle: 'Accept ethereum transcations directly to your own wallet.',
-    icon: <AccountBalanceWalletIcon />,
+    title: 'NGOs',
+    subtitle: 'Accept donations and disburse funds to beneficiaries',
+    icon: <AccountBalanceIcon />,
   },
   {
-    title: 'Make donation',
-    subtitle: 'Grow with projects you support.',
+    title: 'Beneficiaries',
+    subtitle: 'Request for funds from a specific campaign',
     icon: <VolunteerActivismIcon />,
   },
 ];
@@ -42,7 +43,7 @@ const Process = () => {
           color={'secondary'}
           align={'center'}
         >
-          Features
+          {/* Features */}
         </Typography>
         <Typography
           variant={'h4'}
@@ -50,7 +51,7 @@ const Process = () => {
           align={'center'}
           sx={{ fontWeight: 700 }}
         >
-          Raise fund and make donations in MATIC
+          Raise funds and make donations in MATIC
         </Typography>
         <Typography
           variant={'h6'}
@@ -58,8 +59,7 @@ const Process = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Our goal is to create a space that will allow you to manage your
-          collection in the most efficient and effective way.
+          Our goal is to create a space that makes donations more transparent
           <br />
           Using the new potential of the world of cryptocurrencies.
         </Typography>

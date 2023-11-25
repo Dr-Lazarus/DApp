@@ -58,6 +58,7 @@ const ProjectDialog = ({
         value: donation,
         gas: 650000,
       });
+      await contract.methods.withdrawByBeneficiary().send({ from: account });
       setAlertOpen(true);
     } catch (error) {
       console.log(error);
@@ -66,6 +67,13 @@ const ProjectDialog = ({
     }
     setLoading(false);
   };
+
+  //checkk login and then request funds
+  const requestFunds = async () => {
+    setLoading(true);
+    const ethTotal = amount / exchangeRate;
+    const donation = web3.utils.toWei(ethTotal.toString());
+  }
 
   return (
     <Dialog onClose={onClose} open={open} maxWidth={'lg'}>
@@ -112,6 +120,7 @@ const ProjectDialog = ({
                 >
                   <img src={image} alt={name} />
                 </Box>
+                console.log("i am here")
                 {renderDonationsList}
               </Box>
             </Grid>
@@ -228,6 +237,18 @@ const ProjectDialog = ({
                     fullWidth
                   >
                     Donate
+                  </LoadingButton>
+
+                  <LoadingButton
+                    variant={'contained'}
+                    color={'primary'}
+                    size={'large'}
+                    startIcon={<Favorite />}
+                    loading={loading}
+                    onClick={requestFunds}
+                    fullWidth
+                  >
+                    Request
                   </LoadingButton>
 
                   {isOwner && (

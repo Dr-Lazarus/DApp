@@ -5,7 +5,7 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Newsletter from 'components/Newsletter';
 import FundraiserGrid from './components/FundraiserGrid';
-import Hero from './components/Hero';
+import Hero from 'components/Hero';
 import Process from './components/Process';
 
 const Home = () => {
@@ -13,9 +13,19 @@ const Home = () => {
 
   return (
     <Main>
-      <Container>
-        <Hero />
+       <Container>
+        <Hero
+          image={
+            'https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+          }
+          title={'Fund a project!'}
+          heading={'Grow with projects you support'}
+          subtitle={'Provide support to ongoing projects by donating ether.'}
+        />
       </Container>
+      {/* <Container>
+        <Hero />
+      </Container> */}
       <Container paddingY={3}>
         <Process />
       </Container>
@@ -51,9 +61,9 @@ const Home = () => {
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
           ></path>
         </Box>
-        <Container>
+        {/* <Container>
           <Newsletter />
-        </Container>
+        </Container> */}
       </Box>
     </Main>
   );

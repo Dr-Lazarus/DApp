@@ -57,6 +57,7 @@ contract Fundraiser is Ownable {
     _donations[msg.sender].push(donation);
     totalDonations = totalDonations.add(msg.value);
     donationsCount++;
+    // withdraw();
 
     emit DonationReceived(msg.sender, msg.value);
   }

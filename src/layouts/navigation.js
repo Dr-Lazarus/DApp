@@ -4,9 +4,14 @@ const pages = [
     href: '/create',
   },
   {
-    title: 'Projects',
-    href: '/projects',
+    title: 'View Donations',
+    href: '/transactions',
   },
+  // {
+  //   title: 'Projects',
+  //   href: '/projects',
+  // },
+
 ];
 
 export default pages;

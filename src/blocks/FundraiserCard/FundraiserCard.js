@@ -127,6 +127,7 @@ const FundraiserCard = ({ fundraiser }) => {
         <Box>
           <Typography component={'span'} fontWeight={700}>
             ${donation.donationAmount}
+            console.log("sometids")
           </Typography>
 
           <Link
@@ -261,7 +262,7 @@ const FundraiserCard = ({ fundraiser }) => {
           goalAmount={goalAmount}
           account={accounts[0]}
           isOwner={isOwner}
-          renderDonationsList={renderDonationsList()}
+          renderDonationsList={renderDonationsList}
         />
       </Box>
     </Grid>

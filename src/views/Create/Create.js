@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Hero from 'components/Hero';
-import Contact from 'components/Newsletter';
+// import Contact from 'components/Newsletter';
 import { Form } from './components';
 
 export default function CreateItem() {
@@ -55,9 +55,9 @@ export default function CreateItem() {
             d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
           ></path>
         </Box>
-        <Container>
+        {/* <Container>
           <Contact />
-        </Container>
+        </Container> */}
       </Box>
     </Main>
   );
