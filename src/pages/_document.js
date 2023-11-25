@@ -29,7 +29,7 @@ export default class MyDocument extends Document {
             property="og:image"
             content="https://github.com/ac12644/Fundraising-Dapp/blob/main/images/crypto%20charity-light.png?raw=true"
           />
-          <meta property="og:title" content="crypto charity" />
+          <meta property="og:title" content="HeartLedger" />
           <meta
             property="og:description"
             content="Raise fund for social work in crypto built on polygon network. Create fundraising campaign, donate MATIC, generate a receipt, and withdraw the amount."

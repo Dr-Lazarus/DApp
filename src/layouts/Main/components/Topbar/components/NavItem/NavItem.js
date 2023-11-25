@@ -12,13 +12,14 @@ const NavItem = ({ items, colorInvert = false }) => {
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
+  console.log(items)
 
   return (
     <Box>
       {items.map((p, i) => (
         <Button
           component={'a'}
-          href={p.href}
+          href={p.title === "Register" ? null : p.href}
           key={i}
           sx={{
             marginLeft: 4,
@@ -33,6 +34,7 @@ const NavItem = ({ items, colorInvert = false }) => {
                 : 'transparent',
             fontWeight: activeLink === p.href ? 700 : 500,
           }}
+          onClick={p.onClick===undefined ? null : p.onClick}
         >
           {p.title}
           {p.isNew && (

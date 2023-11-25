@@ -5,8 +5,131 @@ import Account from './components/Account';
 import { ellipseAddress, getChainData } from './lib/utilities';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers } from 'ethers';
-import Web3Modal from 'web3modal';
+const ethers = require('ethers')
 
+import Web3Modal from 'web3modal';
+const contractAddress = "0x252AC17D1580e56B567eb0112e04F10b373fd886"
+const contractABI = [
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "users",
+    "outputs": [
+      {
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bool",
+        "name": "isRegistered",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
+      }
+    ],
+    "name": "registerUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
+      }
+    ],
+    "name": "setUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getUserRole",
+    "outputs": [
+      {
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  }
+]
+
+
+async function storeUserAddress(walletAddress, provider) {
+  const signer  = provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  const role = 2
+
+  try {
+    console.log("1")
+    console.log(walletAddress)
+    const transaction = await contract.setUser(walletAddress, role);
+    console.log("2")
+    await transaction.wait();
+    console.log("3")
+    console.log(`User address stored: ${walletAddress}`);
+  } catch (error) {
+    console.error('Error storing user address:', error);
+  }
+}
 export const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
@@ -22,7 +145,10 @@ if (typeof window !== 'undefined') {
     cacheProvider: true,
     providerOptions, // required
   });
+
+
 }
+
 
 const initialState = {
   provider: null,
@@ -73,7 +199,11 @@ export const Login = () => {
     const address = await signer.getAddress();
 
     const network = await web3Provider.getNetwork();
-
+    console.log("PASSED")
+    await storeUserAddress(address, web3Provider);
+    console.log(address)
+    console.log("Address stored.")
+    
     dispatch({
       type: 'SET_WEB3_PROVIDER',
       provider,
@@ -82,6 +212,7 @@ export const Login = () => {
       chainId: network.chainId,
     });
   }, []);
+  
 
   const disconnect = useCallback(
     async function () {
