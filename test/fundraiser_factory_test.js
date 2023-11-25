@@ -3,6 +3,8 @@ const FundraiserContract = artifacts.require('Fundraiser');
 
 contract('FundraiserFactory: deployment', () => {
   it('has been deployed', async () => {
+   // Local Contract
+    const contractAddress= "0x104CAa01b6DCB3Ff048aD675922495Eac5a5094f"
     const fundraiserFactory = FundraiserFactoryContract.deployed();
     assert(fundraiserFactory, 'fundraiser factory was not deployed');
   });
@@ -26,8 +28,9 @@ contract('FundraiserFactory: createFundraiser', (accounts) => {
       name,
       image,
       description,
-      beneficiary,
       goalAmount,
+      beneficiary,
+      
     );
     const newFundraisersCount = await fundraiserFactory.fundraisersCount();
 
@@ -44,8 +47,9 @@ contract('FundraiserFactory: createFundraiser', (accounts) => {
       name,
       image,
       description,
-      beneficiary,
       goalAmount,
+      beneficiary,
+     
     );
     const expectedEvent = 'FundraiserCreated';
     const actualEvent = tx.logs[0].event;
@@ -58,6 +62,7 @@ contract('FundraiserFactory: fundraisers', (accounts) => {
   async function createFundraiserFactory(fundraiserCount, accounts) {
     const factory = await FundraiserFactoryContract.new();
     await addFundraisers(factory, fundraiserCount, accounts);
+    // console.log("haha",haha)
     return factory;
   }
 
@@ -79,7 +84,9 @@ contract('FundraiserFactory: fundraisers', (accounts) => {
 
   describe('when fundraisers collection is empty', () => {
     it('returns an empty collection', async () => {
+
       const factory = await createFundraiserFactory(0, accounts);
+      console.log("factory is",factory)
       const fundraisers = await factory.fundraisers(10, 0);
       assert.equal(fundraisers.length, 0, 'collection should be empty');
     });
@@ -88,11 +95,16 @@ contract('FundraiserFactory: fundraisers', (accounts) => {
   describe('varying limits', async () => {
     let factory;
     beforeEach(async () => {
-      factory = await createFundraiserFactory(30, accounts);
+      console.log("factory 1 is",factory)
+      factory = await createFundraiserFactory(10, accounts);
+      console.log("factory 2 is",factory)
+
     });
 
-    it('returns 10 results when limit requested is 10', async () => {
-      const fundraisers = await factory.fundraisers(10, 0);
+    it('returns 10 results when limit requested is 10', async () => {      const fundraisers = await factory.fundraisers(10, 0);
+
+      console.log("fundraisers", fundraisers)
+      console.log("length how", fundraisers.length)
       assert.equal(fundraisers.length, 10, 'results size should be 10');
     });
 

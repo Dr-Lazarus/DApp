@@ -4,7 +4,7 @@ const Receipt = (props) => {
   const [donation, setDonation] = useState(null);
   const [fundName, setFundName] = useState(null);
   const [date, setDate] = useState(null);
-
+  // console.log(props)
   useEffect(() => {
     const { donation, date, fund } = props.location.state;
     const formattedDate = new Date(parseInt(date * 1000));

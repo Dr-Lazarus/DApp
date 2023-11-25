@@ -12,6 +12,8 @@ contract UserAccessControl {
     mapping(address => User) public users;
     address public admin;
 
+    event UserRegistered(address indexed user, UserRole role);
+
     constructor() {
         admin = msg.sender;
     }
@@ -29,14 +31,6 @@ contract UserAccessControl {
     function setUser(address user, UserRole role) public {
         require(!users[user].isRegistered, "User already registered");
         users[user] = User(role, true);
-    }
-
-
-    function getUserRole(address user) public view returns (UserRole) {
-        require(users[user].isRegistered, "User not registered");
-        return users[user].role;
-
-
     }
 
     function register(address user, UserRole role) public {
