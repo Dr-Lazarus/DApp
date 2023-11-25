@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Box } from '@mui/material';
-
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem } from './components';
 import ThemeModeToggler from 'components/ThemeModeToggler';
 import Login from 'web3/Login';
+import { lightLogoURL, darkLogoURL } from './../../../constants';
+
 
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
   const theme = useTheme();
@@ -29,8 +30,8 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           component={'img'}
           src={
             mode === 'light' && !colorInvert
-              ? 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-light.png?raw=true'
-              : 'https://github.com/Dr-Lazarus/DApp/blob/frontend/images/heartledgerlogo.png?raw=true'
+              ? {lightLogoURL}
+              : {darkLogoURL}
           }
           height={0.2}
           width={0.2}

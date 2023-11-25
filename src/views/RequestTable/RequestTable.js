@@ -31,7 +31,11 @@ const RequestTable = ({ data }) => {
     return projectMatch;
   });
 
-  const handleApproveReject = (index) => {
+  const handleApprove = (index) => {
+    // Implement your logic for handling approve/reject here
+    console.log(`Button clicked for row ${index}`);
+  };
+  const handleReject = (index) => {
     // Implement your logic for handling approve/reject here
     console.log(`Button clicked for row ${index}`);
   };
@@ -72,12 +76,20 @@ const RequestTable = ({ data }) => {
                   <TableCell>{row.availableAmount}</TableCell>
                   <TableCell>{row.beneficiaryHash}</TableCell>
                   <TableCell>
+                  <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleApprove(index)}
+                      sx={{ marginRight: 1 }}
+                    >
+                      Approve
+                    </Button>
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleApproveReject(index)}
+                      onClick={() => handleReject(index)}
                     >
-                      Approve / Reject
+                      Reject
                     </Button>
                   </TableCell>
                 </TableRow>
