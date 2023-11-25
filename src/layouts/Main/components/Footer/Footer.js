@@ -26,20 +26,16 @@ const Footer = () => {
             title="theFront"
             width={350}
           >
-            <Box
+            {/* <Box
               component={'img'}
-              src={
-                mode === 'light'
-                  ? 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-light.png?raw=true'
-                  : 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-dark.png?raw=true'
-              }
-              height={0.4}
-              width={0.4}
-            />
+              src='https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
+              height={0.2}
+              width={0.2}
+            /> */}
           </Box>
           <Box display="flex" flexWrap={'wrap'} alignItems={'center'}>
             <Box marginTop={1} marginRight={1}>
-              <Link
+              {/* <Link
                 underline="none"
                 component="a"
                 href="/"
@@ -47,7 +43,7 @@ const Footer = () => {
                 variant={'subtitle2'}
               >
                 Home
-              </Link>
+              </Link> */}
             </Box>
           </Box>
         </Box>
@@ -59,7 +55,7 @@ const Footer = () => {
           color="text.secondary"
           gutterBottom
         >
-          Crypto Charity. {new Date().getFullYear()}. MIT
+          Heart Ledger. {new Date().getFullYear()}. SUTD
         </Typography>
         {/* 
         <Typography

@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem } from './components';
 import ThemeModeToggler from 'components/ThemeModeToggler';
 import Login from 'web3/Login';
-import { lightLogoURL, darkLogoURL } from './../../../constants';
+// import { lightLogoURL, darkLogoURL } from '.constants';
 
 
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
@@ -23,15 +23,15 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         display={'flex'}
         component="a"
         href="/"
-        title="crypto charity"
+        title="Heart Ledger"
         width={{ xs: 360, md: 360 }}
       >
         <Box
           component={'img'}
           src={
             mode === 'light' && !colorInvert
-              ? {lightLogoURL}
-              : {darkLogoURL}
+              ? 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
+              : 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
           }
           height={0.2}
           width={0.2}
