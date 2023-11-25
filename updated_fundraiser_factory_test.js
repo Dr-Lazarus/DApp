@@ -6,6 +6,7 @@ contract('FundraiserFactory: deployment', (accounts) => {
   const name = 'Beach cleaning';
   const image = 'https://images.unsplash.com/photo-1554265352-d7fd5129be15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';
   const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eleifend id enim convallis tempus.';
+  const beneficiary = accounts[1];
   const goalAmount = '10';
 
   before(async () => {
@@ -15,7 +16,7 @@ contract('FundraiserFactory: deployment', (accounts) => {
     
     // erick local uploaded
   
-    fundraiserFactory = await FundraiserFactoryContract.at("0x1760Fe250838AfBaADB41D32727f4A2D90fDAEB2");
+    fundraiserFactory = await FundraiserFactoryContract.at("0x7EF3C6Ee75EfA01b5d22238425Da67b6af03d39C");
     
     console.log("Deployed address is", fundraiserFactory.address);
   });
@@ -23,7 +24,7 @@ contract('FundraiserFactory: deployment', (accounts) => {
   it('increments the fundraisersCount', async () => {
     const currentFundraisersCount = await fundraiserFactory.fundraisersCount();
     const newFundraiser = await fundraiserFactory.createFundraiser(
-      name, image, description, goalAmount
+      name, image, description, goalAmount, beneficiary
     );
 
     const newFundraiserReceipt = await web3.eth.getTransactionReceipt(newFundraiser.tx);
@@ -39,7 +40,7 @@ contract('FundraiserFactory: deployment', (accounts) => {
 
   it('emits the FundraiserCreated event', async () => {
     const tx = await fundraiserFactory.createFundraiser(
-      name, image, description, goalAmount
+      name, image, description, goalAmount, beneficiary
     );
 
     const expectedEvent = 'FundraiserCreated';
@@ -47,6 +48,9 @@ contract('FundraiserFactory: deployment', (accounts) => {
     console.log("expected event run")
     assert.equal(actualEvent, expectedEvent, 'events should match');
   });
+
+  
+
 
 });
   // UNCOMMENT ONLY IF YOU WANT TO TEST UR PREVIOUSLY DEPLOYED CONTRACT AND PASS THE ADDRESS
@@ -62,3 +66,27 @@ contract('FundraiserFactory: deployment', (accounts) => {
   
 
 
+
+  // Test Retrieving Fundraisers
+  it('should correctly retrieve a fundraiser', async () => {
+    await fundraiserFactory.createFundraiser(name, image, description, goalAmount, beneficiary);
+    const fundraiser = await fundraiserFactory._fundraisers(0);
+    // Add assertions to check if the fundraiser's properties match what was set
+  });
+
+  // Test Fundraisers Limit
+  it('should not allow creating more than the set limit of fundraisers', async () => {
+    // You need to add the logic to create fundraisers up to the limit
+    // Then attempt to create one more and expect it to fail or handle it as per contract logic
+  });
+
+  // Test for Correct Initialization of a Fundraiser
+  it('should correctly initialize a fundraiser', async () => {
+    const newFundraiser = await fundraiserFactory.createFundraiser(name, image, description, goalAmount, beneficiary);
+    // Retrieve the fundraiser and assert its properties are set correctly
+  });
+
+  // Negative Test Cases
+  it('should fail to create a fundraiser with invalid data', async () => {
+    // Attempt to create a fundraiser with invalid data and expect it to fail
+  });
