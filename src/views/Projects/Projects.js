@@ -32,6 +32,9 @@ export default function Projects() {
         FundraiserFactory.abi,
         deployedNetwork && deployedNetwork.address,
       );
+      
+      console.log("Instance",instance)
+
       setContract(instance);
       setAccounts(accounts);
         // {info} funds mean list of projects

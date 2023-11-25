@@ -8,6 +8,13 @@ const MNEMONIC_KEY = process.env.MNEMONIC_KEY;
 module.exports = {
   networks: {
     // -------------- TESTNET ---------------------
+    development: {
+      host: "127.0.0.1",   // Localhost
+      port: 7545,          // Standard port for Ganache; change if using a different port
+      network_id: "*",     // Match any network ID
+      gas: 5000000,        // Gas limit, adjust as needed
+    },
+
     mumbai: {
       provider: () =>
         new HDWalletProvider(PRIVATE_KEY, `https://rpc-mumbai.maticvigil.com`),

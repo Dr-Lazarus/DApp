@@ -3,6 +3,8 @@ const FundraiserContract = artifacts.require('Fundraiser');
 
 contract('FundraiserFactory: deployment', () => {
   it('has been deployed', async () => {
+   // Local Contract
+    const contractAddress= "0x104CAa01b6DCB3Ff048aD675922495Eac5a5094f"
     const fundraiserFactory = FundraiserFactoryContract.deployed();
     assert(fundraiserFactory, 'fundraiser factory was not deployed');
   });

@@ -12,7 +12,7 @@ contract AllocationFactory {
 
     function createAllocation(
         string memory _projectName,
-        address _projectHashId,
+        string memory _projectHashId,
         address payable _beneficiary,
         address payable _NGO,
         uint256 _amountNeeded,

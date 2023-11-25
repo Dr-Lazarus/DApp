@@ -29,7 +29,7 @@ contract("CampaignManagement", (accounts) => {
                 description,
                 goalAmount,
                 NGO,
-                { from: accounts[0] } 
+                { from: '0xf96D1EA0A7c051c714e49799a27053f45587d5ea' } 
 
                 );
 

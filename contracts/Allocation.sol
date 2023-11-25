@@ -10,7 +10,7 @@ contract Allocation is Ownable {
 
   struct Request {
         string projectName;
-        address projectHashId;
+        string projectHashId;
         address payable NGO;
         address payable beneficiary;
         uint256 amountNeeded;
@@ -26,7 +26,7 @@ contract Allocation is Ownable {
   event RequestAllocated(address beneficiary,address NGO, uint256 value);
 
   string projectName;
-  address projectHashId;
+  string projectHashId;
   address payable public beneficiary;
   address payable public NGO;
   uint256 public goalAmount;
@@ -38,7 +38,7 @@ contract Allocation is Ownable {
 
  constructor(
     string memory _projectName,
-    address _projectHashId,
+    string memory _projectHashId,
     address payable  _beneficiary,
     address payable  _NGO,
     uint256 _amountNeeded,
@@ -64,7 +64,7 @@ contract Allocation is Ownable {
   }
   function createRequest(
         string memory _projectName,
-        address _projectHashId,
+        string memory _projectHashId,
         address payable _beneficiary,
         address payable _NGO,
         uint256 _amountNeeded,
