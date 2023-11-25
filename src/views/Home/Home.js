@@ -8,6 +8,7 @@ import FundraiserGrid from './components/FundraiserGrid';
 import Hero from 'components/Hero';
 import Process from './components/Process';
 
+
 const Home = () => {
   const theme = useTheme();
 
@@ -16,11 +17,11 @@ const Home = () => {
        <Container>
         <Hero
           image={
-            'https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+            'https://th.bing.com/th/id/OIG.oO9SMxPBDoLuVuINQm86?pid=ImgGn'
           }
-          title={'Fund a project!'}
-          heading={'Grow with projects you support'}
-          subtitle={'Provide support to ongoing projects by donating ether.'}
+          // title={'Fund a project!'}
+          heading={'Raise funds and make donations in MATIC'}
+          subtitle={'Our goal is to create a space that makes donations more transparent using the new potential of blockchain'}
         />
       </Container>
       {/* <Container>

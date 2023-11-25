@@ -43,7 +43,7 @@ const Process = () => {
           color={'secondary'}
           align={'center'}
         >
-          {/* Features */}
+          USERS
         </Typography>
         <Typography
           variant={'h4'}
@@ -51,7 +51,7 @@ const Process = () => {
           align={'center'}
           sx={{ fontWeight: 700 }}
         >
-          Raise funds and make donations in MATIC
+          {/* Raise funds and make donations in MATIC */}
         </Typography>
         <Typography
           variant={'h6'}
@@ -59,9 +59,9 @@ const Process = () => {
           color={'text.secondary'}
           align={'center'}
         >
-          Our goal is to create a space that makes donations more transparent
+          {/* Our goal is to create a space that makes donations more transparent */}
           <br />
-          Using the new potential of the world of cryptocurrencies.
+          {/* Using the new potential of the world of cryptocurrencies. */}
         </Typography>
       </Box>
       <Box>

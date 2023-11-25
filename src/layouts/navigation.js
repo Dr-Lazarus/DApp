@@ -5,7 +5,7 @@ const pages = [
   },
   {
     title: 'View Donations',
-    href: '/transactions',
+    href: '/view-donations',
   },
   // {
   //   title: 'Projects',
