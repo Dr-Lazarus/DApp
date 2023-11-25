@@ -30,10 +30,10 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           src={
             mode === 'light' && !colorInvert
               ? 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-light.png?raw=true'
-              : 'https://th.bing.com/th/id/OIG.1javPMrQ0J29Do1BWEXT?w=1024&h=1024&rs=1&pid=ImgDetMain'
+              : 'https://github.com/Dr-Lazarus/DApp/blob/frontend/images/heartledgerlogo.png?raw=true'
           }
-          height={0.4}
-          width={0.4}
+          height={0.2}
+          width={0.2}
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>

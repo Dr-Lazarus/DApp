@@ -23,7 +23,7 @@ const SidebarNav = ({ pages }) => {
             src={
               mode === 'light'
                 ? 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-light.png?raw=true'
-                : 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-dark.png?raw=true'
+                : 'crypto-charity-dark.png'
             }
             height={1}
             width={1}
