@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { KeyboardVoiceSharp } from '@mui/icons-material';
 
 const Register = () => {
   const [open, setOpen] = useState(false);
@@ -13,12 +14,16 @@ const Register = () => {
   };
 
   const handleClose = () => {
-    setOpen(false);
+    // setOpen(false);
   };
 
   const handleRegister = () => {
     // 这里添加提交注册信息的逻辑
-    console.log(address, role);
+    console.log("1")
+    console.log("Adress",address, "role",role);
+    setOpen(false);
+    
+
     // 假设注册成功后跳转到项目页面
     // navigate('/projects');
   };

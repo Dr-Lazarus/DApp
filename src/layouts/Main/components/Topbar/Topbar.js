@@ -17,14 +17,13 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
 
 
   const clickRegister = () => {
-    console.log(true)
     setShowRegisterWindow(true)
   }
 
   const handleRegister = () => {
     // 这里添加提交注册信息的逻辑
-    console.log(address, role);
-    // 假设注册成功后跳转到项目页面
+    console.log("address",address, role);
+    setShowRegisterWindow(false)
     // navigate('/projects');
   };
 
@@ -127,7 +126,7 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button>Register</Button>
+          <Button onClick = {handleRegister}>Register</Button>
         </DialogActions>
       </Dialog>
     </Box>

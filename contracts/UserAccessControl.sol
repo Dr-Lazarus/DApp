@@ -49,10 +49,4 @@ contract UserAccessControl {
         // 触发注册事件
         emit UserRegistered(user, role);
     }
-
-    // 获取用户角色
-    function getUserRole(address user) public view returns (UserRole) {
-        require(users[user].isRegistered, "User not registered.");
-        return users[user].role;
-    }
 }

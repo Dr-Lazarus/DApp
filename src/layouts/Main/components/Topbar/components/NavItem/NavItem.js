@@ -12,7 +12,7 @@ const NavItem = ({ items, colorInvert = false }) => {
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
-  console.log(items)
+  // console.log(items)
 
   return (
     <Box>
