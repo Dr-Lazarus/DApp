@@ -1,17 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Box } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Box } from '@mui/material';
+
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem } from './components';
 import ThemeModeToggler from 'components/ThemeModeToggler';
 import Login from 'web3/Login';
-// import { lightLogoURL, darkLogoURL } from '.constants';
 
-
-const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
+const Topbar = ({ onSidebarOpen, pages, colorInvert = true }) => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const [showRegisterWindow, setShowRegisterWindow] = useState(false)
+  const [address, setAddress] = useState('');
+  const [role, setRole] = useState('');
+
+
+  const clickRegister = () => {
+    setShowRegisterWindow(true)
+  }
+
+  const handleRegister = () => {
+    // 这里添加提交注册信息的逻辑
+    console.log("address",address, role);
+    setShowRegisterWindow(false)
+    // navigate('/projects');
+  };
+
+  const handleClose = () => {
+    setShowRegisterWindow(false)
+  }
+
+  // function handleClose(){
+    
+  // }
+
+  for (let page of pages) {
+    if (page.title === "Register") {
+      page.onClick = clickRegister
+    }
+  }
+
   return (
     <Box
       display={'flex'}
@@ -23,7 +52,7 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         display={'flex'}
         component="a"
         href="/"
-        title="Heart Ledger"
+        title="HeartLedger"
         width={{ xs: 360, md: 360 }}
       >
         <Box
@@ -33,13 +62,13 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
               ? 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
               : 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
           }
-          height={0.2}
-          width={0.2}
+          height={0.4}
+          width={0.4}
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         <Box>
-          <NavItem items={pages} colorInvert={colorInvert} />
+          <NavItem items={pages} colorInvert={colorInvert}/>
         </Box>
         <Box marginLeft={4}>
           <Login />
@@ -69,6 +98,37 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           </Button>
         </Box>
       </Box>
+
+      <Dialog open={showRegisterWindow} onClose={handleClose}>
+        <DialogTitle>Register</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="address"
+            label="Address"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            id="role"
+            label="Role"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick = {handleRegister}>Register</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

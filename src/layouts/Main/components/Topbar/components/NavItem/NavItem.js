@@ -18,7 +18,7 @@ const NavItem = ({ items, colorInvert = false }) => {
       {items.map((p, i) => (
         <Button
           component={'a'}
-          href={p.href}
+          href={p.href==="Register" ?null : p.href}
           key={i}
           sx={{
             marginLeft: 4,
@@ -32,7 +32,9 @@ const NavItem = ({ items, colorInvert = false }) => {
                 ? alpha(theme.palette.primary.main, 0.1)
                 : 'transparent',
             fontWeight: activeLink === p.href ? 700 : 500,
+
           }}
+          onClick={p.onClick ===p.href? null : p.onClick}
         >
           {p.title}
           {p.isNew && (
