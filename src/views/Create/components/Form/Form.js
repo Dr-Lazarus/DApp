@@ -31,11 +31,11 @@ const validationSchema = yup.object({
     .max(50, 'Name too long')
     .required('Please specify the name'),
   description: yup.string().trim().required('Please describe your project'),
-  beneficiary: yup
-    .string()
-    .min(6, 'Beneficiary address should be correct')
-    .required('Please specify beneficiary address')
-    .matches(/0x[a-fA-F0-9]{40}/, 'Enter correct wallet address!'),
+  // beneficiary: yup
+  //   .string()
+  //   .min(6, 'Beneficiary address should be correct')
+  //   .required('Please specify beneficiary address')
+  //   .matches(/0x[a-fA-F0-9]{40}/, 'Enter correct wallet address!'),
 });
 
 const Form = () => {
@@ -43,7 +43,7 @@ const Form = () => {
     initialValues: {
       name: '',
       description: '',
-      beneficiary: '',
+      // beneficiary: "0x7cf4D91aF99e38e4fD69c5365b92E63985a5e8be",
       // {to change} remove the beneficiary, fix it with NGO address 
       goalAmount: '',
     },
@@ -130,13 +130,15 @@ const Form = () => {
   }
 
   async function handleSubmit() {
-    const { name, description, beneficiary, goalAmount } = formik.values;
+    // const { name, description, beneficiary, goalAmount } = formik.values;
+    const { name, description, goalAmount } = formik.values;
+
     const data = JSON.stringify({
       name,
       image,
       description,
       goalAmount,
-      beneficiary,
+      // beneficiary,
     });
     console.log(data);
     try {
@@ -148,7 +150,9 @@ const Form = () => {
       }
 
       const transaction = await contract.methods
-        .createFundraiser(name, image, description, goalAmount, beneficiary)
+        // .createFundraiser(name, image, description, goalAmount, beneficiary)
+        .createFundraiser(name, image, description, goalAmount)
+        
         .send({ from: accounts[0] });
         console.log("reacjer her");
       setHash(transaction.transactionHash);

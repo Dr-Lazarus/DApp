@@ -12,12 +12,14 @@ contract('FundraiserFactory: deployment', (accounts) => {
    
     const fundraiserFactoryDeployed = await FundraiserFactoryContract.new();
     fundraiserFactory = await FundraiserFactoryContract.at(fundraiserFactoryDeployed.address);
-    
+ 
+    // The receipt should have the decoded logs if using Truffle artifacts
+  
     // erick local uploaded
   
-    fundraiserFactory = await FundraiserFactoryContract.at("0x1760Fe250838AfBaADB41D32727f4A2D90fDAEB2");
+    // fundraiserFactory = await FundraiserFactoryContract.at("0x63DDf3A1f4626a3Ce86C5F95BEB62b64E6d2d0e5");
     
-    console.log("Deployed address is", fundraiserFactory.address);
+    // console.log("Deployed address is", fundraiserFactory.address);
   });
 
   it('increments the fundraisersCount', async () => {
@@ -42,23 +44,52 @@ contract('FundraiserFactory: deployment', (accounts) => {
       name, image, description, goalAmount
     );
 
+    const gasUsed = tx.receipt.gasUsed;
+    console.log(`Gas used: ${gasUsed}`);  
+
     const expectedEvent = 'FundraiserCreated';
     const actualEvent = tx.logs[0].event;
     console.log("expected event run")
     assert.equal(actualEvent, expectedEvent, 'events should match');
+
+
   });
+  it('returns an array of fundraisers', async () => {
+    // Create some fundraisers for testing
+    const project_one = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', '100'
+    );
+    const project_two = await fundraiserFactory.createFundraiser(
+      'Fundraiser 2', 'Image 2', 'Description 2', '200'
+    );
+  
+    // Specify the limit and offset for retrieving fundraisers
+    const limit = 10;
+    const offset = 0;
+  
+    // Call the fundraisers function to retrieve fundraisers
+    const fundraisers = await fundraiserFactory.fundraisers(limit, offset);
+  
+    console.log("msg sender",accounts[0])
+    console.log("funnds", fundraisers)
+    console.log("project one",project_one)
+    
+
+
+    // Perform assertions on the retrieved fundraisers
+    assert.isArray(fundraisers, 'fundraisers should be an array');
+    // assert.lengthOf(fundraisers, 4, 'fundraisers array should have the expected length');
+    console.log("fundraisers one list",fundraisers[0])
+    // You can add more specific assertions based on your contract logic
+    // For example, check if the fundraiser details match what you expect
+    // assert.equal(fundraisers[2].name, 'Fundraiser 1', 'Fundraiser 1 name should match');
+    // assert.equal(fundraisers[3].name, 'Fundraiser 2', 'Fundraiser 2 name should match');
+  });
+ 
+
 
 });
-  // UNCOMMENT ONLY IF YOU WANT TO TEST UR PREVIOUSLY DEPLOYED CONTRACT AND PASS THE ADDRESS
-//   before(async () => {
-//     // Mumbai
-//     // const factoryAddress = '0x7cf4D91aF99e38e4fD69c5365b92E63985a5e8be';
-//     // local
-//     const factoryAddress = '0x43EC3c629019b9C70Da9D83b01Eeb12c86ff5900';   
-//     fundraiserFactory = await FundraiserFactoryContract.at(factoryAddress);// Use the deployed instance
-//     console.log("depployed address is",fundraiserFactory.address)
-//     // expect(allocationFactory.address).to.equal('0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0')
-// });
+
   
 
 
