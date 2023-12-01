@@ -31,11 +31,11 @@ const validationSchema = yup.object({
     .max(50, 'Name too long')
     .required('Please specify the name'),
   description: yup.string().trim().required('Please describe your project'),
-  // beneficiary: yup
-  //   .string()
-  //   .min(6, 'Beneficiary address should be correct')
-  //   .required('Please specify beneficiary address')
-  //   .matches(/0x[a-fA-F0-9]{40}/, 'Enter correct wallet address!'),
+  beneficiary: yup
+    .string()
+    .min(6, 'Beneficiary address should be correct')
+    .required('Please specify beneficiary address')
+    .matches(/0x[a-fA-F0-9]{40}/, 'Enter correct wallet address!'),
 });
 
 const Form = () => {
@@ -43,8 +43,7 @@ const Form = () => {
     initialValues: {
       name: '',
       description: '',
-      // beneficiary: "0x7cf4D91aF99e38e4fD69c5365b92E63985a5e8be",
-      // {to change} remove the beneficiary, fix it with NGO address 
+      beneficiary: '',
       goalAmount: '',
     },
     validationSchema: validationSchema,
@@ -86,17 +85,14 @@ const Form = () => {
   const init = async () => {
     try {
       const web3Modal = new Web3Modal({
-        network: 'mumbai',
+        network: 'mainnet',
         cacheProvider: true,
       });
       const connection = await web3Modal.connect();
       const web3 = new Web3(connection);
       const networkId = await web3.eth.net.getId();
-      console.log('ID:', networkId);
-      console.log('Network', FundraiserFactoryContract.networks[80001]);
       const deployedNetwork = FundraiserFactoryContract.networks[networkId];
       const accounts = await web3.eth.getAccounts();
-      console.log('Account is',accounts)
       const instance = new web3.eth.Contract(
         FundraiserFactoryContract.abi,
         deployedNetwork && deployedNetwork.address,
@@ -130,31 +126,20 @@ const Form = () => {
   }
 
   async function handleSubmit() {
-    // const { name, description, beneficiary, goalAmount } = formik.values;
-    const { name, description, goalAmount } = formik.values;
+    const { name, description, beneficiary, goalAmount } = formik.values;
 
     const data = JSON.stringify({
       name,
       image,
       description,
       goalAmount,
-      // beneficiary,
+      beneficiary,
     });
     console.log(data);
     try {
-      if (contract.options.address) {
-        console.log('Address SET');
-      } else {
-        console.log('Address NOT SET');
-      
-      }
-
       const transaction = await contract.methods
-        // .createFundraiser(name, image, description, goalAmount, beneficiary)
         .createFundraiser(name, image, description, goalAmount)
-        
         .send({ from: accounts[0] });
-        console.log("reacjer her");
       setHash(transaction.transactionHash);
       setDialogBoxOpen(true);
       setAlertOpen(false);
