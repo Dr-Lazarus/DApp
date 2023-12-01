@@ -26,7 +26,7 @@ contract('Fundraiser', (accounts) => {
 
   describe('initialization', () => {
     it('gets the beneficiary name', async () => {
-      const actual = await fundraiser.name();
+      const actual = await fundraiser.fundName();
 
       // const gasUsed = actual.receipt.gasUsed;
       // console.log(`Gas used in calling fundraiser name: ${gasUsed}`);  
@@ -150,9 +150,10 @@ contract('Fundraiser', (accounts) => {
     
       const value = web3.utils.toWei('1.5');
       // const value = web3.utils.toWei('0.0289');
-      const donor = accounts[0];
-      await fundraiser.donate({ from: donor, value });
-      const beneficiary = accounts[2]; // Choose an account as the beneficiary
+      const donor = accounts[2];
+     
+      await fundraiser.donate({ from: donor,value });
+      const beneficiary = accounts[1]; // Choose an account as the beneficiary
 
       // console.log("this owner beneficiary")
       // console.log(owner)
@@ -160,8 +161,8 @@ contract('Fundraiser', (accounts) => {
       const totalDonations = await fundraiser.totalDonations();
       // const totalFunds = await fundraiser.getTotalDonations();
       console.log(`Total funds in the contract: ${totalDonations.toString()}`);
-  
-      const txResponse = await fundraiser.createRequest(beneficiary, { from: owner });
+      const reqAmount = web3.utils.toWei('1.5');
+      const txResponse = await fundraiser.createRequest(beneficiary,reqAmount);
 
     
       // Get the transaction receipt to find the gas used
@@ -173,7 +174,7 @@ contract('Fundraiser', (accounts) => {
 
       assert.equal(actualEvent, expectedEvent, 'events should match');
       const requestId = 0; // Assuming there's at least one request
-      const approveReqResponse = await fundraiser.approveRequest(0, { from: owner });
+      const approveReqResponse = await fundraiser.approveRequest(requestId, { from: owner });
       const approveReqResponseReceipt = await web3.eth.getTransactionReceipt(approveReqResponse .tx);
       console.log(`Gas used for approveRequest function: ${approveReqResponseReceipt.gasUsed}`);
     
@@ -184,33 +185,7 @@ contract('Fundraiser', (accounts) => {
     
       // Perform your assertions here, for example, check if the request was created
       // You can retrieve the last request and compare its details
-    });
-    // describe('making donations', () => {
-    //   const value = web3.utils.toWei('1.5');
-    //   const donor = accounts[0];
-    //   const beneficiary = accounts[2]; 
-    
-    //   beforeEach(async () => {
-    //     await fundraiser.donate({ from: donor, value });
-    //   });
-    
-    
-    //   const totalDonations = await fundraiser.totalDonations();
-    //   // const totalFunds = await fundraiser.getTotalDonations();
-    //   console.log(`Total funds in the contract: ${totalDonations.toString()}`);
-  
-    //   const txResponse = await fundraiser.createRequest(beneficiary, { from: owner });
-    //   // Get the transaction receipt to find the gas used
-    //   const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
-    //   console.log(`Gas used for createRequest function: ${txReceipt.gasUsed}`);
-
-    //   const rejectReqResponse = await fundraiser.rejectRequest(0, { from: owner });
-    //   const rejectReqResponseReceipt = await web3.eth.getTransactionReceipt(rejectReqResponse .tx);
-    //   console.log(`Gas used for rejectRequest function: ${rejectReqResponseReceipt.gasUsed}`);
-      
-     
-    // });
-    
+    });    
   
   });
   describe('reject donations', () => {
@@ -226,8 +201,9 @@ contract('Fundraiser', (accounts) => {
         const totalDonations = await fundraiser.totalDonations();
         // const totalFunds = await fundraiser.getTotalDonations();
         console.log(`Total funds in the contract: ${totalDonations.toString()}`);
+        const reqAmount = web3.utils.toWei('1');
     
-        const txResponse = await fundraiser.createRequest(beneficiary, { from: owner });
+        const txResponse = await fundraiser.createRequest(beneficiary, reqAmount);
         // Get the transaction receipt to find the gas used
         const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
         console.log(`Gas used for createRequest function: ${txReceipt.gasUsed}`);
