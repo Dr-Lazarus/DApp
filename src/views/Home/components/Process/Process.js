@@ -35,25 +35,6 @@ const Process = () => {
     <Box>
       <Box marginBottom={4}>
         <Typography
-          sx={{
-            textTransform: 'uppercase',
-            fontWeight: 'medium',
-          }}
-          gutterBottom
-          color={'secondary'}
-          align={'center'}
-        >
-          USERS
-        </Typography>
-        <Typography
-          variant={'h4'}
-          gutterBottom
-          align={'center'}
-          sx={{ fontWeight: 700 }}
-        >
-          {/* Raise funds and make donations in MATIC */}
-        </Typography>
-        <Typography
           variant={'h6'}
           component={'p'}
           color={'text.secondary'}

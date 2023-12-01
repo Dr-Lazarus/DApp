@@ -223,7 +223,7 @@ const FundraiserGrid = () => {
           color={'secondary'}
           align={'center'}
         >
-          Fundraisers
+          {/* Fundraisers */}
         </Typography>
         <Typography
           variant={'h4'}

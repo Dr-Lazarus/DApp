@@ -25,8 +25,8 @@ const SidebarNav = ({ pages }) => {
                 ? 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
                 : 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
             }
-            height={1}
-            width={1}
+            height={0.5}
+            width={0.5}
           />
         </Box>
       </Box>
