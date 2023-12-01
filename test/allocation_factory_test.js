@@ -8,24 +8,22 @@
 //     let allocation;
 
 //     before(async () => {
-//         // Mumbai
-//         // const factoryAddress = '0xa0624c35724eb364389b0f580804d39b520514d2';
-//         // local
-//         const factoryAddress = '0x4912ABCEF7E912637a63571F6f218a760A9F516C';   
-//         allocationFactory = await AllocationFactory.at(factoryAddress);// Use the deployed instance
-//         console.log("depployed address is",allocationFactory.address)
-//         // expect(allocationFactory.address).to.equal('0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0')
+  
+//         // const factoryAddress = '0x4912ABCEF7E912637a63571F6f218a760A9F516C';   
+//         allocationFactoryDeployed = await AllocationFactory.new();// Use the deployed instance
+//         const allocationFactory= await AllocationFactory.at(allocationFactoryDeployed.address)
+
 //     });
 
 //     it("should successfully create an Allocation contract", async () => {
 //         const projectName = "New Hahahah";
 //         const projectHashId = "0x83ba4d0008811b34fe0094b3ccc9e905e381a09f7c2fd157bbc8f50cc41c98f1"; // actual transaciton hash from fundraiser
 //         console.log("accounts below")
-//         const beneficiary = "0xE56d66CED3805ae91641DC7670783aD677b4827b";
-//         const NGO = "0xf96D1EA0A7c051c714e49799a27053f45587d5ea";
+//         const beneficiary = accounts[0];
+//         const NGO = accounts[1];
 //         const amountNeeded = "10"
 //         const explanation = "Project explanation";
-//         console.log("the accounts",accounts[0],accounts[1,accounts[2]])
+//         // console.log("the accounts",accounts[0],accounts[1,accounts[2]])
 //         const result = await allocationFactory.createAllocation(
 //           projectName,
 //           projectHashId,

@@ -7,5 +7,7 @@ module.exports = function (deployer) {
   // deployer.deploy(AllocationContract);
   deployer.deploy(FundraiserFactoryContract);
   deployer.deploy(LogInContract);
+  // deployer.deploy(AllocationContract);
+
 
 };
