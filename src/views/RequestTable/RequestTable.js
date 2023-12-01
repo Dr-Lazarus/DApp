@@ -1,4 +1,3 @@
-// DataTable.js
 import React, { useState } from 'react';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
@@ -14,16 +13,14 @@ import {
   Button,
 } from '@mui/material';
 
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
 const RequestTable = ({ data }) => {
-  // const [ngoFilter, setNgoFilter] = useState('');
   const [projectFilter, setProjectFilter] = useState('');
+  const [approvalStatus, setApprovalStatus] = useState({});
 
-  // Function to filter data based on NGO and project name
   const filteredData = data.filter((row) => {
-    // const ngoMatch =
-    //   row.ngoName.toLowerCase().includes(ngoFilter.toLowerCase()) ||
-    //   ngoFilter === '';
-
     const projectMatch =
       row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) ||
       projectFilter === '';
@@ -32,24 +29,18 @@ const RequestTable = ({ data }) => {
   });
 
   const handleApprove = (index) => {
-    // Implement your logic for handling approve/reject here
-    console.log(`Button clicked for row ${index}`);
+    // Update approval status for the row
+    setApprovalStatus((prevStatus) => ({ ...prevStatus, [index]: true }));
   };
+
   const handleReject = (index) => {
-    // Implement your logic for handling approve/reject here
-    console.log(`Button clicked for row ${index}`);
+    // Update approval status for the row
+    setApprovalStatus((prevStatus) => ({ ...prevStatus, [index]: false }));
   };
 
   return (
     <Main>
       <Container>
-        {/* Filter input fields */}
-        {/* <TextField
-          label="Filter by NGO"
-          value={ngoFilter}
-          onChange={(e) => setNgoFilter(e.target.value)}
-          margin="normal"
-        /> */}
         <TextField
           label="Filter by Project Name"
           value={projectFilter}
@@ -76,21 +67,29 @@ const RequestTable = ({ data }) => {
                   <TableCell>{row.availableAmount}</TableCell>
                   <TableCell>{row.beneficiaryHash}</TableCell>
                   <TableCell>
-                  <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleApprove(index)}
-                      sx={{ marginRight: 1 }}
-                    >
-                      Approve
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleReject(index)}
-                    >
-                      Reject
-                    </Button>
+                    {approvalStatus[index] === undefined ? (
+                      <>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleApprove(index)}
+                          sx={{ marginRight: 1 }}
+                        >
+                          Approve
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleReject(index)}
+                        >
+                          Reject
+                        </Button>
+                      </>
+                    ) : approvalStatus[index] ? (
+                      <CheckCircleOutlineIcon sx={{ color: 'success.main' }} />
+                    ) : (
+                      <HighlightOffIcon sx={{ color: 'error.main' }} />
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

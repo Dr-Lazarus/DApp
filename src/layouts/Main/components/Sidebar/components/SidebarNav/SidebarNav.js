@@ -22,8 +22,8 @@ const SidebarNav = ({ pages }) => {
             component={'img'}
             src={
               mode === 'light'
-                ? 'https://github.com/ac12644/Crypto-Charity/blob/main/images/crypto-charity-light.png?raw=true'
-                : 'crypto-charity-dark.png'
+                ? 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
+                : 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
             }
             height={1}
             width={1}

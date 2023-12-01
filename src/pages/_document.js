@@ -12,9 +12,9 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <link
             rel="shortcut icon"
-            href="https://github.com/ac12644/Fundraising-Dapp/blob/main/images/cc-box-light.png?raw=true"
+            href="https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true"
           />
-          <meta name="theme-color" content="#ffffff" />
+          <meta name="theme-color" content="#212c45" />
           <meta
             name="description"
             content="Raise fund for social work in crypto built on polygon network. Create fundraising campaign, donate MATIC, generate a receipt, and withdraw the amount."
@@ -27,12 +27,12 @@ export default class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta
             property="og:image"
-            content="https://github.com/ac12644/Fundraising-Dapp/blob/main/images/crypto%20charity-light.png?raw=true"
+            content="https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true"
           />
           <meta property="og:title" content="Heart Ledger" />
           <meta
             property="og:description"
-            content="Raise fund for social work in crypto built on polygon network. Create fundraising campaign, donate MATIC, generate a receipt, and withdraw the amount."
+            content="Raise fund for social work in crypto built on polygon network. NGOs create fundraising projects, Donors donate MATIC, the beneficiaries request for funds, all while being publicly recorded."
           />
           <meta property="og:url" content="www.google.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
