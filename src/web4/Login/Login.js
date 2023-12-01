@@ -165,8 +165,9 @@ async function storeUserAddress(walletAddress, role, provider) {
   }
 
   try {
-    const result = await contract.getUserRole(walletAddress)
-    console.log("the result is ", result)
+    console.log("asdasdas")
+    // const result = await contract.getUserRole(walletAddress)
+    // console.log("the result is ", result)
 
     const transaction = await contract.setUser(walletAddress, role);
     await transaction.wait();
@@ -247,8 +248,9 @@ export const Login = () => {
     const network = await web3Provider.getNetwork();
 
 
-
+    console.log(role)
     console.log(role, address)
+    console.log("SSSSS")
     await storeUserAddress(address, role, web3Provider);
     dispatch({
       type: 'SET_WEB3_PROVIDER',
