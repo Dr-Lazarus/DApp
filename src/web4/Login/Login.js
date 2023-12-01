@@ -169,7 +169,11 @@ async function storeUserAddress(walletAddress, role, provider) {
     // const result = await contract.getUserRole(walletAddress)
     // console.log("the result is ", result)
 
-    const transaction = await contract.setUser(walletAddress, role);
+    try {
+      const transaction = await contract.setUser(walletAddress, role);
+    } catch (error) {
+      alert("User Already Registered");
+    }
     await transaction.wait();
 
     console.log(`User address stored: ${walletAddress}`, `User Role stored: ${role}`);
@@ -241,24 +245,30 @@ export const Login = () => {
   // const [nric, setNric] = useState('');
 
   const connect = useCallback(async function () {
-    const provider = await web3Modal.connect();
-    const web3Provider = new providers.Web3Provider(provider);
-    const signer = web3Provider.getSigner();
-    const address = await signer.getAddress();
-    const network = await web3Provider.getNetwork();
-
-
-    console.log(role)
-    console.log(role, address)
-    console.log("SSSSS")
-    await storeUserAddress(address, role, web3Provider);
-    dispatch({
-      type: 'SET_WEB3_PROVIDER',
-      provider,
-      web3Provider,
-      address,
-      chainId: network.chainId,
-    });
+    try{ 
+      const provider = await web3Modal.connect();
+      const web3Provider = new providers.Web3Provider(provider);
+      const signer = web3Provider.getSigner();
+      const address = await signer.getAddress();
+      const network = await web3Provider.getNetwork();
+  
+  
+      console.log(role)
+      console.log(role, address)
+      console.log("SSSSS")
+      await storeUserAddress(address, role, web3Provider);
+      dispatch({
+        type: 'SET_WEB3_PROVIDER',
+        provider,
+        web3Provider,
+        address,
+        chainId: network.chainId,
+      });
+    }
+    catch (error){
+      alert("Error: ${error.message}");
+    }
+   
   }, []);
 
   const RoleDialog = React.memo(() => {

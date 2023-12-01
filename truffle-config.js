@@ -15,6 +15,9 @@ module.exports = {
       confirmations: 2,
       timeoutBlocks: 200,
       skipDryRun: true,
+      gas: 5000000,  
+      gasPrice: 10000000000, // Can set this >= to the number read from Ganache window
+		  gasLimit: 6721975,
     },
     smartChain: {
       provider: () =>

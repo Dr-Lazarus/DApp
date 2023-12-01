@@ -3,8 +3,8 @@ const ethers = require('ethers');
 const Web3Modal = require('web3modal').default;
 
 
-const contractAddress = "0x014cc7969F70bc9e3b96C0c380587515048E207A";
-const contractABI= [
+const contractAddress = "0x81692ee28072a302a7752f9c4D4945d95a42";
+const contractABI = [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -144,21 +144,21 @@ const contractABI= [
   }
 ]
 async function checkIfUserRegistered(userAddress) {
-    const web3Modal = new Web3Modal();
-    const provider = await web3Modal.connect();
-    const web3Provider = new ethers.providers.Web3Provider(provider);
-    const contract = new ethers.Contract(contractAddress, contractABI, web3Provider.getSigner());
+  const web3Modal = new Web3Modal();
+  const provider = await web3Modal.connect();
+  const web3Provider = new ethers.providers.Web3Provider(provider);
+  const contract = new ethers.Contract(contractAddress, contractABI, web3Provider.getSigner());
 
-    try {
-        const role = await contract.getUserRole(userAddress);
-        console.log(`User role is: ${role}`);
-        const isRegistered = role !== ethers.constants.Zero;  
-        console.log(`Is user registered: ${isRegistered}`);
-        return isRegistered;
-    } catch (error) {
-        console.error('Error checking if user is registered:', error);
-        return false;
-    }
+  try {
+    const role = await contract.getUserRole(userAddress);
+    console.log(`User role is: ${role}`);
+    const isRegistered = role !== ethers.constants.Zero;
+    console.log(`Is user registered: ${isRegistered}`);
+    return isRegistered;
+  } catch (error) {
+    console.error('Error checking if user is registered:', error);
+    return false;
+  }
 }
 
 checkIfUserRegistered("0x321c7Fc9b2B2f277Ec58170dD6865C8e4ff4198D");

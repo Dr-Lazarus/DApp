@@ -62,8 +62,8 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = true }) => {
               ? 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
               : 'https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true'
           }
-          height={0.4}
-          width={0.4}
+          height={0.2}
+          width={0.2}
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
