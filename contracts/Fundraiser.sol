@@ -10,11 +10,14 @@ contract Fundraiser is Ownable {
     struct Donation {
         uint256 value;
         uint256 date;
+        address donor;
+        string fundName;
     }
 
     struct FundsRequest {
         uint256 amount;
         address payable beneficiary;
+        address NGO;
         RequestStatus status;
     }
 
@@ -41,11 +44,12 @@ contract Fundraiser is Ownable {
         address indexed beneficiary
     );
 
-    string public name;
-    string public image;
+    string public fundName;
+    string public image; // This is the fundname
     string public description;
     uint256 public goalAmount;
     uint256 public totalDonations;
+    address public NGOAddress;
     uint256 public donationsCount;
     uint256 public constant REQUEST_AMOUNT = 1 ether; // Hardcoded request amount
 
@@ -54,13 +58,14 @@ contract Fundraiser is Ownable {
         string memory _image,
         string memory _description,
         uint256 _goalAmount,
-        address _custodian
+        address _custodian // This is the address of the owner/custodian
     ) public {
-        name = _name;
+        fundName = _name;
         image = _image;
         description = _description;
+        NGOAddress = _custodian;
         goalAmount = _goalAmount;
-        _transferOwnership(_custodian);
+        _transferOwnership(_custodian); // This is the address of the
     }
 
     function myDonationsCount() public view returns (uint256) {
@@ -70,40 +75,52 @@ contract Fundraiser is Ownable {
     function donate() public payable {
         Donation memory donation = Donation({
             value: msg.value,
-            date: block.timestamp
+            date: block.timestamp,
+            donor: msg.sender,
+            fundName: fundName
         });
         _donations[msg.sender].push(donation);
         totalDonations = totalDonations.add(msg.value);
         donationsCount++;
-
         emit DonationReceived(msg.sender, msg.value);
     }
 
     function myDonations()
         public
         view
-        returns (uint256[] memory values, uint256[] memory dates)
+        returns (
+            uint256[] memory values,
+            uint256[] memory dates,
+            string[] memory fundNames
+        )
     {
         uint256 count = myDonationsCount();
         values = new uint256[](count);
         dates = new uint256[](count);
+        fundNames = new string[](count);
+
         for (uint256 i = 0; i < count; i++) {
             Donation storage donation = _donations[msg.sender][i];
             values[i] = donation.value;
             dates[i] = donation.date;
+            fundNames[i] = donation.fundName;
         }
     }
 
-    function createRequest(address payable _beneficiary) public {
+    function createRequest(
+        address payable _beneficiary,
+        uint256 _requestAmount
+    ) public {
         require(
-            totalDonations >= REQUEST_AMOUNT,
+            totalDonations >= _requestAmount,
             "Insufficient funds for request"
         );
 
         _requests.push(
             FundsRequest({
-                amount: REQUEST_AMOUNT,
+                amount: _requestAmount,
                 beneficiary: _beneficiary,
+                NGO: NGOAddress, // Storing the NGO's address
                 status: RequestStatus.Pending
             })
         );
