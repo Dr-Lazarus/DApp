@@ -1,7 +1,7 @@
 const UserAccessControl = artifacts.require("UserAccessControl");
 
 contract("UserAccessControl", accounts => {
-  const [owner, user1, user2] = accounts;
+  const [owner, user1, user2,user3] = accounts;
   let userAccessControl;
   console.log("admin user1 user2",owner, user1, user2)
 
@@ -32,7 +32,7 @@ contract("UserAccessControl", accounts => {
   it("Emit User Register Event", async () => {
     const role = 0; 
     const newUser = accounts[3]
-    const tx = await userAccessControl.setUser(newUser, role);
+    const tx = await userAccessControl.register(newUser, role);
     // Check that the UserRegistered event was emitted
     assert.equal(tx.logs[0].event, "UserRegistered",);
     // Check the parameters of the UserRegistered event
@@ -73,6 +73,45 @@ it("Ensure Invalid address unable to Register", async () => {
         assert.include(error.message, "invalid address", "Error should contain 'invalid address'");
     }
 });
+it("Get User Role", async () => {
+  const role = 0;
+  const newUser = user3;
+
+  await userAccessControl.setUser(newUser, role, { from: owner });
+  const userRole = await userAccessControl.getUserRole(newUser);
+
+  assert.equal(userRole.toNumber(), role, "User role should match the assigned role");
+});
+
+it("Check User Registration Status", async () => {
+  const newUser = user3;
+
+  await userAccessControl.setUser(newUser, 0);
+  const result = await userAccessControl.users(newUser)
+  const isRegistered = result.isRegistered
+
+  console.log("isreg", isRegistered)
+
+  assert.isTrue(isRegistered, "User should be registered");
+});
+
+it("Attempt to Set Invalid Role", async () => {
+  const newUser = user3;
+  const invalidRole = 3; // Assuming 3 is an invalid role enum
+
+  try {
+    await userAccessControl.setUser(newUser, invalidRole, { from: owner });
+    assert.fail("Setting an invalid role should throw an exception");
+  } catch (error) {
+    assert.include(
+      error.message,
+      "revert",
+      "Error should contain 'revert'"
+    );
+  }
+});
+
+
   
 
 });
