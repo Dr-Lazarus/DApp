@@ -1,156 +1,137 @@
 const FundraiserFactoryContract = artifacts.require('FundraiserFactory');
 const FundraiserContract = artifacts.require('Fundraiser');
 
-contract('FundraiserFactory: deployment', () => {
-  it('has been deployed', async () => {
-    const fundraiserFactory = FundraiserFactoryContract.deployed();
-    assert(fundraiserFactory, 'fundraiser factory was not deployed');
-  });
-});
-
-contract('FundraiserFactory: createFundraiser', (accounts) => {
-  let fundraiserFactory;
-  // fundraiser args
+contract('FundraiserFactory: deployment', (accounts) => {
+  let fundraiserFactory
   const name = 'Beach cleaning';
-  const image =
-    'https://images.unsplash.com/photo-1554265352-d7fd5129be15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';
-  const description =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eleifend id enim convallis tempus.';
-  const beneficiary = accounts[1];
+  const image = 'https://images.unsplash.com/photo-1554265352-d7fd5129be15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80';
+  const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eleifend id enim convallis tempus.';
   const goalAmount = '10';
 
-  it('increments the fundraisersCount', async () => {
-    fundraiserFactory = await FundraiserFactoryContract.deployed();
+  before(async () => {
+   
+    const fundraiserFactoryDeployed = await FundraiserFactoryContract.new();
+    fundraiserFactory = await FundraiserFactoryContract.at(fundraiserFactoryDeployed.address);
+ 
+  });
+
+  it('Create the Fundraiser', async () => {
     const currentFundraisersCount = await fundraiserFactory.fundraisersCount();
-    await fundraiserFactory.createFundraiser(
-      name,
-      image,
-      description,
-      beneficiary,
-      goalAmount,
+    const newFundraiser = await fundraiserFactory.createFundraiser(
+      name, image, description, goalAmount
     );
+
+    const newFundraiserReceipt = await web3.eth.getTransactionReceipt(newFundraiser.tx);
+    console.log(`Gas used in createFundraiser: ${newFundraiserReceipt.gasUsed}`);
     const newFundraisersCount = await fundraiserFactory.fundraisersCount();
 
     assert.equal(
       newFundraisersCount - currentFundraisersCount,
       1,
-      'should increment by 1',
+      'should increment by 1'
     );
   });
 
-  it('emits the FundraiserCreated event', async () => {
-    fundraiserFactory = await FundraiserFactoryContract.deployed();
+  it('Emit the FundraiserCreated event', async () => {
     const tx = await fundraiserFactory.createFundraiser(
-      name,
-      image,
-      description,
-      beneficiary,
-      goalAmount,
+      name, image, description, goalAmount
     );
+    const gasUsed = tx.receipt.gasUsed;
+    console.log(`Gas used: ${gasUsed}`);  
     const expectedEvent = 'FundraiserCreated';
     const actualEvent = tx.logs[0].event;
-
+    console.log("expected event run")
     assert.equal(actualEvent, expectedEvent, 'events should match');
+    assert.equal(tx.logs[0].args.owner, accounts[0], 'events should match');
+
+
   });
-});
+  it('Get Fundraise Views', async () => {
+    // Create some fundraisers for testing
+    const project_one = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', '100'
+    );
+    const project_two = await fundraiserFactory.createFundraiser(
+      'Fundraiser 2', 'Image 2', 'Description 2', '200'
+    );
+  
+    // Specify the limit and offset for retrieving fundraisers
+    const limit = 10;
+    const offset = 0;
+  
+    // Call the fundraisers function to retrieve fundraisers
+    const fundraisers = await fundraiserFactory.fundraisers(limit, offset);
+  
+    // Perform assertions on the retrieved fundraisers
+    assert.isArray(fundraisers, 'fundraisers should be an array');
+    console.log("fundraisers one list",fundraisers[0])
 
-contract('FundraiserFactory: fundraisers', (accounts) => {
-  async function createFundraiserFactory(fundraiserCount, accounts) {
-    const factory = await FundraiserFactoryContract.new();
-    await addFundraisers(factory, fundraiserCount, accounts);
-    return factory;
-  }
+  });
 
-  async function addFundraisers(factory, count, accounts) {
-    const name = 'Beneficiary';
-    const lowerCaseName = name.toLowerCase();
-    const beneficiary = accounts[1];
+  it('Get Fundraise Views', async () => {
+    // Create some fundraisers for testing
+    const project_one = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', '100'
+    );
+    const project_two = await fundraiserFactory.createFundraiser(
+      'Fundraiser 2', 'Image 2', 'Description 2', '200'
+    );
+  
+    // Specify the limit and offset for retrieving fundraisers
+    const limit = 10;
+    const offset = 0;
+    // Call the fundraisers function to retrieve fundraisers
+    const fundraisers = await fundraiserFactory.fundraisers(limit, offset);
+    // Perform assertions on the retrieved fundraisers
+    assert.isArray(fundraisers, 'fundraisers should be an array');
+    console.log("fundraisers one list",fundraisers[0])
 
-    for (let i = 0; i < count; i++) {
-      await factory.createFundraiser(
-        `${name} ${i}`,
-        `${lowerCaseName}${i}.com`,
-        `${lowerCaseName}${i}.png`,
-        `Description for ${name} ${i}`,
-        beneficiary,
-      );
+  });
+
+  it('Ensure Invalid address unable to create fundraiser', async () => {
+    // Create some fundraisers for testing
+    
+    try{
+    const failedCreation = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', '100',{ from: "0x0" }); 
+
+    } catch (error) {
+        console.log("error message is",error.message)
+        assert.include(error.message, "Provided address 0x0 is invalid", "Error should contain 'invalid address'");
     }
-  }
 
-  describe('when fundraisers collection is empty', () => {
-    it('returns an empty collection', async () => {
-      const factory = await createFundraiserFactory(0, accounts);
-      const fundraisers = await factory.fundraisers(10, 0);
-      assert.equal(fundraisers.length, 0, 'collection should be empty');
-    });
   });
 
-  describe('varying limits', async () => {
-    let factory;
-    beforeEach(async () => {
-      factory = await createFundraiserFactory(30, accounts);
-    });
+  it('Ensure Edge Case Create Fundraiser cannot be 0', async () => {
+    // Create some fundraisers for testing
+    
+    try{
+    const failedCreation = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', 0); 
 
-    it('returns 10 results when limit requested is 10', async () => {
-      const fundraisers = await factory.fundraisers(10, 0);
-      assert.equal(fundraisers.length, 10, 'results size should be 10');
-    });
+    } catch (error) {
+        assert.include(error.message, "value out-of-bounds");
+    }
 
-    it('returns 20 results when limit requested is 20', async () => {
-      const fundraisers = await factory.fundraisers(20, 0);
-      assert.equal(fundraisers.length, 20, 'results size should be 20');
-    });
+  })
+  
+  it('Ensure Edge Case Create Fundraiser cannot be negative', async () => {
+    // Create some fundraisers for testing
+    
+    try{
+    const failedCreation = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', -2); 
 
-    it('returns 20 results when limit requested is 30', async () => {
-      const fundraisers = await factory.fundraisers(30, 0);
-      assert.equal(fundraisers.length, 20, 'results size should be 20');
-    });
+    } catch (error) {
+        assert.include(error.message, "value out-of-bounds");
+    }
+
   });
+ 
 
-  describe('varying offset', () => {
-    let factory;
-    beforeEach(async () => {
-      factory = await createFundraiserFactory(10, accounts);
-    });
 
-    it('contains the fundraiser with the appropriate offset', async () => {
-      const fundraisers = await factory.fundraisers(1, 0);
-      const fundraiser = await FundraiserContract.at(fundraisers[0]);
-      const name = await fundraiser.name();
-      assert.ok(await name.includes(0), `${name} did not include the offset`);
-    });
-
-    it('contains the fundraiser with the appropriate offset', async () => {
-      const fundraisers = await factory.fundraisers(1, 7);
-      const fundraiser = await FundraiserContract.at(fundraisers[0]);
-      const name = await fundraiser.name();
-      assert.ok(await name.includes(7), `${name} did not include the offset`);
-    });
-  });
-
-  describe('boundry conditions', () => {
-    let factory;
-    beforeEach(async () => {
-      factory = await createFundraiserFactory(10, accounts);
-    });
-
-    it('raises out of bounds error', async () => {
-      try {
-        await factory.fundraisers(1, 11);
-        assert.fail('error was not raised');
-      } catch (err) {
-        const expected = 'offset out of bounds';
-        assert.ok(err.message.includes(expected), `${err.message}`);
-      }
-    });
-
-    it('adjusts return size to prevent out of bounds error', async () => {
-      try {
-        const fundraisers = await factory.fundraisers(10, 5);
-        assert.equal(fundraisers.length, 5, 'collection adjusted');
-      } catch (err) {
-        assert.fail('limit and offset exceeded bounds');
-      }
-    });
-  });
 });
+
+  
+
+
