@@ -23,7 +23,9 @@ const ViewRequests = () => {
   const [contract, setContract] = useState(null);
   const [accounts, setAccounts] = useState(null);
   const web3 = new Web3(
-    new Web3.providers.HttpProvider("https://rpc-mumbai.maticvigil.com")
+    new Web3.providers.HttpProvider(
+      "https://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ"
+    )
   );
 
   useEffect(() => {
@@ -46,7 +48,7 @@ const ViewRequests = () => {
       const funds = await instance.methods.fundraisers(1000, 0).call();
 
       setFunds(funds);
-      console.log("------", funds);
+      console.log("--------", funds);
       setFunds(funds);
     } catch (error) {
       console.error(error);
@@ -54,24 +56,21 @@ const ViewRequests = () => {
   };
   const getRequestsCreated = async () => {
     try {
-      console.log("------ HERE --0---- ", funds);
       const currentBlock = await web3.eth.getBlockNumber();
-      console.log("------ BLOCK ------ ", currentBlock);
       const fromBlock = Math.max(currentBlock - 1000, 0); // Ensure fromBlock is not negative
       for (const fundAddress of funds) {
         const fundContract = new web3.eth.Contract(
           FundraiserContract.abi,
           fundAddress
         );
-        console.log("------ LISTEN ------ ");
         const events = await fundContract.getPastEvents("RequestCreated", {
-          fromBlock: fromBlock,
+          fromBlock: 0,
           toBlock: "latest",
         });
-        console.log("EVENT RE", events);
+        //console.log("EVENTS", events);
 
         // Log each event for this fund
-        events.forEach((event) => console.log(event.returnValues));
+        events.forEach((event) => console.log("EVENT #", event.returnValues));
       }
     } catch (error) {
       console.error("Error fetching RequestCreated events:", error);

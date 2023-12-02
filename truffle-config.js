@@ -19,7 +19,10 @@ module.exports = {
 
     mumbai: {
       provider: () =>
-        new HDWalletProvider(PRIVATE_KEY, `https://rpc-mumbai.maticvigil.com`),
+        new HDWalletProvider(
+          PRIVATE_KEY,
+          `https://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ`
+        ),
       network_id: 80001,
       confirmations: 2,
       timeoutBlocks: 200,
