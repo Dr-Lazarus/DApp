@@ -1,13 +1,22 @@
-const HDWalletProvider = require('@truffle/hdwallet-provider');
-require('dotenv').config();
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+require("dotenv").config();
 
 const INFURA_ID = process.env.INFURA_ID;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const MNEMONIC_KEY = process.env.MNEMONIC_KEY;
 
+const INFURA_API_KEY = process.env.INFURA_API_KEY;
+
 module.exports = {
   networks: {
     // -------------- TESTNET ---------------------
+    development: {
+      host: "127.0.0.1", // Localhost
+      port: 7545, // Standard port for Ganache; change if using a different port
+      network_id: "*", // Match any network ID
+      gas: 5000000, // Gas limit, adjust as needed
+    },
+
     mumbai: {
       provider: () =>
         new HDWalletProvider(PRIVATE_KEY, `https://rpc-mumbai.maticvigil.com`),
@@ -15,15 +24,21 @@ module.exports = {
       confirmations: 2,
       timeoutBlocks: 200,
       skipDryRun: true,
-      gas: 5000000,  
-      gasPrice: 10000000000, // Can set this >= to the number read from Ganache window
-		  gasLimit: 6721975,
+    },
+    sepolia: {
+      provider: () =>
+        new HDWalletProvider(
+          PRIVATE_KEY,
+          `https://sepolia.infura.io/v3/${INFURA_API_KEY}`
+        ),
+      network_id: "11155111",
+      gas: 4465030,
     },
     smartChain: {
       provider: () =>
         new HDWalletProvider(
           MNEMONIC_KEY,
-          `https://data-seed-prebsc-1-s1.binance.org:8545/`,
+          `https://data-seed-prebsc-1-s1.binance.org:8545/`
         ),
       network_id: 97,
       confirmations: 5,
@@ -34,7 +49,7 @@ module.exports = {
       provider: () =>
         new HDWalletProvider(
           PRIVATE_KEY,
-          `https://kovan.infura.io/v3/${INFURA_ID}`,
+          `https://kovan.infura.io/v3/${INFURA_ID}`
         ),
       network_id: 42,
       gas: 8500000,
@@ -70,7 +85,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: '0.8.0', // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.0", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {

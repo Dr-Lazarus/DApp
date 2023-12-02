@@ -2,7 +2,11 @@
 pragma solidity ^0.8.0;
 
 contract UserAccessControl {
-    enum UserRole { Donor, Beneficiary, NGO }
+    enum UserRole {
+        Donor,
+        Beneficiary,
+        NGO
+    }
 
     struct User {
         UserRole role;
@@ -18,7 +22,7 @@ contract UserAccessControl {
         admin = msg.sender;
     }
 
-    modifier onlyAdmin {
+    modifier onlyAdmin() {
         require(msg.sender == admin, "Not authorized");
         _;
     }
@@ -44,6 +48,7 @@ contract UserAccessControl {
         emit UserRegistered(user, role);
     }
 
+    // 获取用户角色
     function getUserRole(address user) public view returns (UserRole) {
         require(users[user].isRegistered, "User not registered.");
         return users[user].role;

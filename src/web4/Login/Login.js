@@ -173,6 +173,17 @@ async function storeUserAddress(walletAddress, role, provider) {
       const transaction = await contract.setUser(walletAddress, role);
     } catch (error) {
       alert("User Already Registered");
+      console.log(sessionStorage.getItem('userAddress'));
+
+
+      // useLayoutEffect(() => {
+      //   console.log(sessionStorage.getItem('userAddress'))
+      // }, [])
+
+      // useLayoutEffect(() => {
+      //   console.log(sessionStorage.getItem('role'))
+      // }, [])
+
     }
     await transaction.wait();
 
