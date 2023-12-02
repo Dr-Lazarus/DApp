@@ -46,10 +46,13 @@ const ProjectDialog = ({
   const [amount, setAmount] = useState(5);
   const [alertOpen, setAlertOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isRequest, setisRequest] = useState(false);
+  const [isDonate, setisDonate] = useState(false);
   const [hash, setHash] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const submitFunds = async () => {
     setLoading(true);
+    setisDonate(true);
     const ethTotal = amount / exchangeRate;
     const donation = web3.utils.toWei(ethTotal.toString());
     try {
@@ -69,14 +72,29 @@ const ProjectDialog = ({
     }
     setLoading(false);
   };
-
-  //checkk login and then request funds
   const requestFunds = async () => {
     setLoading(true);
+    setisRequest(true);
     const ethTotal = amount / exchangeRate;
-    const donation = web3.utils.toWei(ethTotal.toString());
+    const request = web3.utils.toWei(ethTotal.toString());
+    try {
+      const requestTransaction = await contract.methods
+        .createRequest(account, request)
+        .send({
+          from: account,
+          gas: 650000,
+        });
+      console.log("[Logs]requestTransaction:", requestTransaction);
+      setHash(requestTransaction.transactionHash);
+      setDialogBoxOpen(true);
+      setAlertOpen(true);
+    } catch (error) {
+      console.log(error);
+      alert("Error donating");
+      setLoading(false);
+    }
+    setLoading(false);
   };
-
   return (
     <Dialog onClose={onClose} open={open} maxWidth={"lg"}>
       <Box paddingY={{ xs: 1, sm: 2 }} paddingX={{ xs: 2, sm: 4 }}>
@@ -268,14 +286,32 @@ const ProjectDialog = ({
                     </Button>
                   )}
                 </Stack>
-                <DialogBox
-                  open={dialogBoxOpen}
-                  onClose={() => setDialogBoxOpen(false)}
-                  title={"Thank you!"}
-                  message={`Donation successful with transaction hash: ${hash}`}
-                  buttonText="View on polygonscan"
-                  buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
-                />
+                {isRequest && (
+                  <DialogBox
+                    open={dialogBoxOpen}
+                    onClose={() => {
+                      setDialogBoxOpen(false);
+                      setisRequest(false); // This line sets isRequest to false when DialogBox is closed
+                    }}
+                    title={"Thank you!"}
+                    message={`Request successful with transaction hash: ${hash}`}
+                    buttonText="View on polygonscan"
+                    buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+                  />
+                )}
+                {isDonate && (
+                  <DialogBox
+                    open={dialogBoxOpen}
+                    onClose={() => {
+                      setDialogBoxOpen(false);
+                      setisDonate(false); // This line sets isRequest to false when DialogBox is closed
+                    }}
+                    title={"Thank you!"}
+                    message={`Donation successful with transaction hash: ${hash}`}
+                    buttonText="View on polygonscan"
+                    buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+                  />
+                )}
               </Box>
             </Grid>
           </Grid>
