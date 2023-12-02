@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState, useLayoutEffect } from 'react';
 import { IconButton, Dialog, DialogActions, Button, DialogContent, DialogTitle, TextField, MenuItem } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Account from './components/Account';
@@ -177,6 +177,15 @@ async function storeUserAddress(walletAddress, role, provider) {
     await transaction.wait();
 
     console.log(`User address stored: ${walletAddress}`, `User Role stored: ${role}`);
+    useLayoutEffect(() => {
+      sessionStorage.setItem('userAddress', walletAddress)
+      sessionStorage.setItem('role', role)
+    }, [])
+    console.log("retrieve")
+    useLayoutEffect(() => {
+      console.log(sessionStorage.getItem('userAddress'))
+    }, [])
+    console.log("done retrieve")
   } catch (error) {
     console.error('Error storing user address:', error);
   }
@@ -257,6 +266,8 @@ export const Login = () => {
       console.log(role, address)
       console.log("SSSSS")
       await storeUserAddress(address, role, web3Provider);
+      console.log('post store')
+      
       dispatch({
         type: 'SET_WEB3_PROVIDER',
         provider,
@@ -266,7 +277,7 @@ export const Login = () => {
       });
     }
     catch (error){
-      alert("Error: ${error.message}");
+      alert(error.message);
     }
    
   }, []);
@@ -315,6 +326,10 @@ export const Login = () => {
         type: 'RESET_WEB3_PROVIDER',
       });
       setAnchorEl(null);
+      useLayoutEffect(() => {
+        sessionStorage.setItem('userAddress', null)
+        sessionStorage.setItem('role', null)
+      }, [])
     },
     [provider],
   );

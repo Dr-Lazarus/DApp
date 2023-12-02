@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,14 +8,24 @@ import Typography from '@mui/material/Typography';
 const NavItem = ({ items, colorInvert = false }) => {
   const theme = useTheme();
   const [activeLink, setActiveLink] = useState('');
+  let role = null;
+  
 
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
 
+  useLayoutEffect(() => {
+    const userAddress = sessionStorage.getItem('userAddress');
+    role = sessionStorage.getItem('role');
+    console.log("role")
+    console.log(role)
+  }, [])
+
   return (
     <Box>
       {items.map((p, i) => (
+        (role != 'NGO' && p.title =="Create Campaign") ? null:(
         <Button
           component={'a'}
           href={p.href==="Register" ?null : p.href}
@@ -53,7 +63,7 @@ const NavItem = ({ items, colorInvert = false }) => {
               </Typography>
             </Box>
           )}
-        </Button>
+        </Button>)
       ))}
     </Box>
   );
