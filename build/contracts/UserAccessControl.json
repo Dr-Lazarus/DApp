@@ -272,7 +272,7 @@
                       }
                     ],
                     "functionName": {
-                      "name": "validator_revert_t_enum$_UserRole_$1115",
+                      "name": "validator_revert_t_enum$_UserRole_$1234",
                       "nodeType": "YulIdentifier",
                       "src": "265:39:8"
                     },
@@ -284,7 +284,7 @@
                 }
               ]
             },
-            "name": "abi_decode_t_enum$_UserRole_$1115",
+            "name": "abi_decode_t_enum$_UserRole_$1234",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -706,7 +706,7 @@
                           }
                         ],
                         "functionName": {
-                          "name": "abi_decode_t_enum$_UserRole_$1115",
+                          "name": "abi_decode_t_enum$_UserRole_$1234",
                           "nodeType": "YulIdentifier",
                           "src": "941:33:8"
                         },
@@ -725,7 +725,7 @@
                 }
               ]
             },
-            "name": "abi_decode_tuple_t_addresst_enum$_UserRole_$1115",
+            "name": "abi_decode_tuple_t_addresst_enum$_UserRole_$1234",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -901,7 +901,7 @@
                           }
                         ],
                         "functionName": {
-                          "name": "convert_t_enum$_UserRole_$1115_to_t_uint8",
+                          "name": "convert_t_enum$_UserRole_$1234_to_t_uint8",
                           "nodeType": "YulIdentifier",
                           "src": "1367:41:8"
                         },
@@ -922,7 +922,7 @@
                 }
               ]
             },
-            "name": "abi_encode_t_enum$_UserRole_$1115_to_t_uint8_fromStack",
+            "name": "abi_encode_t_enum$_UserRole_$1234_to_t_uint8_fromStack",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -1682,7 +1682,7 @@
                       }
                     ],
                     "functionName": {
-                      "name": "abi_encode_t_enum$_UserRole_$1115_to_t_uint8_fromStack",
+                      "name": "abi_encode_t_enum$_UserRole_$1234_to_t_uint8_fromStack",
                       "nodeType": "YulIdentifier",
                       "src": "3108:54:8"
                     },
@@ -1694,7 +1694,7 @@
                 }
               ]
             },
-            "name": "abi_encode_tuple_t_enum$_UserRole_$1115__to_t_uint8__fromStack_reversed",
+            "name": "abi_encode_tuple_t_enum$_UserRole_$1234__to_t_uint8__fromStack_reversed",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -1792,7 +1792,7 @@
                       }
                     ],
                     "functionName": {
-                      "name": "abi_encode_t_enum$_UserRole_$1115_to_t_uint8_fromStack",
+                      "name": "abi_encode_t_enum$_UserRole_$1234_to_t_uint8_fromStack",
                       "nodeType": "YulIdentifier",
                       "src": "3380:54:8"
                     },
@@ -1847,7 +1847,7 @@
                 }
               ]
             },
-            "name": "abi_encode_tuple_t_enum$_UserRole_$1115_t_bool__to_t_uint8_t_bool__fromStack_reversed",
+            "name": "abi_encode_tuple_t_enum$_UserRole_$1234_t_bool__to_t_uint8_t_bool__fromStack_reversed",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -2709,7 +2709,7 @@
                       }
                     ],
                     "functionName": {
-                      "name": "validator_assert_t_enum$_UserRole_$1115",
+                      "name": "validator_assert_t_enum$_UserRole_$1234",
                       "nodeType": "YulIdentifier",
                       "src": "5709:39:8"
                     },
@@ -2721,7 +2721,7 @@
                 }
               ]
             },
-            "name": "cleanup_t_enum$_UserRole_$1115",
+            "name": "cleanup_t_enum$_UserRole_$1234",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -2819,7 +2819,7 @@
                       }
                     ],
                     "functionName": {
-                      "name": "cleanup_t_enum$_UserRole_$1115",
+                      "name": "cleanup_t_enum$_UserRole_$1234",
                       "nodeType": "YulIdentifier",
                       "src": "5993:30:8"
                     },
@@ -2836,7 +2836,7 @@
                 }
               ]
             },
-            "name": "convert_t_enum$_UserRole_$1115_to_t_uint8",
+            "name": "convert_t_enum$_UserRole_$1234_to_t_uint8",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -3019,7 +3019,7 @@
                 }
               ]
             },
-            "name": "validator_assert_t_enum$_UserRole_$1115",
+            "name": "validator_assert_t_enum$_UserRole_$1234",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -3212,7 +3212,7 @@
                 }
               ]
             },
-            "name": "validator_revert_t_enum$_UserRole_$1115",
+            "name": "validator_revert_t_enum$_UserRole_$1234",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -3226,7 +3226,7 @@
           }
         ]
       },
-      "contents": "{\n\n    function abi_decode_t_address(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_address(value)\n    }\n\n    function abi_decode_t_enum$_UserRole_$1115(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_enum$_UserRole_$1115(value)\n    }\n\n    function abi_decode_tuple_t_address(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert(0, 0) }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function abi_decode_tuple_t_addresst_enum$_UserRole_$1115(headStart, dataEnd) -> value0, value1 {\n        if slt(sub(dataEnd, headStart), 64) { revert(0, 0) }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address(add(headStart, offset), dataEnd)\n        }\n\n        {\n\n            let offset := 32\n\n            value1 := abi_decode_t_enum$_UserRole_$1115(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function abi_encode_t_address_to_t_address_fromStack(value, pos) {\n        mstore(pos, cleanup_t_address(value))\n    }\n\n    function abi_encode_t_bool_to_t_bool_fromStack(value, pos) {\n        mstore(pos, cleanup_t_bool(value))\n    }\n\n    function abi_encode_t_enum$_UserRole_$1115_to_t_uint8_fromStack(value, pos) {\n        mstore(pos, convert_t_enum$_UserRole_$1115_to_t_uint8(value))\n    }\n\n    function abi_encode_t_stringliteral_a08d66f010282343c63a2adfb2fb2eae7af36c2d0e7cd9b2008665789fb65b40_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 23)\n\n        mstore(add(pos, 0), \"User already registered\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_t_stringliteral_b9956ea0a9e056cf6c8fd5c9ac4d812fa4610218efefab4828dc8b105a6653c1_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 24)\n\n        mstore(add(pos, 0), \"User already registered.\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_t_stringliteral_d7a837b81caae033a7be9ec4534e99638cf106c36592583903313f147edcb04b_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 20)\n\n        mstore(add(pos, 0), \"User not registered.\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 14)\n\n        mstore(add(pos, 0), \"Not authorized\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_tuple_t_address__to_t_address__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_address_to_t_address_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function abi_encode_tuple_t_enum$_UserRole_$1115__to_t_uint8__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_enum$_UserRole_$1115_to_t_uint8_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function abi_encode_tuple_t_enum$_UserRole_$1115_t_bool__to_t_uint8_t_bool__fromStack_reversed(headStart , value1, value0) -> tail {\n        tail := add(headStart, 64)\n\n        abi_encode_t_enum$_UserRole_$1115_to_t_uint8_fromStack(value0,  add(headStart, 0))\n\n        abi_encode_t_bool_to_t_bool_fromStack(value1,  add(headStart, 32))\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_a08d66f010282343c63a2adfb2fb2eae7af36c2d0e7cd9b2008665789fb65b40__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_a08d66f010282343c63a2adfb2fb2eae7af36c2d0e7cd9b2008665789fb65b40_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_b9956ea0a9e056cf6c8fd5c9ac4d812fa4610218efefab4828dc8b105a6653c1__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_b9956ea0a9e056cf6c8fd5c9ac4d812fa4610218efefab4828dc8b105a6653c1_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_d7a837b81caae033a7be9ec4534e99638cf106c36592583903313f147edcb04b__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_d7a837b81caae033a7be9ec4534e99638cf106c36592583903313f147edcb04b_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, length) -> updated_pos {\n        mstore(pos, length)\n        updated_pos := add(pos, 0x20)\n    }\n\n    function cleanup_t_address(value) -> cleaned {\n        cleaned := cleanup_t_uint160(value)\n    }\n\n    function cleanup_t_bool(value) -> cleaned {\n        cleaned := iszero(iszero(value))\n    }\n\n    function cleanup_t_enum$_UserRole_$1115(value) -> cleaned {\n        cleaned := value validator_assert_t_enum$_UserRole_$1115(value)\n    }\n\n    function cleanup_t_uint160(value) -> cleaned {\n        cleaned := and(value, 0xffffffffffffffffffffffffffffffffffffffff)\n    }\n\n    function convert_t_enum$_UserRole_$1115_to_t_uint8(value) -> converted {\n        converted := cleanup_t_enum$_UserRole_$1115(value)\n    }\n\n    function panic_error_0x21() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x21)\n        revert(0, 0x24)\n    }\n\n    function validator_assert_t_enum$_UserRole_$1115(value) {\n        if iszero(lt(value, 3)) { panic_error_0x21() }\n    }\n\n    function validator_revert_t_address(value) {\n        if iszero(eq(value, cleanup_t_address(value))) { revert(0, 0) }\n    }\n\n    function validator_revert_t_enum$_UserRole_$1115(value) {\n        if iszero(lt(value, 3)) { revert(0, 0) }\n    }\n\n}\n",
+      "contents": "{\n\n    function abi_decode_t_address(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_address(value)\n    }\n\n    function abi_decode_t_enum$_UserRole_$1234(offset, end) -> value {\n        value := calldataload(offset)\n        validator_revert_t_enum$_UserRole_$1234(value)\n    }\n\n    function abi_decode_tuple_t_address(headStart, dataEnd) -> value0 {\n        if slt(sub(dataEnd, headStart), 32) { revert(0, 0) }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function abi_decode_tuple_t_addresst_enum$_UserRole_$1234(headStart, dataEnd) -> value0, value1 {\n        if slt(sub(dataEnd, headStart), 64) { revert(0, 0) }\n\n        {\n\n            let offset := 0\n\n            value0 := abi_decode_t_address(add(headStart, offset), dataEnd)\n        }\n\n        {\n\n            let offset := 32\n\n            value1 := abi_decode_t_enum$_UserRole_$1234(add(headStart, offset), dataEnd)\n        }\n\n    }\n\n    function abi_encode_t_address_to_t_address_fromStack(value, pos) {\n        mstore(pos, cleanup_t_address(value))\n    }\n\n    function abi_encode_t_bool_to_t_bool_fromStack(value, pos) {\n        mstore(pos, cleanup_t_bool(value))\n    }\n\n    function abi_encode_t_enum$_UserRole_$1234_to_t_uint8_fromStack(value, pos) {\n        mstore(pos, convert_t_enum$_UserRole_$1234_to_t_uint8(value))\n    }\n\n    function abi_encode_t_stringliteral_a08d66f010282343c63a2adfb2fb2eae7af36c2d0e7cd9b2008665789fb65b40_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 23)\n\n        mstore(add(pos, 0), \"User already registered\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_t_stringliteral_b9956ea0a9e056cf6c8fd5c9ac4d812fa4610218efefab4828dc8b105a6653c1_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 24)\n\n        mstore(add(pos, 0), \"User already registered.\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_t_stringliteral_d7a837b81caae033a7be9ec4534e99638cf106c36592583903313f147edcb04b_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 20)\n\n        mstore(add(pos, 0), \"User not registered.\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36_to_t_string_memory_ptr_fromStack(pos) -> end {\n        pos := array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, 14)\n\n        mstore(add(pos, 0), \"Not authorized\")\n\n        end := add(pos, 32)\n    }\n\n    function abi_encode_tuple_t_address__to_t_address__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_address_to_t_address_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function abi_encode_tuple_t_enum$_UserRole_$1234__to_t_uint8__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_enum$_UserRole_$1234_to_t_uint8_fromStack(value0,  add(headStart, 0))\n\n    }\n\n    function abi_encode_tuple_t_enum$_UserRole_$1234_t_bool__to_t_uint8_t_bool__fromStack_reversed(headStart , value1, value0) -> tail {\n        tail := add(headStart, 64)\n\n        abi_encode_t_enum$_UserRole_$1234_to_t_uint8_fromStack(value0,  add(headStart, 0))\n\n        abi_encode_t_bool_to_t_bool_fromStack(value1,  add(headStart, 32))\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_a08d66f010282343c63a2adfb2fb2eae7af36c2d0e7cd9b2008665789fb65b40__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_a08d66f010282343c63a2adfb2fb2eae7af36c2d0e7cd9b2008665789fb65b40_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_b9956ea0a9e056cf6c8fd5c9ac4d812fa4610218efefab4828dc8b105a6653c1__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_b9956ea0a9e056cf6c8fd5c9ac4d812fa4610218efefab4828dc8b105a6653c1_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_d7a837b81caae033a7be9ec4534e99638cf106c36592583903313f147edcb04b__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_d7a837b81caae033a7be9ec4534e99638cf106c36592583903313f147edcb04b_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function abi_encode_tuple_t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36__to_t_string_memory_ptr__fromStack_reversed(headStart ) -> tail {\n        tail := add(headStart, 32)\n\n        mstore(add(headStart, 0), sub(tail, headStart))\n        tail := abi_encode_t_stringliteral_fac3bac318c0d00994f57b0f2f4c643c313072b71db2302bf4b900309cc50b36_to_t_string_memory_ptr_fromStack( tail)\n\n    }\n\n    function array_storeLengthForEncoding_t_string_memory_ptr_fromStack(pos, length) -> updated_pos {\n        mstore(pos, length)\n        updated_pos := add(pos, 0x20)\n    }\n\n    function cleanup_t_address(value) -> cleaned {\n        cleaned := cleanup_t_uint160(value)\n    }\n\n    function cleanup_t_bool(value) -> cleaned {\n        cleaned := iszero(iszero(value))\n    }\n\n    function cleanup_t_enum$_UserRole_$1234(value) -> cleaned {\n        cleaned := value validator_assert_t_enum$_UserRole_$1234(value)\n    }\n\n    function cleanup_t_uint160(value) -> cleaned {\n        cleaned := and(value, 0xffffffffffffffffffffffffffffffffffffffff)\n    }\n\n    function convert_t_enum$_UserRole_$1234_to_t_uint8(value) -> converted {\n        converted := cleanup_t_enum$_UserRole_$1234(value)\n    }\n\n    function panic_error_0x21() {\n        mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)\n        mstore(4, 0x21)\n        revert(0, 0x24)\n    }\n\n    function validator_assert_t_enum$_UserRole_$1234(value) {\n        if iszero(lt(value, 3)) { panic_error_0x21() }\n    }\n\n    function validator_revert_t_address(value) {\n        if iszero(eq(value, cleanup_t_address(value))) { revert(0, 0) }\n    }\n\n    function validator_revert_t_enum$_UserRole_$1234(value) {\n        if iszero(lt(value, 3)) { revert(0, 0) }\n    }\n\n}\n",
       "id": 8,
       "language": "Yul",
       "name": "#utility.yul"
@@ -3240,15 +3240,15 @@
     "absolutePath": "project:/contracts/UserAccessControl.sol",
     "exportedSymbols": {
       "UserAccessControl": [
-        1267
+        1386
       ]
     },
-    "id": 1268,
+    "id": 1387,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1111,
+        "id": 1230,
         "literals": [
           "solidity",
           "^",
@@ -3264,31 +3264,31 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 1267,
+        "id": 1386,
         "linearizedBaseContracts": [
-          1267
+          1386
         ],
         "name": "UserAccessControl",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "UserAccessControl.UserRole",
-            "id": 1115,
+            "id": 1234,
             "members": [
               {
-                "id": 1112,
+                "id": 1231,
                 "name": "Donor",
                 "nodeType": "EnumValue",
                 "src": "114:5:6"
               },
               {
-                "id": 1113,
+                "id": 1232,
                 "name": "Beneficiary",
                 "nodeType": "EnumValue",
                 "src": "129:11:6"
               },
               {
-                "id": 1114,
+                "id": 1233,
                 "name": "NGO",
                 "nodeType": "EnumValue",
                 "src": "150:3:6"
@@ -3300,36 +3300,36 @@
           },
           {
             "canonicalName": "UserAccessControl.User",
-            "id": 1121,
+            "id": 1240,
             "members": [
               {
                 "constant": false,
-                "id": 1118,
+                "id": 1237,
                 "mutability": "mutable",
                 "name": "role",
                 "nodeType": "VariableDeclaration",
-                "scope": 1121,
+                "scope": 1240,
                 "src": "187:13:6",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_UserRole_$1115",
+                  "typeIdentifier": "t_enum$_UserRole_$1234",
                   "typeString": "enum UserAccessControl.UserRole"
                 },
                 "typeName": {
-                  "id": 1117,
+                  "id": 1236,
                   "nodeType": "UserDefinedTypeName",
                   "pathNode": {
-                    "id": 1116,
+                    "id": 1235,
                     "name": "UserRole",
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 1115,
+                    "referencedDeclaration": 1234,
                     "src": "187:8:6"
                   },
-                  "referencedDeclaration": 1115,
+                  "referencedDeclaration": 1234,
                   "src": "187:8:6",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_UserRole_$1115",
+                    "typeIdentifier": "t_enum$_UserRole_$1234",
                     "typeString": "enum UserAccessControl.UserRole"
                   }
                 },
@@ -3337,11 +3337,11 @@
               },
               {
                 "constant": false,
-                "id": 1120,
+                "id": 1239,
                 "mutability": "mutable",
                 "name": "isRegistered",
                 "nodeType": "VariableDeclaration",
-                "scope": 1121,
+                "scope": 1240,
                 "src": "210:17:6",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -3350,7 +3350,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 1119,
+                  "id": 1238,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "210:4:6",
@@ -3364,29 +3364,29 @@
             ],
             "name": "User",
             "nodeType": "StructDefinition",
-            "scope": 1267,
+            "scope": 1386,
             "src": "165:69:6",
             "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "a87430ba",
-            "id": 1126,
+            "id": 1245,
             "mutability": "mutable",
             "name": "users",
             "nodeType": "VariableDeclaration",
-            "scope": 1267,
+            "scope": 1386,
             "src": "240:37:6",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
               "typeString": "mapping(address => struct UserAccessControl.User)"
             },
             "typeName": {
-              "id": 1125,
+              "id": 1244,
               "keyType": {
-                "id": 1122,
+                "id": 1241,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "248:7:6",
@@ -3398,23 +3398,23 @@
               "nodeType": "Mapping",
               "src": "240:24:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                 "typeString": "mapping(address => struct UserAccessControl.User)"
               },
               "valueType": {
-                "id": 1124,
+                "id": 1243,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 1123,
+                  "id": 1242,
                   "name": "User",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 1121,
+                  "referencedDeclaration": 1240,
                   "src": "259:4:6"
                 },
-                "referencedDeclaration": 1121,
+                "referencedDeclaration": 1240,
                 "src": "259:4:6",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_User_$1121_storage_ptr",
+                  "typeIdentifier": "t_struct$_User_$1240_storage_ptr",
                   "typeString": "struct UserAccessControl.User"
                 }
               }
@@ -3424,11 +3424,11 @@
           {
             "constant": false,
             "functionSelector": "f851a440",
-            "id": 1128,
+            "id": 1247,
             "mutability": "mutable",
             "name": "admin",
             "nodeType": "VariableDeclaration",
-            "scope": 1267,
+            "scope": 1386,
             "src": "283:20:6",
             "stateVariable": true,
             "storageLocation": "default",
@@ -3437,7 +3437,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1127,
+              "id": 1246,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "283:7:6",
@@ -3451,21 +3451,21 @@
           },
           {
             "anonymous": false,
-            "id": 1135,
+            "id": 1254,
             "name": "UserRegistered",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 1134,
+              "id": 1253,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1130,
+                  "id": 1249,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1135,
+                  "scope": 1254,
                   "src": "331:20:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3474,7 +3474,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1129,
+                    "id": 1248,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "331:7:6",
@@ -3488,33 +3488,33 @@
                 },
                 {
                   "constant": false,
-                  "id": 1133,
+                  "id": 1252,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "role",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1135,
+                  "scope": 1254,
                   "src": "353:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_UserRole_$1115",
+                    "typeIdentifier": "t_enum$_UserRole_$1234",
                     "typeString": "enum UserAccessControl.UserRole"
                   },
                   "typeName": {
-                    "id": 1132,
+                    "id": 1251,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1131,
+                      "id": 1250,
                       "name": "UserRole",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 1115,
+                      "referencedDeclaration": 1234,
                       "src": "353:8:6"
                     },
-                    "referencedDeclaration": 1115,
+                    "referencedDeclaration": 1234,
                     "src": "353:8:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_UserRole_$1115",
+                      "typeIdentifier": "t_enum$_UserRole_$1234",
                       "typeString": "enum UserAccessControl.UserRole"
                     }
                   },
@@ -3527,23 +3527,23 @@
           },
           {
             "body": {
-              "id": 1143,
+              "id": 1262,
               "nodeType": "Block",
               "src": "388:35:6",
               "statements": [
                 {
                   "expression": {
-                    "id": 1141,
+                    "id": 1260,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1138,
+                      "id": 1257,
                       "name": "admin",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1128,
+                      "referencedDeclaration": 1247,
                       "src": "398:5:6",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -3554,7 +3554,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 1139,
+                        "id": 1258,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -3565,7 +3565,7 @@
                           "typeString": "msg"
                         }
                       },
-                      "id": 1140,
+                      "id": 1259,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -3584,31 +3584,31 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 1142,
+                  "id": 1261,
                   "nodeType": "ExpressionStatement",
                   "src": "398:18:6"
                 }
               ]
             },
-            "id": 1144,
+            "id": 1263,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1136,
+              "id": 1255,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "385:2:6"
             },
             "returnParameters": {
-              "id": 1137,
+              "id": 1256,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "388:0:6"
             },
-            "scope": 1267,
+            "scope": 1386,
             "src": "374:49:6",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -3616,7 +3616,7 @@
           },
           {
             "body": {
-              "id": 1155,
+              "id": 1274,
               "nodeType": "Block",
               "src": "450:74:6",
               "statements": [
@@ -3628,14 +3628,14 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 1150,
+                        "id": 1269,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 1147,
+                            "id": 1266,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
@@ -3646,7 +3646,7 @@
                               "typeString": "msg"
                             }
                           },
-                          "id": 1148,
+                          "id": 1267,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -3662,11 +3662,11 @@
                         "nodeType": "BinaryOperation",
                         "operator": "==",
                         "rightExpression": {
-                          "id": 1149,
+                          "id": 1268,
                           "name": "admin",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1128,
+                          "referencedDeclaration": 1247,
                           "src": "482:5:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -3681,7 +3681,7 @@
                       },
                       {
                         "hexValue": "4e6f7420617574686f72697a6564",
-                        "id": 1151,
+                        "id": 1270,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -3707,7 +3707,7 @@
                           "typeString": "literal_string \"Not authorized\""
                         }
                       ],
-                      "id": 1146,
+                      "id": 1265,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -3721,7 +3721,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 1152,
+                    "id": 1271,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3736,22 +3736,22 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1153,
+                  "id": 1272,
                   "nodeType": "ExpressionStatement",
                   "src": "460:46:6"
                 },
                 {
-                  "id": 1154,
+                  "id": 1273,
                   "nodeType": "PlaceholderStatement",
                   "src": "516:1:6"
                 }
               ]
             },
-            "id": 1156,
+            "id": 1275,
             "name": "onlyAdmin",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 1145,
+              "id": 1264,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "447:2:6"
@@ -3762,7 +3762,7 @@
           },
           {
             "body": {
-              "id": 1184,
+              "id": 1303,
               "nodeType": "Block",
               "src": "598:118:6",
               "statements": [
@@ -3770,7 +3770,7 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 1171,
+                        "id": 1290,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3782,24 +3782,24 @@
                         "subExpression": {
                           "expression": {
                             "baseExpression": {
-                              "id": 1167,
+                              "id": 1286,
                               "name": "users",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1126,
+                              "referencedDeclaration": 1245,
                               "src": "617:5:6",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                                 "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                               }
                             },
-                            "id": 1169,
+                            "id": 1288,
                             "indexExpression": {
-                              "id": 1168,
+                              "id": 1287,
                               "name": "user",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1158,
+                              "referencedDeclaration": 1277,
                               "src": "623:4:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -3813,18 +3813,18 @@
                             "nodeType": "IndexAccess",
                             "src": "617:11:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_User_$1121_storage",
+                              "typeIdentifier": "t_struct$_User_$1240_storage",
                               "typeString": "struct UserAccessControl.User storage ref"
                             }
                           },
-                          "id": 1170,
+                          "id": 1289,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "isRegistered",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1120,
+                          "referencedDeclaration": 1239,
                           "src": "617:24:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -3838,7 +3838,7 @@
                       },
                       {
                         "hexValue": "5573657220616c72656164792072656769737465726564",
-                        "id": 1172,
+                        "id": 1291,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -3864,7 +3864,7 @@
                           "typeString": "literal_string \"User already registered\""
                         }
                       ],
-                      "id": 1166,
+                      "id": 1285,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -3878,7 +3878,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 1173,
+                    "id": 1292,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3893,37 +3893,37 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1174,
+                  "id": 1293,
                   "nodeType": "ExpressionStatement",
                   "src": "608:61:6"
                 },
                 {
                   "expression": {
-                    "id": 1182,
+                    "id": 1301,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 1175,
+                        "id": 1294,
                         "name": "users",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1126,
+                        "referencedDeclaration": 1245,
                         "src": "679:5:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                           "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                         }
                       },
-                      "id": 1177,
+                      "id": 1296,
                       "indexExpression": {
-                        "id": 1176,
+                        "id": 1295,
                         "name": "user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1158,
+                        "referencedDeclaration": 1277,
                         "src": "685:4:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -3937,7 +3937,7 @@
                       "nodeType": "IndexAccess",
                       "src": "679:11:6",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_User_$1121_storage",
+                        "typeIdentifier": "t_struct$_User_$1240_storage",
                         "typeString": "struct UserAccessControl.User storage ref"
                       }
                     },
@@ -3946,20 +3946,20 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 1179,
+                          "id": 1298,
                           "name": "role",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1161,
+                          "referencedDeclaration": 1280,
                           "src": "698:4:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_enum$_UserRole_$1115",
+                            "typeIdentifier": "t_enum$_UserRole_$1234",
                             "typeString": "enum UserAccessControl.UserRole"
                           }
                         },
                         {
                           "hexValue": "74727565",
-                          "id": 1180,
+                          "id": 1299,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -3977,7 +3977,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_enum$_UserRole_$1115",
+                            "typeIdentifier": "t_enum$_UserRole_$1234",
                             "typeString": "enum UserAccessControl.UserRole"
                           },
                           {
@@ -3985,18 +3985,18 @@
                             "typeString": "bool"
                           }
                         ],
-                        "id": 1178,
+                        "id": 1297,
                         "name": "User",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1121,
+                        "referencedDeclaration": 1240,
                         "src": "693:4:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_User_$1121_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_User_$1240_storage_ptr_$",
                           "typeString": "type(struct UserAccessControl.User storage pointer)"
                         }
                       },
-                      "id": 1181,
+                      "id": 1300,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -4007,34 +4007,34 @@
                       "src": "693:16:6",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_User_$1121_memory_ptr",
+                        "typeIdentifier": "t_struct$_User_$1240_memory_ptr",
                         "typeString": "struct UserAccessControl.User memory"
                       }
                     },
                     "src": "679:30:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_User_$1121_storage",
+                      "typeIdentifier": "t_struct$_User_$1240_storage",
                       "typeString": "struct UserAccessControl.User storage ref"
                     }
                   },
-                  "id": 1183,
+                  "id": 1302,
                   "nodeType": "ExpressionStatement",
                   "src": "679:30:6"
                 }
               ]
             },
             "functionSelector": "9e9fa097",
-            "id": 1185,
+            "id": 1304,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
-                "id": 1164,
+                "id": 1283,
                 "modifierName": {
-                  "id": 1163,
+                  "id": 1282,
                   "name": "onlyAdmin",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 1156,
+                  "referencedDeclaration": 1275,
                   "src": "588:9:6"
                 },
                 "nodeType": "ModifierInvocation",
@@ -4044,16 +4044,16 @@
             "name": "registerUser",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1162,
+              "id": 1281,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1158,
+                  "id": 1277,
                   "mutability": "mutable",
                   "name": "user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1185,
+                  "scope": 1304,
                   "src": "552:12:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -4062,7 +4062,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1157,
+                    "id": 1276,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "552:7:6",
@@ -4076,32 +4076,32 @@
                 },
                 {
                   "constant": false,
-                  "id": 1161,
+                  "id": 1280,
                   "mutability": "mutable",
                   "name": "role",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1185,
+                  "scope": 1304,
                   "src": "566:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_UserRole_$1115",
+                    "typeIdentifier": "t_enum$_UserRole_$1234",
                     "typeString": "enum UserAccessControl.UserRole"
                   },
                   "typeName": {
-                    "id": 1160,
+                    "id": 1279,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1159,
+                      "id": 1278,
                       "name": "UserRole",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 1115,
+                      "referencedDeclaration": 1234,
                       "src": "566:8:6"
                     },
-                    "referencedDeclaration": 1115,
+                    "referencedDeclaration": 1234,
                     "src": "566:8:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_UserRole_$1115",
+                      "typeIdentifier": "t_enum$_UserRole_$1234",
                       "typeString": "enum UserAccessControl.UserRole"
                     }
                   },
@@ -4111,12 +4111,12 @@
               "src": "551:29:6"
             },
             "returnParameters": {
-              "id": 1165,
+              "id": 1284,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "598:0:6"
             },
-            "scope": 1267,
+            "scope": 1386,
             "src": "530:186:6",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -4124,7 +4124,7 @@
           },
           {
             "body": {
-              "id": 1211,
+              "id": 1330,
               "nodeType": "Block",
               "src": "775:118:6",
               "statements": [
@@ -4132,7 +4132,7 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 1198,
+                        "id": 1317,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -4144,24 +4144,24 @@
                         "subExpression": {
                           "expression": {
                             "baseExpression": {
-                              "id": 1194,
+                              "id": 1313,
                               "name": "users",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1126,
+                              "referencedDeclaration": 1245,
                               "src": "794:5:6",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                                 "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                               }
                             },
-                            "id": 1196,
+                            "id": 1315,
                             "indexExpression": {
-                              "id": 1195,
+                              "id": 1314,
                               "name": "user",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1187,
+                              "referencedDeclaration": 1306,
                               "src": "800:4:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -4175,18 +4175,18 @@
                             "nodeType": "IndexAccess",
                             "src": "794:11:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_User_$1121_storage",
+                              "typeIdentifier": "t_struct$_User_$1240_storage",
                               "typeString": "struct UserAccessControl.User storage ref"
                             }
                           },
-                          "id": 1197,
+                          "id": 1316,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "isRegistered",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1120,
+                          "referencedDeclaration": 1239,
                           "src": "794:24:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -4200,7 +4200,7 @@
                       },
                       {
                         "hexValue": "5573657220616c72656164792072656769737465726564",
-                        "id": 1199,
+                        "id": 1318,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -4226,7 +4226,7 @@
                           "typeString": "literal_string \"User already registered\""
                         }
                       ],
-                      "id": 1193,
+                      "id": 1312,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -4240,7 +4240,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 1200,
+                    "id": 1319,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -4255,37 +4255,37 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1201,
+                  "id": 1320,
                   "nodeType": "ExpressionStatement",
                   "src": "785:61:6"
                 },
                 {
                   "expression": {
-                    "id": 1209,
+                    "id": 1328,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 1202,
+                        "id": 1321,
                         "name": "users",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1126,
+                        "referencedDeclaration": 1245,
                         "src": "856:5:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                           "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                         }
                       },
-                      "id": 1204,
+                      "id": 1323,
                       "indexExpression": {
-                        "id": 1203,
+                        "id": 1322,
                         "name": "user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1187,
+                        "referencedDeclaration": 1306,
                         "src": "862:4:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -4299,7 +4299,7 @@
                       "nodeType": "IndexAccess",
                       "src": "856:11:6",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_User_$1121_storage",
+                        "typeIdentifier": "t_struct$_User_$1240_storage",
                         "typeString": "struct UserAccessControl.User storage ref"
                       }
                     },
@@ -4308,20 +4308,20 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 1206,
+                          "id": 1325,
                           "name": "role",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1190,
+                          "referencedDeclaration": 1309,
                           "src": "875:4:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_enum$_UserRole_$1115",
+                            "typeIdentifier": "t_enum$_UserRole_$1234",
                             "typeString": "enum UserAccessControl.UserRole"
                           }
                         },
                         {
                           "hexValue": "74727565",
-                          "id": 1207,
+                          "id": 1326,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -4339,7 +4339,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_enum$_UserRole_$1115",
+                            "typeIdentifier": "t_enum$_UserRole_$1234",
                             "typeString": "enum UserAccessControl.UserRole"
                           },
                           {
@@ -4347,18 +4347,18 @@
                             "typeString": "bool"
                           }
                         ],
-                        "id": 1205,
+                        "id": 1324,
                         "name": "User",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1121,
+                        "referencedDeclaration": 1240,
                         "src": "870:4:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_User_$1121_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_User_$1240_storage_ptr_$",
                           "typeString": "type(struct UserAccessControl.User storage pointer)"
                         }
                       },
-                      "id": 1208,
+                      "id": 1327,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -4369,40 +4369,40 @@
                       "src": "870:16:6",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_User_$1121_memory_ptr",
+                        "typeIdentifier": "t_struct$_User_$1240_memory_ptr",
                         "typeString": "struct UserAccessControl.User memory"
                       }
                     },
                     "src": "856:30:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_User_$1121_storage",
+                      "typeIdentifier": "t_struct$_User_$1240_storage",
                       "typeString": "struct UserAccessControl.User storage ref"
                     }
                   },
-                  "id": 1210,
+                  "id": 1329,
                   "nodeType": "ExpressionStatement",
                   "src": "856:30:6"
                 }
               ]
             },
             "functionSelector": "51d031ee",
-            "id": 1212,
+            "id": 1331,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "setUser",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1191,
+              "id": 1310,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1187,
+                  "id": 1306,
                   "mutability": "mutable",
                   "name": "user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1212,
+                  "scope": 1331,
                   "src": "739:12:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -4411,7 +4411,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1186,
+                    "id": 1305,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "739:7:6",
@@ -4425,32 +4425,32 @@
                 },
                 {
                   "constant": false,
-                  "id": 1190,
+                  "id": 1309,
                   "mutability": "mutable",
                   "name": "role",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1212,
+                  "scope": 1331,
                   "src": "753:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_UserRole_$1115",
+                    "typeIdentifier": "t_enum$_UserRole_$1234",
                     "typeString": "enum UserAccessControl.UserRole"
                   },
                   "typeName": {
-                    "id": 1189,
+                    "id": 1308,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1188,
+                      "id": 1307,
                       "name": "UserRole",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 1115,
+                      "referencedDeclaration": 1234,
                       "src": "753:8:6"
                     },
-                    "referencedDeclaration": 1115,
+                    "referencedDeclaration": 1234,
                     "src": "753:8:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_UserRole_$1115",
+                      "typeIdentifier": "t_enum$_UserRole_$1234",
                       "typeString": "enum UserAccessControl.UserRole"
                     }
                   },
@@ -4460,12 +4460,12 @@
               "src": "738:29:6"
             },
             "returnParameters": {
-              "id": 1192,
+              "id": 1311,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "775:0:6"
             },
-            "scope": 1267,
+            "scope": 1386,
             "src": "722:171:6",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -4473,7 +4473,7 @@
           },
           {
             "body": {
-              "id": 1243,
+              "id": 1362,
               "nodeType": "Block",
               "src": "953:252:6",
               "statements": [
@@ -4481,7 +4481,7 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 1225,
+                        "id": 1344,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -4493,24 +4493,24 @@
                         "subExpression": {
                           "expression": {
                             "baseExpression": {
-                              "id": 1221,
+                              "id": 1340,
                               "name": "users",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1126,
+                              "referencedDeclaration": 1245,
                               "src": "1008:5:6",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                                 "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                               }
                             },
-                            "id": 1223,
+                            "id": 1342,
                             "indexExpression": {
-                              "id": 1222,
+                              "id": 1341,
                               "name": "user",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1214,
+                              "referencedDeclaration": 1333,
                               "src": "1014:4:6",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
@@ -4524,18 +4524,18 @@
                             "nodeType": "IndexAccess",
                             "src": "1008:11:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_User_$1121_storage",
+                              "typeIdentifier": "t_struct$_User_$1240_storage",
                               "typeString": "struct UserAccessControl.User storage ref"
                             }
                           },
-                          "id": 1224,
+                          "id": 1343,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "isRegistered",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1120,
+                          "referencedDeclaration": 1239,
                           "src": "1008:24:6",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -4549,7 +4549,7 @@
                       },
                       {
                         "hexValue": "5573657220616c726561647920726567697374657265642e",
-                        "id": 1226,
+                        "id": 1345,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -4575,7 +4575,7 @@
                           "typeString": "literal_string \"User already registered.\""
                         }
                       ],
-                      "id": 1220,
+                      "id": 1339,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -4589,7 +4589,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 1227,
+                    "id": 1346,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -4604,37 +4604,37 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1228,
+                  "id": 1347,
                   "nodeType": "ExpressionStatement",
                   "src": "999:62:6"
                 },
                 {
                   "expression": {
-                    "id": 1236,
+                    "id": 1355,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "baseExpression": {
-                        "id": 1229,
+                        "id": 1348,
                         "name": "users",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1126,
+                        "referencedDeclaration": 1245,
                         "src": "1096:5:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                           "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                         }
                       },
-                      "id": 1231,
+                      "id": 1350,
                       "indexExpression": {
-                        "id": 1230,
+                        "id": 1349,
                         "name": "user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1214,
+                        "referencedDeclaration": 1333,
                         "src": "1102:4:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -4648,7 +4648,7 @@
                       "nodeType": "IndexAccess",
                       "src": "1096:11:6",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_User_$1121_storage",
+                        "typeIdentifier": "t_struct$_User_$1240_storage",
                         "typeString": "struct UserAccessControl.User storage ref"
                       }
                     },
@@ -4657,20 +4657,20 @@
                     "rightHandSide": {
                       "arguments": [
                         {
-                          "id": 1233,
+                          "id": 1352,
                           "name": "role",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1217,
+                          "referencedDeclaration": 1336,
                           "src": "1115:4:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_enum$_UserRole_$1115",
+                            "typeIdentifier": "t_enum$_UserRole_$1234",
                             "typeString": "enum UserAccessControl.UserRole"
                           }
                         },
                         {
                           "hexValue": "74727565",
-                          "id": 1234,
+                          "id": 1353,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -4688,7 +4688,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_enum$_UserRole_$1115",
+                            "typeIdentifier": "t_enum$_UserRole_$1234",
                             "typeString": "enum UserAccessControl.UserRole"
                           },
                           {
@@ -4696,18 +4696,18 @@
                             "typeString": "bool"
                           }
                         ],
-                        "id": 1232,
+                        "id": 1351,
                         "name": "User",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1121,
+                        "referencedDeclaration": 1240,
                         "src": "1110:4:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_User_$1121_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_User_$1240_storage_ptr_$",
                           "typeString": "type(struct UserAccessControl.User storage pointer)"
                         }
                       },
-                      "id": 1235,
+                      "id": 1354,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -4718,17 +4718,17 @@
                       "src": "1110:16:6",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_User_$1121_memory_ptr",
+                        "typeIdentifier": "t_struct$_User_$1240_memory_ptr",
                         "typeString": "struct UserAccessControl.User memory"
                       }
                     },
                     "src": "1096:30:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_User_$1121_storage",
+                      "typeIdentifier": "t_struct$_User_$1240_storage",
                       "typeString": "struct UserAccessControl.User storage ref"
                     }
                   },
-                  "id": 1237,
+                  "id": 1356,
                   "nodeType": "ExpressionStatement",
                   "src": "1096:30:6"
                 },
@@ -4736,11 +4736,11 @@
                   "eventCall": {
                     "arguments": [
                       {
-                        "id": 1239,
+                        "id": 1358,
                         "name": "user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1214,
+                        "referencedDeclaration": 1333,
                         "src": "1187:4:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -4748,14 +4748,14 @@
                         }
                       },
                       {
-                        "id": 1240,
+                        "id": 1359,
                         "name": "role",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1217,
+                        "referencedDeclaration": 1336,
                         "src": "1193:4:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_enum$_UserRole_$1115",
+                          "typeIdentifier": "t_enum$_UserRole_$1234",
                           "typeString": "enum UserAccessControl.UserRole"
                         }
                       }
@@ -4767,22 +4767,22 @@
                           "typeString": "address"
                         },
                         {
-                          "typeIdentifier": "t_enum$_UserRole_$1115",
+                          "typeIdentifier": "t_enum$_UserRole_$1234",
                           "typeString": "enum UserAccessControl.UserRole"
                         }
                       ],
-                      "id": 1238,
+                      "id": 1357,
                       "name": "UserRegistered",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1135,
+                      "referencedDeclaration": 1254,
                       "src": "1172:14:6",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_enum$_UserRole_$1115_$returns$__$",
+                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_enum$_UserRole_$1234_$returns$__$",
                         "typeString": "function (address,enum UserAccessControl.UserRole)"
                       }
                     },
-                    "id": 1241,
+                    "id": 1360,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -4797,30 +4797,30 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1242,
+                  "id": 1361,
                   "nodeType": "EmitStatement",
                   "src": "1167:31:6"
                 }
               ]
             },
             "functionSelector": "07e49598",
-            "id": 1244,
+            "id": 1363,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "register",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1218,
+              "id": 1337,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1214,
+                  "id": 1333,
                   "mutability": "mutable",
                   "name": "user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1244,
+                  "scope": 1363,
                   "src": "917:12:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -4829,7 +4829,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1213,
+                    "id": 1332,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "917:7:6",
@@ -4843,32 +4843,32 @@
                 },
                 {
                   "constant": false,
-                  "id": 1217,
+                  "id": 1336,
                   "mutability": "mutable",
                   "name": "role",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1244,
+                  "scope": 1363,
                   "src": "931:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_UserRole_$1115",
+                    "typeIdentifier": "t_enum$_UserRole_$1234",
                     "typeString": "enum UserAccessControl.UserRole"
                   },
                   "typeName": {
-                    "id": 1216,
+                    "id": 1335,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1215,
+                      "id": 1334,
                       "name": "UserRole",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 1115,
+                      "referencedDeclaration": 1234,
                       "src": "931:8:6"
                     },
-                    "referencedDeclaration": 1115,
+                    "referencedDeclaration": 1234,
                     "src": "931:8:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_UserRole_$1115",
+                      "typeIdentifier": "t_enum$_UserRole_$1234",
                       "typeString": "enum UserAccessControl.UserRole"
                     }
                   },
@@ -4878,12 +4878,12 @@
               "src": "916:29:6"
             },
             "returnParameters": {
-              "id": 1219,
+              "id": 1338,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "953:0:6"
             },
-            "scope": 1267,
+            "scope": 1386,
             "src": "899:306:6",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -4891,7 +4891,7 @@
           },
           {
             "body": {
-              "id": 1265,
+              "id": 1384,
               "nodeType": "Block",
               "src": "1303:107:6",
               "statements": [
@@ -4901,24 +4901,24 @@
                       {
                         "expression": {
                           "baseExpression": {
-                            "id": 1253,
+                            "id": 1372,
                             "name": "users",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1126,
+                            "referencedDeclaration": 1245,
                             "src": "1321:5:6",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                               "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                             }
                           },
-                          "id": 1255,
+                          "id": 1374,
                           "indexExpression": {
-                            "id": 1254,
+                            "id": 1373,
                             "name": "user",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1246,
+                            "referencedDeclaration": 1365,
                             "src": "1327:4:6",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -4932,18 +4932,18 @@
                           "nodeType": "IndexAccess",
                           "src": "1321:11:6",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_User_$1121_storage",
+                            "typeIdentifier": "t_struct$_User_$1240_storage",
                             "typeString": "struct UserAccessControl.User storage ref"
                           }
                         },
-                        "id": 1256,
+                        "id": 1375,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "isRegistered",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 1120,
+                        "referencedDeclaration": 1239,
                         "src": "1321:24:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -4952,7 +4952,7 @@
                       },
                       {
                         "hexValue": "55736572206e6f7420726567697374657265642e",
-                        "id": 1257,
+                        "id": 1376,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -4978,7 +4978,7 @@
                           "typeString": "literal_string \"User not registered.\""
                         }
                       ],
-                      "id": 1252,
+                      "id": 1371,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -4992,7 +4992,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 1258,
+                    "id": 1377,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -5007,7 +5007,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1259,
+                  "id": 1378,
                   "nodeType": "ExpressionStatement",
                   "src": "1313:57:6"
                 },
@@ -5015,24 +5015,24 @@
                   "expression": {
                     "expression": {
                       "baseExpression": {
-                        "id": 1260,
+                        "id": 1379,
                         "name": "users",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1126,
+                        "referencedDeclaration": 1245,
                         "src": "1387:5:6",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1121_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$1240_storage_$",
                           "typeString": "mapping(address => struct UserAccessControl.User storage ref)"
                         }
                       },
-                      "id": 1262,
+                      "id": 1381,
                       "indexExpression": {
-                        "id": 1261,
+                        "id": 1380,
                         "name": "user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1246,
+                        "referencedDeclaration": 1365,
                         "src": "1393:4:6",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -5046,49 +5046,49 @@
                       "nodeType": "IndexAccess",
                       "src": "1387:11:6",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_User_$1121_storage",
+                        "typeIdentifier": "t_struct$_User_$1240_storage",
                         "typeString": "struct UserAccessControl.User storage ref"
                       }
                     },
-                    "id": 1263,
+                    "id": 1382,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "role",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 1118,
+                    "referencedDeclaration": 1237,
                     "src": "1387:16:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_UserRole_$1115",
+                      "typeIdentifier": "t_enum$_UserRole_$1234",
                       "typeString": "enum UserAccessControl.UserRole"
                     }
                   },
-                  "functionReturnParameters": 1251,
-                  "id": 1264,
+                  "functionReturnParameters": 1370,
+                  "id": 1383,
                   "nodeType": "Return",
                   "src": "1380:23:6"
                 }
               ]
             },
             "functionSelector": "27820851",
-            "id": 1266,
+            "id": 1385,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getUserRole",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1247,
+              "id": 1366,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1246,
+                  "id": 1365,
                   "mutability": "mutable",
                   "name": "user",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1266,
+                  "scope": 1385,
                   "src": "1258:12:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -5097,7 +5097,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1245,
+                    "id": 1364,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1258:7:6",
@@ -5113,37 +5113,37 @@
               "src": "1257:14:6"
             },
             "returnParameters": {
-              "id": 1251,
+              "id": 1370,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1250,
+                  "id": 1369,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1266,
+                  "scope": 1385,
                   "src": "1293:8:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_UserRole_$1115",
+                    "typeIdentifier": "t_enum$_UserRole_$1234",
                     "typeString": "enum UserAccessControl.UserRole"
                   },
                   "typeName": {
-                    "id": 1249,
+                    "id": 1368,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1248,
+                      "id": 1367,
                       "name": "UserRole",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 1115,
+                      "referencedDeclaration": 1234,
                       "src": "1293:8:6"
                     },
-                    "referencedDeclaration": 1115,
+                    "referencedDeclaration": 1234,
                     "src": "1293:8:6",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_UserRole_$1115",
+                      "typeIdentifier": "t_enum$_UserRole_$1234",
                       "typeString": "enum UserAccessControl.UserRole"
                     }
                   },
@@ -5152,14 +5152,14 @@
               ],
               "src": "1292:10:6"
             },
-            "scope": 1267,
+            "scope": 1386,
             "src": "1237:173:6",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1268,
+        "scope": 1387,
         "src": "57:1355:6"
       }
     ],
@@ -5173,12 +5173,12 @@
     "80001": {
       "events": {},
       "links": {},
-      "address": "0x8723d5340a059B284B906D892465827aC078bEE1",
-      "transactionHash": "0x3c4297a30d9257bb85a0b5e38824d65fee85ff537ee0ef2f1888ec9e3b9df1d6"
+      "address": "0x0EdF44c2BB81AE93974cF411339087E31C38bC62",
+      "transactionHash": "0xbe791098cc14cace01d1310d8411b19e2dbe40b9a211bd7cffa43e81ecff80da"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2023-12-01T18:21:35.915Z",
+  "updatedAt": "2023-12-02T10:28:49.533Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

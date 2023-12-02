@@ -107,6 +107,34 @@ contract Fundraiser is Ownable, ReentrancyGuard {
         );
     }
 
+    function allRequests()
+        external
+        view
+        returns (
+            uint256[] memory requestID,
+            uint256[] memory amounts,
+            address[] memory beneficiaries,
+            address[] memory ngoAddresses,
+            RequestStatus[] memory statuses
+        )
+    {
+        uint256 count = _requests.length;
+        requestID = new uint256[](count); // Initialize the requestID array
+        amounts = new uint256[](count);
+        beneficiaries = new address[](count);
+        ngoAddresses = new address[](count);
+        statuses = new RequestStatus[](count);
+
+        for (uint256 i = 0; i < count; i++) {
+            FundsRequest storage request = _requests[i];
+            requestID[i] = i; // Set the request ID
+            amounts[i] = request.amount;
+            beneficiaries[i] = request.beneficiary;
+            ngoAddresses[i] = request.ngoAddress;
+            statuses[i] = request.status;
+        }
+    }
+
     function myDonations()
         public
         view

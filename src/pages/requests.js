@@ -48,7 +48,7 @@ const ViewRequests = () => {
       const funds = await instance.methods.fundraisers(1000, 0).call();
 
       setFunds(funds);
-      console.log("--------", funds);
+      console.log("---------", funds);
       setFunds(funds);
     } catch (error) {
       console.error(error);
