@@ -159,6 +159,7 @@ async function storeUserAddress(walletAddress, role, provider) {
 
   // Parse the role based on the enum UserRole
   let parsedRole;
+  console.log(role)
   if (role.toLowerCase() === "beneficiary") {
     parsedRole = 1;
   } else if (role.toLowerCase() === "donor") {
@@ -324,6 +325,8 @@ export const Login = () => {
         type: 'RESET_WEB3_PROVIDER',
       });
       setAnchorEl(null);
+      localStorage.setItem("Address", " ")
+      localStorage.setItem("Role", " ")
     },
     [provider],
   );

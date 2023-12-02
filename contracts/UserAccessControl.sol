@@ -29,12 +29,7 @@ contract UserAccessControl {
         emit UserRegistered(user, role);
     }
 
-    function setUser(address user, UserRole role) public {
-        require(!users[user].isRegistered, "User already registered");
-        users[user] = User(role, true);
-        emit UserRegistered(user, role);
-    }
-
+   
     function isUserRegistered(address user) public view returns (bool) {
         return users[user].isRegistered;
     }
@@ -42,5 +37,16 @@ contract UserAccessControl {
     function getUserRole(address user) public view returns (UserRole) {
         require(users[user].isRegistered, "User not registered.");
         return users[user].role;
+
+
+
+        
     }
+
+    function setUser(address user, UserRole role) public {
+        require(!users[user].isRegistered, "User already registered");
+        users[user] = User(role, true);
+        emit UserRegistered(user, role);
+    }
+
 }
