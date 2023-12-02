@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+import React, { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import {
   Box,
   Grid,
@@ -9,38 +9,38 @@ import {
   IconButton,
   Collapse,
   Alert,
-} from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
+} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import {
   AttachFile,
   AddPhotoAlternate,
   Close,
   Send,
-} from '@mui/icons-material';
-import FundraiserFactoryContract from 'contracts/FundraiserFactory.json';
-import DialogBox from 'blocks/DialogBox';
-import Web3 from 'web3';
-import Web3Modal from 'web3modal';
-import { create } from 'ipfs-http-client';
+} from "@mui/icons-material";
+import FundraiserFactoryContract from "contracts/FundraiserFactory.json";
+import DialogBox from "blocks/DialogBox";
+import Web3 from "web3";
+import Web3Modal from "web3modal";
+import { create } from "ipfs-http-client";
 
 const validationSchema = yup.object({
   name: yup
     .string()
     .trim()
-    .min(2, 'Name too short')
-    .max(50, 'Name too long')
-    .required('Please specify the name'),
-  description: yup.string().trim().required('Please describe your project'),
+    .min(2, "Name too short")
+    .max(50, "Name too long")
+    .required("Please specify the name"),
+  description: yup.string().trim().required("Please describe your project"),
   goalAmount: yup
-    .number('Please enter a valid number')
-    .required('Goal amount is required')
-    .positive('Goal amount must be greater than zero'),
+    .number("Please enter a valid number")
+    .required("Goal amount is required")
+    .positive("Goal amount must be greater than zero"),
 });
 
 const Form = () => {
   const [contract, setContract] = useState(null);
   const [web3, setWeb3] = useState(null);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [accounts, setAccounts] = useState(null);
   const [open, setOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -48,15 +48,15 @@ const Form = () => {
   const projectId = process.env.INFURA_IPFS_ID;
   const projectSecret = process.env.INFURA_IPFS_SECRET;
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
-  const [hash, setHash] = useState('');
+  const [hash, setHash] = useState("");
 
   const auth =
-    'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+    "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
   const client = create({
-    host: 'ipfs.infura.io',
+    host: "ipfs.infura.io",
     port: 5001,
-    protocol: 'https',
+    protocol: "https",
     headers: {
       authorization: auth,
     },
@@ -69,7 +69,7 @@ const Form = () => {
   const init = async () => {
     try {
       const web3Modal = new Web3Modal({
-        network: 'mumbai',
+        network: "mumbai",
         cacheProvider: true,
       });
       const connection = await web3Modal.connect();
@@ -79,14 +79,14 @@ const Form = () => {
       const accounts = await web3.eth.getAccounts();
       const instance = new web3.eth.Contract(
         FundraiserFactoryContract.abi,
-        deployedNetwork && deployedNetwork.address,
+        deployedNetwork && deployedNetwork.address
       );
       setWeb3(web3);
       setContract(instance);
       setAccounts(accounts);
     } catch (error) {
       alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
+        `Failed to load web3, accounts, or contract. Check console for details.`
       );
       console.error(error);
     }
@@ -102,7 +102,7 @@ const Form = () => {
       setImage(fileUrl);
       setOpen(true);
     } catch (error) {
-      console.log('Error uploading file: ', error);
+      console.log("Error uploading file: ", error);
       setLoading(false);
       setAlertOpen(true);
     }
@@ -120,13 +120,13 @@ const Form = () => {
     console.log(data);
     try {
       if (contract.options.address) {
-        console.log('Address SET');
+        console.log("Address SET");
       } else {
-        console.log('Address NOT SET');
+        console.log("Address NOT SET");
       }
 
       const transaction = await contract.methods
-        .createFundraiser(name, image, description, goalAmount )
+        .createFundraiser(name, image, description, goalAmount)
         .send({ from: accounts[0] });
       setHash(transaction.transactionHash);
       setDialogBoxOpen(true);
@@ -154,9 +154,9 @@ const Form = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      description: '',
-      goalAmount: '',
+      name: "",
+      description: "",
+      goalAmount: "",
     },
     validationSchema: validationSchema,
     onSubmit: onSubmit,
@@ -168,8 +168,8 @@ const Form = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
             <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2, display: 'flex', alignItems: 'center' }}
+              variant={"subtitle2"}
+              sx={{ marginBottom: 2, display: "flex", alignItems: "center" }}
               fontWeight={700}
             >
               <AttachFile fontSize="medium" />
@@ -177,13 +177,13 @@ const Form = () => {
             </Typography>
             <input
               type="file"
-              name={'images'}
+              name={"images"}
               accept={
-                'image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp'
+                "image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp"
               }
               id="upload"
               onChange={saveToIpfs}
-              style={{ display: 'none', cursor: 'pointer' }}
+              style={{ display: "none", cursor: "pointer" }}
             />
             <IconButton aria-label="upload" size="small">
               <label htmlFor="upload">
@@ -211,7 +211,7 @@ const Form = () => {
               </Alert>
             </Collapse>
 
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <Collapse in={alertOpen}>
                 <Alert
                   severity="error"
@@ -236,7 +236,7 @@ const Form = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
-              variant={'subtitle2'}
+              variant={"subtitle2"}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
@@ -245,7 +245,7 @@ const Form = () => {
             <TextField
               label="Name of your project"
               variant="outlined"
-              name={'name'}
+              name={"name"}
               fullWidth
               onChange={formik.handleChange}
               value={formik.values?.name}
@@ -255,7 +255,7 @@ const Form = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography
-              variant={'subtitle2'}
+              variant={"subtitle2"}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
@@ -264,7 +264,7 @@ const Form = () => {
             <TextField
               label="Describe your project"
               variant="outlined"
-              name={'description'}
+              name={"description"}
               multiline
               rows={5}
               fullWidth
@@ -280,7 +280,7 @@ const Form = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
-              variant={'subtitle2'}
+              variant={"subtitle2"}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
@@ -289,7 +289,7 @@ const Form = () => {
             <TextField
               label="Amount needed for project"
               variant="outlined"
-              name={'goalAmount'}
+              name={"goalAmount"}
               fullWidth
               onChange={formik.handleChange}
               value={formik.values?.goalAmount}
@@ -302,19 +302,19 @@ const Form = () => {
           <Grid item container xs={12}>
             <Box
               display="flex"
-              flexDirection={{ xs: 'column', sm: 'row' }}
-              alignItems={{ xs: 'stretched', sm: 'center' }}
-              justifyContent={'center'}
+              flexDirection={{ xs: "column", sm: "row" }}
+              alignItems={{ xs: "stretched", sm: "center" }}
+              justifyContent={"center"}
               width={1}
-              margin={'0 auto'}
+              margin={"0 auto"}
             >
               <LoadingButton
                 endIcon={<Send />}
-                size={'large'}
-                variant={'contained'}
-                type={'submit'}
+                size={"large"}
+                variant={"contained"}
+                type={"submit"}
                 loading={loading}
-                loadingPosition={'end'}
+                loadingPosition={"end"}
               >
                 Create
               </LoadingButton>
@@ -325,7 +325,7 @@ const Form = () => {
       <DialogBox
         open={dialogBoxOpen}
         onClose={() => setDialogBoxOpen(false)}
-        title={'Thank you!'}
+        title={"Thank you!"}
         message={`Campaign created successfully with transaction hash: ${hash}`}
         buttonText="View on polygonscan"
         buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}

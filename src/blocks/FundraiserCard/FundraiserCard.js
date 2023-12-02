@@ -58,7 +58,7 @@ const FundraiserCard = ({ fundraiser }) => {
       setContract(instance);
       setAccounts(account);
       console.log("-----------Accounts:-------------", accounts);
-      console.log("------ Checkpoint ------------");
+      console.log("------ Checkpoint -----------");
 
       // {info or to do} why use instance inste bm    ad of contract
       // getting properties of the project
