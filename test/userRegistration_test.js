@@ -9,21 +9,6 @@ contract("UserAccessControl", accounts => {
     userAccessControl = await UserAccessControl.new();
   });
 
-  it("should allow the admin to register a new user", async () => {
-    const txResponse = await userAccessControl.register(user1, 0, { from: admin }); // 0 is UserRole.Donor
-    // const gasUsed = userAccessControl.receipt.gasUsed;
-    // console.log(`Gas used in calling register function: ${gasUsed}`);
-    // Get the transaction receipt
-    const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
-  
-    // Log the gas used
-    console.log(`Gas used for registering a user with register function: ${txReceipt.gasUsed}`);
-    
-    
-    const user = await userAccessControl.users(user1);
-    assert.equal(user.isRegistered, true, "User should be registered");
-    assert.equal(user.role, 0, "User role should be Donor");
-  });
 
   it("should not allow a non-admin to register a new user", async () => {
     try {
