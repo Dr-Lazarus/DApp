@@ -2,8 +2,11 @@
 pragma solidity ^0.8.0;
 
 contract UserRegistration {
-
-    enum UserRole { Admin, User, Guest }
+    enum UserRole {
+        Admin,
+        User,
+        Guest
+    }
 
     struct User {
         UserRole role;
@@ -17,5 +20,4 @@ contract UserRegistration {
     event UserRegistered(address user, UserRole role);
 
     // 注册用户函数
-    
 }

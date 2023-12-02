@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-const Receipt = (props) => {
+const Receipt = () => {
+  const router = useRouter();
   const [donation, setDonation] = useState(null);
   const [fundName, setFundName] = useState(null);
   const [date, setDate] = useState(null);
-  // console.log(props)
+
   useEffect(() => {
-    const { donation, date, fund } = props.location.state;
-    const formattedDate = new Date(parseInt(date * 1000));
-    setDonation(donation);
-    setDate(formattedDate.toString());
-    setFundName(fund);
-  }, []);
+    if (router.query) {
+      const { donationAmount, date, fund } = router.query;
+      // Format date here as needed
+      const formattedDate = new Date(parseInt(date) * 1000).toLocaleDateString(
+        "en-US"
+      );
+      setDonation(donationAmount);
+      setDate(formattedDate);
+      setFundName(fund);
+    }
+  }, [router.query]);
 
   return (
     <div className="receipt-container">

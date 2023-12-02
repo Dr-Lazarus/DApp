@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract Fundraiser is Ownable {
+contract Fundraiser is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
 
     struct Donation {
@@ -12,12 +13,13 @@ contract Fundraiser is Ownable {
         uint256 date;
         address donor;
         string fundName;
+        address ngoAddress;
     }
 
     struct FundsRequest {
         uint256 amount;
         address payable beneficiary;
-        address NGO;
+        address ngoAddress;
         RequestStatus status;
     }
 
@@ -27,49 +29,62 @@ contract Fundraiser is Ownable {
         Rejected
     }
 
-    mapping(address => Donation[]) public _donations;
+    mapping(address => Donation[]) public _userDonations;
     FundsRequest[] public _requests;
-
-    event DonationReceived(address indexed donor, uint256 value);
+    event DonationReceived(
+        address indexed donor,
+        uint256 value,
+        uint256 indexed date,
+        string fundName,
+        address indexed ngoAddress
+    );
     event RequestCreated(
-        uint256 indexed requestId,
-        address indexed beneficiary
+        address indexed beneficiary,
+        uint256 value,
+        address indexed ngoAddress,
+        string fundName,
+        uint256 indexed date
     );
     event RequestApproved(
-        uint256 indexed requestId,
-        address indexed beneficiary
+        address indexed beneficiary,
+        uint256 value,
+        address indexed ngoAddress,
+        string fundName,
+        uint256 indexed date
     );
     event RequestRejected(
-        uint256 indexed requestId,
-        address indexed beneficiary
+        address indexed beneficiary,
+        uint256 value,
+        address indexed ngoAddress,
+        string fundName,
+        uint256 indexed date
     );
 
     string public fundName;
-    string public image; // This is the fundname
+    string public image;
     string public description;
     uint256 public goalAmount;
     uint256 public totalDonations;
-    address public NGOAddress;
+    address public ngoAddress;
     uint256 public donationsCount;
-    uint256 public constant REQUEST_AMOUNT = 1 ether; // Hardcoded request amount
 
     constructor(
         string memory _name,
         string memory _image,
         string memory _description,
         uint256 _goalAmount,
-        address _custodian // This is the address of the owner/custodian
-    ) public {
+        address _custodian // This is the address of the user who created the fund
+    ) {
         fundName = _name;
         image = _image;
         description = _description;
-        NGOAddress = _custodian;
+        ngoAddress = _custodian;
         goalAmount = _goalAmount;
-        _transferOwnership(_custodian); // This is the address of the
+        _transferOwnership(_custodian); //  This is the address of the user who created the fund
     }
 
     function myDonationsCount() public view returns (uint256) {
-        return _donations[msg.sender].length;
+        return _userDonations[msg.sender].length;
     }
 
     function donate() public payable {
@@ -77,12 +92,19 @@ contract Fundraiser is Ownable {
             value: msg.value,
             date: block.timestamp,
             donor: msg.sender,
-            fundName: fundName
+            fundName: fundName,
+            ngoAddress: ngoAddress
         });
-        _donations[msg.sender].push(donation);
-        totalDonations = totalDonations.add(msg.value);
+        _userDonations[msg.sender].push(donation);
         donationsCount++;
-        emit DonationReceived(msg.sender, msg.value);
+        totalDonations = totalDonations.add(msg.value);
+        emit DonationReceived(
+            msg.sender,
+            msg.value,
+            block.timestamp,
+            fundName,
+            ngoAddress
+        );
     }
 
     function myDonations()
@@ -91,19 +113,22 @@ contract Fundraiser is Ownable {
         returns (
             uint256[] memory values,
             uint256[] memory dates,
-            string[] memory fundNames
+            string[] memory fundNames,
+            address[] memory ngoAddresses
         )
     {
         uint256 count = myDonationsCount();
         values = new uint256[](count);
         dates = new uint256[](count);
         fundNames = new string[](count);
+        ngoAddresses = new address[](count);
 
         for (uint256 i = 0; i < count; i++) {
-            Donation storage donation = _donations[msg.sender][i];
+            Donation storage donation = _userDonations[msg.sender][i];
             values[i] = donation.value;
             dates[i] = donation.date;
             fundNames[i] = donation.fundName;
+            ngoAddresses[i] = donation.ngoAddress;
         }
     }
 
@@ -120,15 +145,20 @@ contract Fundraiser is Ownable {
             FundsRequest({
                 amount: _requestAmount,
                 beneficiary: _beneficiary,
-                NGO: NGOAddress, // Storing the NGO's address
+                ngoAddress: ngoAddress,
                 status: RequestStatus.Pending
             })
         );
-
-        emit RequestCreated(_requests.length - 1, _beneficiary);
+        emit RequestCreated(
+            _beneficiary,
+            _requestAmount,
+            ngoAddress,
+            fundName,
+            block.timestamp
+        );
     }
 
-    function approveRequest(uint256 requestId) public onlyOwner {
+    function approveRequest(uint256 requestId) public onlyOwner nonReentrant {
         require(requestId < _requests.length, "Invalid request ID");
         FundsRequest storage request = _requests[requestId];
         require(
@@ -136,15 +166,20 @@ contract Fundraiser is Ownable {
             "Request is not pending"
         );
         require(
-            address(this).balance >= REQUEST_AMOUNT,
+            address(this).balance >= request.amount,
             "Insufficient contract balance"
         );
-
-        request.beneficiary.transfer(REQUEST_AMOUNT);
+        totalDonations = totalDonations.sub(request.amount);
         request.status = RequestStatus.Approved;
-        totalDonations = totalDonations.sub(REQUEST_AMOUNT);
+        request.beneficiary.transfer(request.amount);
 
-        emit RequestApproved(requestId, request.beneficiary);
+        emit RequestApproved(
+            request.beneficiary,
+            request.amount,
+            request.ngoAddress,
+            fundName,
+            block.timestamp
+        );
     }
 
     function rejectRequest(uint256 requestId) public onlyOwner {
@@ -157,6 +192,12 @@ contract Fundraiser is Ownable {
 
         request.status = RequestStatus.Rejected;
 
-        emit RequestRejected(requestId, request.beneficiary);
+        emit RequestRejected(
+            request.beneficiary,
+            request.amount,
+            request.ngoAddress,
+            fundName,
+            block.timestamp
+        );
     }
 }

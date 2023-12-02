@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { alpha, useTheme } from '@mui/material/styles';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { alpha, useTheme } from "@mui/material/styles";
 import {
   Box,
   Grid,
@@ -15,15 +15,16 @@ import {
   InputAdornment,
   Collapse,
   Alert,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Favorite,
   ManageAccounts,
   CurrencyExchange,
   Close,
-} from '@mui/icons-material';
-import Beneficiary from './components/Beneficiary';
-import { LoadingButton } from '@mui/lab';
+} from "@mui/icons-material";
+import Beneficiary from "./components/Beneficiary";
+import DialogBox from "blocks/DialogBox";
+import { LoadingButton } from "@mui/lab";
 
 const ProjectDialog = ({
   onClose,
@@ -47,36 +48,59 @@ const ProjectDialog = ({
   const [amount, setAmount] = useState(5);
   const [alertOpen, setAlertOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [hash, setHash] = useState("");
+  const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const submitFunds = async () => {
     setLoading(true);
     const ethTotal = amount / exchangeRate;
     const donation = web3.utils.toWei(ethTotal.toString());
     try {
-      await contract.methods.donate().send({
+      const transaction = await contract.methods.donate().send({
         from: account,
         value: donation,
         gas: 650000,
       });
-      setAlertOpen(true);
+      console.log("------LOGS-----:", transaction);
+
+      // Set up a one-time event listener for the DonationReceived event
+      contract.once(
+        "DonationReceived",
+        {
+          filter: { donor: account }, // Optional: add filter for the current account
+          fromBlock: "latest",
+        },
+        (error, event) => {
+          if (error) {
+            console.error("Error in event listener:", error);
+            alert("Error in donation event");
+            setLoading(false);
+            return;
+          }
+
+          console.log("Donation Received Event:", event.returnValues);
+          setAlertOpen(true);
+          setHash(transaction.transactionHash);
+          setDialogBoxOpen(true);
+          setLoading(false);
+        }
+      );
     } catch (error) {
-      console.log(error);
-      alert('Error donating');
+      console.error(error);
+      alert("Error donating");
       setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
-    <Dialog onClose={onClose} open={open} maxWidth={'lg'}>
+    <Dialog onClose={onClose} open={open} maxWidth={"lg"}>
       <Box paddingY={{ xs: 1, sm: 2 }} paddingX={{ xs: 2, sm: 4 }}>
         <Box
           paddingY={{ xs: 1, sm: 2 }}
-          display={'flex'}
-          justifyContent={'flex-end'}
+          display={"flex"}
+          justifyContent={"flex-end"}
         >
           <Box
-            component={'svg'}
+            component={"svg"}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -84,7 +108,7 @@ const ProjectDialog = ({
             width={24}
             height={24}
             onClick={onClose}
-            sx={{ cursor: 'pointer' }}
+            sx={{ cursor: "pointer" }}
           >
             <path
               strokeLinecap="round"
@@ -101,11 +125,11 @@ const ProjectDialog = ({
                 <Box
                   sx={{
                     width: 1,
-                    height: 'auto',
-                    '& img': {
+                    height: "auto",
+                    "& img": {
                       width: 1,
                       height: 1,
-                      objectFit: 'cover',
+                      objectFit: "cover",
                       borderRadius: 2,
                     },
                   }}
@@ -119,44 +143,44 @@ const ProjectDialog = ({
               <Box>
                 <Box
                   padding={1}
-                  display={'inline-flex'}
+                  display={"inline-flex"}
                   borderRadius={1}
                   bgcolor={theme.palette.success.light}
                   marginBottom={1}
                 >
-                  <Typography sx={{ color: 'common.white', lineHeight: 1 }}>
+                  <Typography sx={{ color: "common.white", lineHeight: 1 }}>
                     Goal: ${goalAmount}
                   </Typography>
                 </Box>
-                <Typography variant={'h5'} fontWeight={700} gutterBottom>
+                <Typography variant={"h5"} fontWeight={700} gutterBottom>
                   {name}
                 </Typography>
-                <Typography variant={'subtitle2'} color={'text.secondary'}>
+                <Typography variant={"subtitle2"} color={"text.secondary"}>
                   {description}
                 </Typography>
                 <Box
                   marginTop={2}
-                  display={'flex'}
-                  alignItems={'center'}
-                  justifyContent={'space-between'}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
                 >
                   <Typography>
-                    Raised:{' '}
-                    <Typography component={'span'} fontWeight={700}>
+                    Raised:{" "}
+                    <Typography component={"span"} fontWeight={700}>
                       ${totalDonations || 0} ≈ {totalDonationsEth} ETH
                     </Typography>
                   </Typography>
 
                   <Box
-                    display={'flex'}
-                    alignItems={'center'}
+                    display={"flex"}
+                    alignItems={"center"}
                     padding={1}
                     borderRadius={1}
                     bgcolor={theme.palette.error.light}
                   >
                     <Typography
-                      variant={'caption'}
-                      sx={{ color: 'common.white' }}
+                      variant={"caption"}
+                      sx={{ color: "common.white" }}
                       marginLeft={0.5}
                     >
                       Required: $
@@ -169,15 +193,15 @@ const ProjectDialog = ({
                 <Box marginTop={2}>
                   <Typography>
                     Donate:
-                    <Typography component={'span'} fontWeight={700}>
-                      ${amount} ≈ {parseFloat(amount / exchangeRate).toFixed(4)}{' '}
+                    <Typography component={"span"} fontWeight={700}>
+                      ${amount} ≈ {parseFloat(amount / exchangeRate).toFixed(4)}{" "}
                       ETH
                     </Typography>
                   </Typography>
 
                   <Stack
                     marginTop={1}
-                    direction={{ xs: 'column', sm: 'row' }}
+                    direction={{ xs: "column", sm: "row" }}
                     spacing={2}
                   >
                     {[10, 15, 20].map((item) => (
@@ -192,7 +216,7 @@ const ProjectDialog = ({
                               ? theme.palette.primary.main
                               : theme.palette.divider
                           }`,
-                          cursor: 'pointer',
+                          cursor: "pointer",
                         }}
                       >
                         <Typography>${item}</Typography>
@@ -215,13 +239,13 @@ const ProjectDialog = ({
                 </Box>
                 <Stack
                   marginTop={3}
-                  direction={{ xs: 'column', sm: 'row' }}
+                  direction={{ xs: "column", sm: "row" }}
                   spacing={2}
                 >
                   <LoadingButton
-                    variant={'contained'}
-                    color={'primary'}
-                    size={'large'}
+                    variant={"contained"}
+                    color={"primary"}
+                    size={"large"}
                     startIcon={<Favorite />}
                     loading={loading}
                     onClick={submitFunds}
@@ -232,9 +256,9 @@ const ProjectDialog = ({
 
                   {isOwner && (
                     <Button
-                      color={'primary'}
+                      color={"primary"}
                       startIcon={<ManageAccounts />}
-                      size={'large'}
+                      size={"large"}
                       fullWidth
                       sx={{
                         bgcolor: alpha(theme.palette.primary.light, 0.1),
@@ -252,21 +276,21 @@ const ProjectDialog = ({
                   />
                   {isOwner && (
                     <Button
-                      color={'primary'}
+                      color={"primary"}
                       startIcon={<CurrencyExchange />}
-                      size={'large'}
+                      size={"large"}
                       fullWidth
                       sx={{
                         bgcolor: alpha(theme.palette.primary.light, 0.1),
                       }}
                       onClick={withdrawFunds}
                     >
-                      {' '}
+                      {" "}
                       Withdraw
                     </Button>
                   )}
                 </Stack>
-                <Collapse in={alertOpen}>
+                {/* <Collapse in={alertOpen}>
                   <Alert
                     severity="success"
                     action={
@@ -285,7 +309,15 @@ const ProjectDialog = ({
                   >
                     Donation made successfully!
                   </Alert>
-                </Collapse>
+                </Collapse> */}
+                <DialogBox
+                  open={dialogBoxOpen}
+                  onClose={() => setDialogBoxOpen(false)}
+                  title={"Thank you!"}
+                  message={`Campaign created successfully with transaction hash: ${hash}`}
+                  buttonText="View on polygonscan"
+                  buttonLink={`https://mumbai.polygonscan.com/tx/${hash}`}
+                />
               </Box>
             </Grid>
           </Grid>
