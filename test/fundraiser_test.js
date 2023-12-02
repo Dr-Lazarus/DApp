@@ -110,6 +110,11 @@ contract('Fundraiser', (accounts) => {
       const actualEvent = tx.logs[0].event;
 
       assert.equal(actualEvent, expectedEvent, 'events should match');
+      assert.equal(tx.logs[0].args.donor, donor, "Event donor should match");
+      assert.equal(tx.logs[0].args.value, value, "Event value should match");
+      assert.equal(tx.logs[0].args.fundName, name, "Event fundBameshould match");
+      assert.equal(tx.logs[0].args.ngoAddress, custodian, "Event ngoMatch should match");
+   
     });
     
   
@@ -131,10 +136,16 @@ contract('Fundraiser', (accounts) => {
         const actualEvent = txResponse.logs[0].event;
 
         assert.equal(actualEvent, expectedEvent, 'events should match');    
+
         // Get the transaction receipt to find the gas used
         const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
         console.log(`Gas used for createRequest function: ${txReceipt.gasUsed}`);  
         assert.equal(actualEvent, expectedEvent, 'events should match');
+        assert.equal(txResponse.logs[0].args.beneficiary, beneficiary, "Event donor should match");
+        assert.equal(txResponse.logs[0].args.value, value, "Event value should match");
+        assert.equal(txResponse.logs[0].args.fundName, name, "Event fundBameshould match");
+        assert.equal(txResponse.logs[0].args.ngoAddress, custodian, "Event ngoMatch should match");
+
     
       });    
      
@@ -159,16 +170,22 @@ contract('Fundraiser', (accounts) => {
     
         const reqAmount = web3.utils.toWei('1.5');
         const txResponse = await fundraiser.createRequest(beneficiary,reqAmount);
-
-        const expectedEvent = 'RequestCreated';
-        const actualEvent = txResponse.logs[0].event;
+;
   
-        assert.equal(actualEvent, expectedEvent, 'events should match');
         const requestId = 0
         const approveReqResponse = await fundraiser.approveRequest(requestId, { from: custodian });
-        const approveReqResponseReceipt = await web3.eth.getTransactionReceipt(approveReqResponse .tx);
+        const approveReqResponseReceipt = await web3.eth.getTransactionReceipt(approveReqResponse.tx);
         console.log(`Gas used for approveRequest function: ${approveReqResponseReceipt.gasUsed}`);
-      
+
+        const expectedEvent = 'RequestApproved';
+        const actualEvent = approveReqResponse.logs[0].event
+        assert.equal(actualEvent, expectedEvent, 'events should match');
+
+        assert.equal(approveReqResponse.logs[0].args.beneficiary, beneficiary, "Event donor should match");
+        assert.equal(approveReqResponse.logs[0].args.value, value, "Event value should match");
+        assert.equal(approveReqResponse.logs[0].args.fundName, name, "Event fundBameshould match");
+        assert.equal(approveReqResponse.logs[0].args.ngoAddress, custodian, "Event ngoMatch should match");
+
     
       });    
 
@@ -193,6 +210,11 @@ contract('Fundraiser', (accounts) => {
         const rejectReqResponse = await fundraiser.rejectRequest(0, { from: custodian });
         const expectedEvent = 'RequestRejected';
         const actualEvent = rejectReqResponse.logs[0].event;
+        assert.equal(rejectReqResponse.logs[0].args.beneficiary, beneficiary, "Event donor should match");
+        assert.equal(rejectReqResponse.logs[0].args.value, reqAmount, "Event value should match");
+        assert.equal(rejectReqResponse.logs[0].args.fundName, name, "Event fundBameshould match");
+        assert.equal(rejectReqResponse.logs[0].args.ngoAddress, custodian, "Event ngoMatch should match");
+
   
         assert.equal(actualEvent, expectedEvent, 'events should match');
       })
@@ -228,8 +250,6 @@ contract('Fundraiser', (accounts) => {
   });
     });
     
-
-    // Other tests...
 
 
 });
