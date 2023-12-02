@@ -26,22 +26,17 @@ contract UserAccessControl {
     function registerUser(address user, UserRole role) public onlyAdmin {
         require(!users[user].isRegistered, "User already registered");
         users[user] = User(role, true);
+        emit UserRegistered(user, role);
     }
 
     function setUser(address user, UserRole role) public {
         require(!users[user].isRegistered, "User already registered");
         users[user] = User(role, true);
+        emit UserRegistered(user, role);
     }
 
-    function register(address user, UserRole role) public {
-        // 确保用户尚未注册
-        require(!users[user].isRegistered, "User already registered.");
-
-        // 注册用户
-        users[user] = User(role, true);
-
-        // 触发注册事件
-        emit UserRegistered(user, role);
+    function isUserRegistered(address user) public view returns (bool) {
+        return users[user].isRegistered;
     }
 
     function getUserRole(address user) public view returns (UserRole) {

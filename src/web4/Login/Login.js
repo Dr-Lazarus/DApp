@@ -9,7 +9,7 @@ const ethers = require('ethers')
 import React from "react"
 
 import Web3Modal from 'web3modal';
-const contractAddress = "0xc6E661773fae058F55c354001e25a8E842f511Bc"
+const contractAddress = "0x5735c1dAe7Ea41451E97e09B51a80E359f21Ba90"
 const contractABI = [
   {
     "inputs": [],
@@ -116,17 +116,19 @@ const contractABI = [
         "internalType": "address",
         "name": "user",
         "type": "address"
-      },
-      {
-        "internalType": "enum UserAccessControl.UserRole",
-        "name": "role",
-        "type": "uint8"
       }
     ],
-    "name": "register",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "isUserRegistered",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -154,38 +156,38 @@ const contractABI = [
 async function storeUserAddress(walletAddress, role, provider) {
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractAddress, contractABI, signer);
-  if (role == "Beneficiary") {
-    role = 1
-  }
-  if (role = "Donor") {
-    role = 0
-  }
-  if (role = "NGO") {
-    role = 2
+
+  // Parse the role based on the enum UserRole
+  let parsedRole;
+  if (role.toLowerCase() === "beneficiary") {
+    parsedRole = 1;
+  } else if (role.toLowerCase() === "donor") {
+    parsedRole = 0;
+  } else if (role.toLowerCase() === "ngo") {
+    parsedRole = 2;
+  } else {
+    console.error("Invalid role");
+    return;
   }
 
   try {
-    console.log("asdasdas")
-    // const result = await contract.getUserRole(walletAddress)
-    // console.log("the result is ", result)
+    // Check if the user is registered
+    const isRegistered = await contract.isUserRegistered(walletAddress);
 
-    try {
-      const transaction = await contract.setUser(walletAddress, role);
-    } catch (error) {
-      alert("User Already Registered");
+    if (!isRegistered) {
+      // If not registered, call the smart contract to register
+      const transaction = await contract.setUser(walletAddress, parsedRole);
+      await transaction.wait();
+      console.log(`User registered: ${walletAddress} with role: ${parsedRole}`);
+    } else {
+      const role = await contract.getUserRole(walletAddress)
+      console.log(`User already registered: ${walletAddress}`);
+      console.log("The user is alreadt registered with role:" ,role)
+      localStorage.setItem('Address', walletAddress);
+      localStorage.setItem('Role', role);
+      console.log(localStorage)
+
     }
-    await transaction.wait();
-
-    console.log(`User address stored: ${walletAddress}`, `User Role stored: ${role}`);
-    useLayoutEffect(() => {
-      sessionStorage.setItem('userAddress', walletAddress)
-      sessionStorage.setItem('role', role)
-    }, [])
-    console.log("retrieve")
-    useLayoutEffect(() => {
-      console.log(sessionStorage.getItem('userAddress'))
-    }, [])
-    console.log("done retrieve")
   } catch (error) {
     console.error('Error storing user address:', error);
   }
@@ -264,9 +266,7 @@ export const Login = () => {
   
       console.log(role)
       console.log(role, address)
-      console.log("SSSSS")
       await storeUserAddress(address, role, web3Provider);
-      console.log('post store')
       
       dispatch({
         type: 'SET_WEB3_PROVIDER',
@@ -286,8 +286,6 @@ export const Login = () => {
     const handleSubmit = async () => {
       // connect to the wallet
       await connect();
-      // save the address and role
-      // await storeUserAddressAndRole(address, role, nric, web3Provider);
       setShowRoleDialog(false);
     };
 
@@ -326,10 +324,6 @@ export const Login = () => {
         type: 'RESET_WEB3_PROVIDER',
       });
       setAnchorEl(null);
-      useLayoutEffect(() => {
-        sessionStorage.setItem('userAddress', null)
-        sessionStorage.setItem('role', null)
-      }, [])
     },
     [provider],
   );
