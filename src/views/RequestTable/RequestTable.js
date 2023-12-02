@@ -17,16 +17,18 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const RequestTable = ({ data }) => {
-  const [projectFilter, setProjectFilter] = useState('');
-  const [approvalStatus, setApprovalStatus] = useState({});
+  console.log('i got', data)
+  console.log(data[0])
+  // const [projectFilter, setProjectFilter] = useState('');
+  // const [approvalStatus, setApprovalStatus] = useState({});
 
-  const filteredData = data.filter((row) => {
-    const projectMatch =
-      row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) ||
-      projectFilter === '';
+  // const filteredData = data.filter((row) => {
+  //   const projectMatch =
+  //     row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) ||
+  //     projectFilter === '';
 
-    return projectMatch;
-  });
+  //   return projectMatch;
+  // });
 
   const handleApprove = (index) => {
     // Update approval status for the row
@@ -40,7 +42,7 @@ const RequestTable = ({ data }) => {
 
   return (
     <Main>
-      <Container>
+      {/* <Container>
         <TextField
           label="Filter by Project Name"
           value={projectFilter}
@@ -96,7 +98,7 @@ const RequestTable = ({ data }) => {
             </TableBody>
           </Table>
         </TableContainer>
-      </Container>
+      </Container> */}
     </Main>
   );
 };
