@@ -100,6 +100,31 @@ contract('FundraiserFactory: deployment', (accounts) => {
         assert.include(error.message, "Provided address 0x0 is invalid", "Error should contain 'invalid address'");
     }
 
+  });
+
+  it('Ensure Edge Case Create Fundraiser cannot be 0', async () => {
+    // Create some fundraisers for testing
+    
+    try{
+    const failedCreation = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', 0); 
+
+    } catch (error) {
+        assert.include(error.message, "value out-of-bounds");
+    }
+
+  })
+  
+  it('Ensure Edge Case Create Fundraiser cannot be negative', async () => {
+    // Create some fundraisers for testing
+    
+    try{
+    const failedCreation = await fundraiserFactory.createFundraiser(
+      'Fundraiser 1', 'Image 1', 'Description 1', -2); 
+
+    } catch (error) {
+        assert.include(error.message, "value out-of-bounds");
+    }
 
   });
  

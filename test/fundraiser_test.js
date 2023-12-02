@@ -248,7 +248,93 @@ contract('Fundraiser', (accounts) => {
          
       }
   });
-    });
+  it("Edge Case: Donating with zero amount", async () => {
+    try {
+        await fundraiser.donate({ from: donor, value: 0 });
+    
+    } catch (error) {
+        // Check for specific revert message or behavior
+        console.log("error edge",error.message)
+        assert.include(error.message, "The transaction should have failed with zero donation amount", "Should not accept zero donation");
+    }
+});
+it("Edge Case: Donating with negative amount", async () => {
+  try {
+      await fundraiser.donate({ from: donor, value: -1 });
+  
+  } catch (error) {
+      // Check for specific revert message or behavior
+      console.log("error lala",error.message)
+      assert.include(error.message, 'Cannot wrap string value "-0x1"', "Should not accept negative donation");
+  }
+});
+
+it("Unable to Donate with Insufficient Amount", async () => {
+  const donorBalance = await web3.eth.getBalance(donor);
+  const excessiveDonationAmount = web3.utils.toBN(donorBalance).add(web3.utils.toBN(1)); // Amount greater than the donor's balance
+
+  try {
+      // Attempt to donate an excessive amount
+      await fundraiser.donate({ from: donor, value: excessiveDonationAmount });
+      assert.fail("The donation should have failed due to insufficient funds");
+  } catch (error) {
+
+      assert.include(error.message, "insufficient funds", "Expected an error for insufficient funds");
+  }
+});
+
+it("Unable to Donate with Insufficient Amount", async () => {
+  const donorBalance = await web3.eth.getBalance(donor);
+  const excessiveDonationAmount = web3.utils.toBN(donorBalance).add(web3.utils.toBN(1)); // Amount greater than the donor's balance
+
+  try {
+      // Attempt to donate an excessive amount
+      await fundraiser.donate({ from: donor, value: excessiveDonationAmount });
+      assert.fail("The donation should have failed due to insufficient funds");
+  } catch (error) {
+
+      assert.include(error.message, "insufficient funds", "Expected an error for insufficient funds");
+  }
+});
+
+
+it("Unable to Create Request with Exceeding the Current Fundraise Amount", async () => {
+  const contractBalance = await web3.eth.getBalance(fundraiser.address);
+  const excessiveRequestAmount = web3.utils.toBN(contractBalance).add(web3.utils.toBN(1)); // Amount greater than the contract's balance
+
+ 
+  try {
+
+      await fundraiser.createRequest(beneficiary,excessiveRequestAmount);
+      assert.fail("The request approval should have failed due to insufficient contract funds");
+  } catch (error) {
+      // Check for the specific error indicating insufficient funds in the contract
+      console.log("kmeme",error.message)
+      assert.include(error.message, "revert Insufficient funds for request", "Insufficient fund request");
+  }
+});
+it("Unable to Approve Request with insufficient fund", async () => {
+  const contractBalance = await web3.eth.getBalance(fundraiser.address);
+  const excessiveRequestAmount = web3.utils.toBN(contractBalance).add(web3.utils.toBN(1)); // Amount greater than the contract's balance
+
+ 
+  try {
+      await fundraiser.createRequest(beneficiary,web3.utils.toWei('1.5'));
+      await fundraiser.approveRequest(0,{from:custodian});
+      await fundraiser.createRequest(beneficiary,contractBalance);
+      await fundraiser.approveRequest(0,{from:custodian});
+    
+
+      assert.fail("The request approval should have failed due to insufficient contract funds");
+  } catch (error) {
+      // Check for the specific error indicating insufficient funds in the contract
+      console.log("kmeme",error.message)
+      assert.include(error.message, "revert Insufficient funds for request", "Insufficient fund request");
+  }
+});
+
+
+});
     
 
 
