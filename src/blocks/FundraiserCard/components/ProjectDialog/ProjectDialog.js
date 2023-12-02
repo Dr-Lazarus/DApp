@@ -22,6 +22,7 @@ import {
   CurrencyExchange,
   Close,
 } from "@mui/icons-material";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import DialogBox from "blocks/DialogBox";
 import { LoadingButton } from "@mui/lab";
 
@@ -45,13 +46,14 @@ const ProjectDialog = ({
   const theme = useTheme();
   const [amount, setAmount] = useState(5);
   const [alertOpen, setAlertOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loadingRequest, setLoadingRequest] = useState(false);
+  const [loadingDonate, setLoadingDonate] = useState(false);
   const [isRequest, setisRequest] = useState(false);
   const [isDonate, setisDonate] = useState(false);
   const [hash, setHash] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const submitFunds = async () => {
-    setLoading(true);
+    setLoadingDonate(true);
     setisDonate(true);
     const ethTotal = amount / exchangeRate;
     const donation = web3.utils.toWei(ethTotal.toString());
@@ -68,12 +70,12 @@ const ProjectDialog = ({
     } catch (error) {
       console.log(error);
       alert("Error donating");
-      setLoading(false);
+      setLoadingDonate(false);
     }
-    setLoading(false);
+    setLoadingDonate(false);
   };
   const requestFunds = async () => {
-    setLoading(true);
+    setLoadingRequest(true);
     setisRequest(true);
     const ethTotal = amount / exchangeRate;
     const request = web3.utils.toWei(ethTotal.toString());
@@ -91,9 +93,9 @@ const ProjectDialog = ({
     } catch (error) {
       console.log(error);
       alert("Error donating");
-      setLoading(false);
+      setLoadingRequest(true);
     }
-    setLoading(false);
+    setLoadingRequest(true);
   };
   return (
     <Dialog onClose={onClose} open={open} maxWidth={"lg"}>
@@ -140,7 +142,6 @@ const ProjectDialog = ({
                 >
                   <img src={image} alt={name} />
                 </Box>
-                console.log("i am here")
                 {renderDonationsList}
               </Box>
             </Grid>
@@ -160,9 +161,7 @@ const ProjectDialog = ({
                 <Typography variant={"h5"} fontWeight={700} gutterBottom>
                   {name}
                 </Typography>
-                <Typography variant={"subtitle2"} color={"text.secondary"}>
-                  {description}
-                </Typography>
+                <Typography variant={"subtitle2"}>{description}</Typography>
                 <Box
                   marginTop={2}
                   display={"flex"}
@@ -189,7 +188,7 @@ const ProjectDialog = ({
                       marginLeft={0.5}
                     >
                       Required: $
-                      {totalDonations < goalAmount
+                      {totalDonations > goalAmount
                         ? goalAmount - totalDonations
                         : 0}
                     </Typography>
@@ -252,7 +251,7 @@ const ProjectDialog = ({
                     color={"primary"}
                     size={"large"}
                     startIcon={<Favorite />}
-                    loading={loading}
+                    loading={loadingDonate}
                     onClick={submitFunds}
                     fullWidth
                   >
@@ -263,8 +262,8 @@ const ProjectDialog = ({
                     variant={"contained"}
                     color={"primary"}
                     size={"large"}
-                    startIcon={<Favorite />}
-                    loading={loading}
+                    startIcon={<MonetizationOnIcon />}
+                    loading={loadingRequest}
                     onClick={requestFunds}
                     fullWidth
                   >

@@ -208,9 +208,8 @@ const FundraiserGrid = () => {
   };
 
   const displayFundraisers = () => {
-    return funds.slice(4, 12).map((fundraiser) => {
+    return funds.slice(0, 4).map((fundraiser) => {
       console.log("fundraiser");
-
       console.log(fundraiser);
       return <FundraiserCard fundraiser={fundraiser} key={fundraiser} />;
     });

@@ -58,7 +58,7 @@ export default function Projects() {
       <Container>
         <Hero
           image={
-            "https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+            "https://images.unsplash.com/photo-1574607383476-f517f260d30b?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           }
           title={"Fund a project!"}
           heading={"Grow with projects you support"}

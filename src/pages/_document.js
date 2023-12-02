@@ -1,8 +1,8 @@
 /* eslint-disable react/display-name */
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import createCache from '@emotion/cache';
-import createEmotionServer from '@emotion/server/create-instance';
+import React from "react";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import createCache from "@emotion/cache";
+import createEmotionServer from "@emotion/server/create-instance";
 
 export default class MyDocument extends Document {
   render() {
@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <link
             rel="shortcut icon"
-            href="https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true"
+            href="https://github.com/Dr-Lazarus/DApp/blob/integration/images/image-removebg-preview%20(4).png?raw=true"
           />
           <meta name="theme-color" content="#212c45" />
           <meta
@@ -27,7 +27,7 @@ export default class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta
             property="og:image"
-            content="https://github.com/Dr-Lazarus/DApp/blob/07ddcf3c1725b9416b55f134b1cdab9ffae1fcbf/images/Heartledger/light.png?raw=true"
+            content="https://github.com/Dr-Lazarus/DApp/blob/integration/images/image-removebg-preview%20(4).png?raw=true"
           />
           <meta property="og:title" content="Heart Ledger" />
           <meta
@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
 
 MyDocument.getInitialProps = async (ctx) => {
   const originalRenderPage = ctx.renderPage;
-  const cache = createCache({ key: 'css', prepend: true });
+  const cache = createCache({ key: "css", prepend: true });
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
   ctx.renderPage = () =>
@@ -68,7 +68,7 @@ MyDocument.getInitialProps = async (ctx) => {
   const emotionStyles = extractCriticalToChunks(initialProps.html);
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      data-emotion={`${style.key} ${style.ids.join(" ")}`}
       key={style.key}
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}

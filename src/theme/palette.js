@@ -1,67 +1,67 @@
 export const light = {
   alternate: {
-    main: '#f4efea',
-    dark: '#edf1f7',
+    main: "#e8eaf6", // Light indigo
+    dark: "#c5cae9", // Dark indigo
   },
-  cardShadow: 'rgba(23, 70, 161, .11)',
-  mode: 'light',
+  cardShadow: "rgba(23, 70, 161, .11)",
+  mode: "light",
   primary: {
-    main: '#171717',
-    light: '#454545',
-    dark: '#454545',
-    contrastText: '#fff',
+    main: "#5c6bc0", // Moderate blue
+    light: "#8e99f3", // Lighter blue
+    dark: "#26418f", // Dark blue
+    contrastText: "#fff",
   },
   secondary: {
-    light: '#ffb74d',
-    main: '#f9b934',
-    dark: '#FF9800',
-    contrastText: 'rgba(0, 0, 0, 0.87)',
+    light: "#ffcc80", // Soft orange
+    main: "#ffa726", // Orange
+    dark: "#c77800", // Dark orange
+    contrastText: "rgba(0, 0, 0, 0.87)",
   },
   text: {
-    primary: '#1e2022',
-    secondary: '#677788',
+    primary: "#212121", // Dark grey for high contrast on light backgrounds
+    secondary: "#37474f", // A slightly lighter shade of dark grey for secondary text
   },
-  divider: 'rgba(0, 0, 0, 0.12)',
+  divider: "rgba(0, 0, 0, 0.12)",
   background: {
-    paper: '#212c45',
-    default: '#212c45',
-    level2: '#f5f5f5',
-    level1: '#212c45',
+    paper: "#ffffff", // White background for paper
+    default: "#eeeeee", // Light grey for default background
+    level2: "#f5f5f5", // Lighter grey
+    level1: "#ffffff", // White background for level1 elements
   },
 };
 
 export const dark = {
   alternate: {
-    main: '#1a2138',
-    dark: '#151a30',
+    main: "#303f9f", // Dark indigo
+    dark: "#283593", // Deeper indigo
   },
-  cardShadow: 'rgba(0, 0, 0, .11)',
+  cardShadow: "rgba(0, 0, 0, .11)",
   common: {
-    black: '#000',
-    white: '#fff',
+    black: "#000",
+    white: "#fff",
   },
-  mode: 'dark',
+  mode: "dark",
   primary: {
-    main: '#1976d2',
-    light: '#2196f3',
-    dark: '#0d47a1',
-    contrastText: '#fff',
+    main: "#3949ab", // Dark blue
+    light: "#6f74dd", // Lighter dark blue
+    dark: "#00227b", // Very dark blue
+    contrastText: "#fff",
   },
   secondary: {
-    light: '#FFEA41',
-    main: '#FFE102',
-    dark: '#DBBE01',
-    contrastText: 'rgba(0, 0, 0, 0.87)',
+    light: "#ffff6e", // Light yellow
+    main: "#ffd600", // Yellow
+    dark: "#c7a500", // Dark yellow
+    contrastText: "rgba(0, 0, 0, 0.87)",
   },
   text: {
-    primary: '#EEEEEF',
-    secondary: '#AEB0B4',
+    primary: "#ffffff", // White text for readability
+    secondary: "#b0bec5", // Light blue-grey
   },
-  divider: 'rgba(255, 255, 255, 0.12)',
+  divider: "rgba(255, 255, 255, 0.12)",
   background: {
-    paper: '#222B45',
-    default: '#222B45',
-    level2: '#333',
-    level1: '#2D3748',
+    paper: "#1c2331", // Very dark blue-grey
+    default: "#101f33", // Dark blue-grey for default background
+    level2: "#333", // Dark grey
+    level1: "#242f40", // Dark blue-grey for level1 elements
   },
 };

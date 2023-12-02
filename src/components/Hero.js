@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Container, Box, Typography } from '@mui/material';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { Container, Box, Typography } from "@mui/material";
 
 const Hero = ({ title, heading, subtitle, image }) => {
   useEffect(() => {
     const jarallaxInit = async () => {
-      const jarallaxElems = document.querySelectorAll('.jarallax');
+      const jarallaxElems = document.querySelectorAll(".jarallax");
       if (!jarallaxElems || (jarallaxElems && jarallaxElems.length === 0)) {
         return;
       }
-      const { jarallax } = await import('jarallax');
+      const { jarallax } = await import("jarallax");
       jarallax(jarallaxElems, { speed: 0.2 });
     };
 
@@ -18,47 +18,49 @@ const Hero = ({ title, heading, subtitle, image }) => {
 
   return (
     <Box
-      className={'jarallax'}
+      className={"jarallax"}
       data-jarallax
       data-speed="0.2"
-      position={'relative'}
+      position={"relative"}
       minHeight={{ xs: 400, sm: 500, md: 600 }}
-      display={'flex'}
-      alignItems={'center'}
+      display={"flex"}
+      alignItems={"center"}
       id="agency__portfolio-item--js-scroll"
     >
       <Box
-        className={'jarallax-img'}
+        className={"jarallax-img"}
         sx={{
-          position: 'absolute',
-          objectFit: 'cover',
-          fontFamily: 'object-fit: cover;',
+          position: "absolute",
+          objectFit: "cover",
+          fontFamily: "object-fit: cover;",
           top: 0,
           left: 0,
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
           zIndex: -1,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
           backgroundImage: `url(${image})`,
         }}
       />
-      <Container position={'relative'} zindex={3}>
+      <Container position={"relative"} zindex={3}>
         <Typography
           sx={{
-            textTransform: 'uppercase',
-            fontWeight: 'medium',
+            textTransform: "uppercase",
+            fontWeight: "medium",
           }}
           gutterBottom
-          align={'center'}
+          align={"center"}
+          color={"white"}
         >
           {title}
         </Typography>
         <Box marginBottom={2}>
           <Typography
             variant="h2"
-            align={'center'}
+            align={"center"}
+            color={"white"}
             sx={{
               fontWeight: 700,
             }}
@@ -67,7 +69,7 @@ const Hero = ({ title, heading, subtitle, image }) => {
           </Typography>
         </Box>
         <Box>
-          <Typography variant="h6" align={'center'}>
+          <Typography variant="h6" align={"center"} color={"white"}>
             {subtitle}
           </Typography>
         </Box>
