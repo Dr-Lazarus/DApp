@@ -31,18 +31,18 @@ contract('Fundraiser', (accounts) => {
       assert.equal(actual, image, 'image should match');
     });
 
-    it('Get created fundraiser fundName description', async () => {
+    it('Get Created Fundraiser Description', async () => {
       const actual = await fundraiser.description();
       assert.equal(actual, description, 'description should match');
     });
 
 
-    it('gets the goalAmount', async () => {
+    it('Get Created Fundraiser GoalAmount', async () => {
       const actual = await fundraiser.goalAmount();
       assert.equal(actual, goalAmount, 'goalAmount should match');
     });
 
-    it('gets the owner/custodian', async () => {
+    it('Get Created Fundraiser Owner/Custodian', async () => {
 
       const actual = await fundraiser.owner();
       console.log('actual not actual',actual,custodian)
@@ -56,7 +56,7 @@ contract('Fundraiser', (accounts) => {
     const value = web3.utils.toWei('1.5');
     const donor = accounts[2];
 
-    it('increases myDonationsCount Test', async () => {
+    it('My Donation Count Function', async () => {
       const currentDonationsCount = await fundraiser.myDonationsCount({
         from: donor,
       });
@@ -74,14 +74,14 @@ contract('Fundraiser', (accounts) => {
      
     });
 
-    it('includes the submitted donation in myDonations', async () => {
+    it('My Donations View Function', async () => {
       await fundraiser.donate({ from: donor, value });
       const { values, dates } = await fundraiser.myDonations({ from: donor });
       assert.equal(value, values[0], 'values should match');
       assert(dates[0], 'date should be present');
     });
 
-    it('increases the totalDonations amount', async () => {
+    it('Increase TotalDonations Amount', async () => {
       console.log("cur total donan")
       const currentTotalDonations = await fundraiser.totalDonations();
       await fundraiser.donate({ from: donor, value });
@@ -90,7 +90,7 @@ contract('Fundraiser', (accounts) => {
       assert.equal(diff.toString(), value.toString(), 'difference should match the donation value');
     });
 
-    it('increases donationsCount', async () => {
+    it('Increase TotalDonations Count', async () => {
       const currentDonationsCount = await fundraiser.donationsCount();
       await fundraiser.donate({ from: donor, value });
       const newDonationsCount = await fundraiser.donationsCount();
@@ -102,7 +102,7 @@ contract('Fundraiser', (accounts) => {
       );
     });
 
-    it('emits the DonationReceived event', async () => {
+    it('Emit DonationReceived event', async () => {
       const tx = await fundraiser.donate({ from: donor, value });
       const gasUsed = tx.receipt.gasUsed;
       console.log(`Gas used in donate function: ${gasUsed}`);  
@@ -111,45 +111,10 @@ contract('Fundraiser', (accounts) => {
 
       assert.equal(actualEvent, expectedEvent, 'events should match');
     });
-    it('should create a fund request and log the gas used', async () => {
-      // Set up: Ensure there are sufficient total donations to meet the requirement
-      // You might need to simulate some donations here if your contract requires it
     
-      const value = web3.utils.toWei('1.5');
-      // const value = web3.utils.toWei('0.0289');
-      const donor = accounts[2];
-     
-      await fundraiser.donate({ from: donor,value });
-      const beneficiary = accounts[1]; // Choose an account as the beneficiary
-
-      // console.log("this custodian beneficiary")
-      // console.log(custodian)
-      console.log(beneficiary)
-      const totalDonations = await fundraiser.totalDonations();
-      // const totalFunds = await fundraiser.getTotalDonations();
-      console.log(`Total funds in the contract: ${totalDonations.toString()}`);
-      const reqAmount = web3.utils.toWei('1.5');
-      const txResponse = await fundraiser.createRequest(beneficiary,reqAmount);
-
-    
-      // Get the transaction receipt to find the gas used
-      const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
-      console.log(`Gas used for createRequest function: ${txReceipt.gasUsed}`);
-
-      const expectedEvent = 'RequestCreated';
-      const actualEvent = txResponse.logs[0].event;
-
-      assert.equal(actualEvent, expectedEvent, 'events should match');
-      const requestId = 0; // Assuming there's at least one request
-      const approveReqResponse = await fundraiser.approveRequest(requestId, { from: custodian });
-      const approveReqResponseReceipt = await web3.eth.getTransactionReceipt(approveReqResponse .tx);
-      console.log(`Gas used for approveRequest function: ${approveReqResponseReceipt.gasUsed}`);
-    
-  
-    });    
   
   });
-  describe('reject donations', () => {
+  describe('Create Request Test', () => {
       const value = web3.utils.toWei('1.5');
       const donor = accounts[0];
       const beneficiary = accounts[2]; 
@@ -157,30 +122,114 @@ contract('Fundraiser', (accounts) => {
       beforeEach(async () => {
         await fundraiser.donate({ from: donor, value });
       });
+      
+      it('Emit Request Created Event', async () => {
+
+        const reqAmount = web3.utils.toWei('1.5');
+        const txResponse = await fundraiser.createRequest(beneficiary,reqAmount);
+        const expectedEvent = 'RequestCreated';
+        const actualEvent = txResponse.logs[0].event;
+
+        assert.equal(actualEvent, expectedEvent, 'events should match');    
+        // Get the transaction receipt to find the gas used
+        const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
+        console.log(`Gas used for createRequest function: ${txReceipt.gasUsed}`);  
+        assert.equal(actualEvent, expectedEvent, 'events should match');
     
-      it('should create a fund request and log the gas used', async () => {
-        const totalDonations = await fundraiser.totalDonations();
-        // const totalFunds = await fundraiser.getTotalDonations();
-        console.log(`Total funds in the contract: ${totalDonations.toString()}`);
+      });    
+     
+      it('Approve Request Function', async () => {
+    
+        const value = web3.utils.toWei('1.5');
+        const donor = accounts[2]; 
+        const reqAmount = web3.utils.toWei('1.5');
+        await fundraiser.donate({ from: donor,value });
+        const beneficiary = accounts[1]; // Choose an account as the beneficiary
+  
+        console.log(beneficiary)
+        const txResponse = await fundraiser.createRequest(beneficiary,reqAmount);
+        const requestId = 0; // Assuming there's at least one request
+        const approveReqResponse = await fundraiser.approveRequest(requestId, { from: custodian });
+        const approveReqResponseReceipt = await web3.eth.getTransactionReceipt(approveReqResponse .tx);
+        console.log(`Gas used for approveRequest function: ${approveReqResponseReceipt.gasUsed}`);
+      
+    
+      });
+      it('Emit RequestApproved Event', async () => {
+    
+        const reqAmount = web3.utils.toWei('1.5');
+        const txResponse = await fundraiser.createRequest(beneficiary,reqAmount);
+
+        const expectedEvent = 'RequestCreated';
+        const actualEvent = txResponse.logs[0].event;
+  
+        assert.equal(actualEvent, expectedEvent, 'events should match');
+        const requestId = 0
+        const approveReqResponse = await fundraiser.approveRequest(requestId, { from: custodian });
+        const approveReqResponseReceipt = await web3.eth.getTransactionReceipt(approveReqResponse .tx);
+        console.log(`Gas used for approveRequest function: ${approveReqResponseReceipt.gasUsed}`);
+      
+    
+      });    
+
+
+
+      it('Reject Request Function', async () => {
         const reqAmount = web3.utils.toWei('1');
-    
         const txResponse = await fundraiser.createRequest(beneficiary, reqAmount);
         // Get the transaction receipt to find the gas used
         const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
         console.log(`Gas used for createRequest function: ${txReceipt.gasUsed}`);
-  
         const rejectReqResponse = await fundraiser.rejectRequest(0, { from: custodian });
-        const rejectReqResponseReceipt = await web3.eth.getTransactionReceipt(rejectReqResponse .tx);
+        const rejectReqResponseReceipt = await web3.eth.getTransactionReceipt(rejectReqResponse.tx);
         console.log(`Gas used for rejectRequest function: ${rejectReqResponseReceipt.gasUsed}`);
-
-
-
       })
-    
-    
-      
-     
+
+      it('Emit RequestRejectedEvent Function', async () => {
+        const reqAmount = web3.utils.toWei('1');
+        const txResponse = await fundraiser.createRequest(beneficiary, reqAmount);
+        // Get the transaction receipt to find the gas used
+        const txReceipt = await web3.eth.getTransactionReceipt(txResponse.tx);
+        const rejectReqResponse = await fundraiser.rejectRequest(0, { from: custodian });
+        const expectedEvent = 'RequestRejected';
+        const actualEvent = rejectReqResponse.logs[0].event;
+  
+        assert.equal(actualEvent, expectedEvent, 'events should match');
+      })
+      it("Ensure non Owner unable to ApproveRequest", async () => {
+
+        const nonOwner = accounts[4]
+        try {
+            // Attempt to call the function as a non-owner
+            const failResponse = await fundraiser.approveRequest(0,{ from: nonOwner });
+            assert.fail("The transaction should have thrown an error");
+        } catch (err) {
+            console.log("Caught error:", err.message);
+            // Check for the expected error, e.g., revert
+            assert.equal(err.message, "VM Exception while processing transaction: revert Ownable: caller is not the owner -- Reason given: Ownable: caller is not the owner.");
+            assert.include(err.message, "revert", "The error message should contain 'revert'");
+           
+        }
     });
+    it("Ensure non Owner unable to RejectRequest", async () => {
+
+      const nonOwner = accounts[4]
+      try {
+          // Attempt to call the function as a non-owner
+          const failResponse = await fundraiser.approveRequest(0,{ from: nonOwner });
+          assert.fail("The transaction should have thrown an error");
+      } catch (err) {
+          console.log("Caught error:", err.message);
+          // Check for the expected error, e.g., revert
+          assert.equal(err.message, "VM Exception while processing transaction: revert Ownable: caller is not the owner -- Reason given: Ownable: caller is not the owner.");
+          assert.include(err.message, "revert", "The error message should contain 'revert'");
+         
+      }
+  });
+    });
+    
+
+    // Other tests...
 
 
 });
