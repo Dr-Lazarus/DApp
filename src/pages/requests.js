@@ -1,124 +1,41 @@
-// // YourPage.js
-// import React from "react";
-// import { useState, useEffect } from "react";
-// import RequestTable from "views/RequestTable";
-// import { useTheme } from "@mui/material/styles";
-
-// // import React, { useState, useEffect } from 'react';
-// // import Box from '@mui/material/Box';
-// // import Grid from '@mui/material/Grid';
-// // import { useTheme } from '@mui/material/styles';
-// // import Main from 'layouts/Main';
-// // import Container from 'components/Container';
-// // import Hero from 'components/Hero';
-// // // import Contact from 'components/Newsletter';
-// import FundraiserCard from "blocks/FundraiserCard";
-// import FundraiserFactory from "contracts/FundraiserFactory.json";
-// import FundraiserContract from "contracts/Fundraiser.json";
-// import Web3 from "web3";
-
-// const ViewRequests = () => {
-//   const theme = useTheme();
-//   const [funds, setFunds] = useState([null]);
-//   const [contract, setContract] = useState(null);
-//   const [accounts, setAccounts] = useState(null);
-//   const web3 = new Web3(
-//     new Web3.providers.HttpProvider(
-//       "https://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ"
-//     )
-//   );
-
-//   useEffect(() => {
-//     init();
-//     getRequestsCreated();
-//   }, []);
-
-//   const init = async () => {
-//     try {
-//       const networkId = await web3.eth.net.getId();
-//       const deployedNetwork = FundraiserFactory.networks[networkId];
-//       const accounts = await web3.eth.getAccounts();
-//       const instance = new web3.eth.Contract(
-//         FundraiserFactory.abi,
-//         deployedNetwork && deployedNetwork.address
-//       );
-//       setContract(instance);
-//       setAccounts(accounts);
-
-//       const funds = await instance.methods.fundraisers(1000, 0).call();
-
-//       setFunds(funds);
-//       console.log("---------", funds);
-//       setFunds(funds);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-//   const getRequestsCreated = async () => {
-//     try {
-//       const currentBlock = await web3.eth.getBlockNumber();
-//       const fromBlock = Math.max(currentBlock - 1000, 0); // Ensure fromBlock is not negative
-//       for (const fundAddress of funds) {
-//         const fundContract = new web3.eth.Contract(
-//           FundraiserContract.abi,
-//           fundAddress
-//         );
-//         const events = await fundContract.getPastEvents("RequestCreated", {
-//           fromBlock: 0,
-//           toBlock: "latest",
-//         });
-//         //console.log("EVENTS", events);
-
-//         // Log each event for this fund
-//         events.forEach((event) => console.log("EVENT #", event.returnValues));
-//       }
-//     } catch (error) {
-//       console.error("Error fetching RequestCreated events:", error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {/* <h1>Your Page</h1> */}
-//       {/* <RequestTable data={exampleData} theme={theme} /> */}
-//     </div>
-//   );
-// };
-
-// export default ViewRequests;
-// YourPage.js
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import RequestTable from "views/RequestTable";
 import { useTheme } from "@mui/material/styles";
-
-// import React, { useState, useEffect } from 'react';
-// import Box from '@mui/material/Box';
-// import Grid from '@mui/material/Grid';
-// import { useTheme } from '@mui/material/styles';
-// import Main from 'layouts/Main';
-// import Container from 'components/Container';
-// import Hero from 'components/Hero';
-// // import Contact from 'components/Newsletter';
-import FundraiserCard from "blocks/FundraiserCard";
 import FundraiserFactory from "contracts/FundraiserFactory.json";
 import FundraiserContract from "contracts/Fundraiser.json";
 import Web3 from "web3";
+const cc = require("cryptocompare");
 
 const ViewRequests = () => {
   const theme = useTheme();
-  const [funds, setFunds] = useState([null]);
+  const [funds, setFunds] = useState([]);
   const [contract, setContract] = useState(null);
   const [accounts, setAccounts] = useState(null);
+  const [data, setData] = useState([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
   const web3 = new Web3(
     new Web3.providers.HttpProvider(
       "https://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ"
     )
   );
+  const convertWeiToUsd = async (weiAmount) => {
+    const ethAmount = web3.utils.fromWei(weiAmount, "ether"); // Convert Wei to ETH
 
-  useEffect(() => {
+    try {
+      const prices = await cc.price("ETH", ["USD"]);
+      const exchangeRate = prices.USD; // Get the ETH to USD exchange rate
+      const usdAmount = ethAmount * exchangeRate; // Convert ETH to USD
+      //return parseFloat(usdAmount.toFixed(2));
+      return weiAmount;
+    } catch (error) {
+      console.error("Error fetching exchange rate:", error);
+      return 0; // Return 0 or handle the error as needed
+    }
+  };
+
+  useLayoutEffect(() => {
     init();
-    // getRequestsCreated();
   }, []);
 
   const init = async () => {
@@ -130,39 +47,61 @@ const ViewRequests = () => {
         FundraiserFactory.abi,
         deployedNetwork && deployedNetwork.address
       );
+
       setContract(instance);
       setAccounts(accounts);
 
       const funds = await instance.methods.fundraisers(1000, 0).call();
+      setFunds(funds);
 
-      setFunds(funds);
-      console.log("-----------------", funds);
-      setFunds(funds);
-      getRequestsCreated();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const getRequestsCreated = async () => {
-    try {
+      let requestData = [];
+
       for (const fundAddress of funds) {
         const fundContract = new web3.eth.Contract(
           FundraiserContract.abi,
           fundAddress
         );
-        const requests = await fundContract.methods.allRequests().call();
 
-        console.log("Requests #", requests);
+        const fngo = await fundContract.methods.ngoAddress().call();
+        console.log("fngo:", fngo);
+        // const useraddress = "0x6A0560385DeC22E29cB606e2707e1aD13Fdd7333";
+        // if (fngo !== useraddress) {
+        //   continue;
+        // }
+
+        const requests = await fundContract.methods.allRequests().call();
+        const proj_name = await fundContract.methods.fundName().call();
+        const totalDonation = await convertWeiToUsd(
+          await fundContract.methods.totalDonations().call()
+        );
+
+        for (let i = 0; i < requests.amounts.length; i++) {
+          requestData.push({
+            projectName: proj_name,
+            requestID: requests.requestID[i],
+            requestedAmount: await convertWeiToUsd(requests.amounts[i]),
+            availableAmount: totalDonation,
+            beneficiaryHash: requests.beneficiaries[i],
+            status: requests.statuses[i],
+            fundInstance: fundContract,
+          });
+        }
       }
+
+      setData(requestData);
+      setIsDataLoaded(true);
     } catch (error) {
-      console.error("Error fetching RequestCreated events:", error);
+      console.error(error);
     }
   };
 
   return (
     <div>
-      {/* <h1>Your Page</h1> */}
-      {/* <RequestTable data={exampleData} theme={theme} /> */}
+      {isDataLoaded ? (
+        <RequestTable data={data} theme={theme} />
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };

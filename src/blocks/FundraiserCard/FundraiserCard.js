@@ -31,18 +31,45 @@ const FundraiserCard = ({ fundraiser }) => {
   const [totalDonations, setTotalDonations] = useState(null);
   const [totalDonationsEth, setTotalDonationsEth] = useState(null);
   const [contract, setContract] = useState(null);
-  const [accounts, setAccounts] = useState([]);
-  const [account_user, setAccount_user] = useState(null);
+  const [userAccount, setuserAccount] = useState(null);
   const [exchangeRate, setExchangeRate] = useState(null);
   const [userDonations, setUserDonations] = useState(null);
+  const [accountsLoaded, setAccountsLoaded] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
   // const [newBeneficiary, setNewBeneficiary] = useState(null);
 
   useEffect(() => {
-    if (fundraiser) {
+    const fetchAccountAndInit = async () => {
+      try {
+        const provider = await detectEthereumProvider();
+        if (!provider) {
+          console.log("Please install MetaMask!");
+          return;
+        }
+
+        const web3 = new Web3(provider);
+        const accounts = await web3.eth.getAccounts();
+
+        if (accounts.length === 0) {
+          console.log("No accessible accounts!");
+          return;
+        }
+
+        setuserAccount(accounts[0]);
+      } catch (error) {
+        console.error("Error fetching accounts:", error);
+      }
+    };
+
+    fetchAccountAndInit();
+  }, []); // This useEffect runs once when the component mounts
+
+  useEffect(() => {
+    if (userAccount && fundraiser) {
       init(fundraiser);
     }
-  }, [fundraiser]);
+  }, [userAccount, fundraiser]); // This useEffect runs when userAccount or fundraiser changes
 
   const init = async (fundraiser) => {
     try {
@@ -50,15 +77,19 @@ const FundraiserCard = ({ fundraiser }) => {
       const provider = await detectEthereumProvider();
       const web3 = new Web3(provider);
       const account = await web3.eth.getAccounts();
+      // setuserAccount(account[0]);
+      // if (userAccount !== null) {
+      //   console.log("accounts---", userAccount);
+      //   setAccountsLoaded(true);
+      // } else {
+      //   // Trigger alert or dialog box if account is not available
+      // }
+
       const number = await web3.eth.getBlockNumber();
-      console.log("accounts---", account[0]);
 
       const instance = new web3.eth.Contract(FundraiserContract.abi, fund);
       setWeb3(web3);
       setContract(instance);
-      setAccounts(account);
-      console.log("-----------Accounts:-------------", accounts);
-      console.log("------ Checkpoint -----------");
 
       // {info or to do} why use instance inste bm    ad of contract
       // getting properties of the project
@@ -76,8 +107,7 @@ const FundraiserCard = ({ fundraiser }) => {
       setImage(await instance.methods.image().call());
       setDescription(await instance.methods.description().call());
       setGoalAmount(await instance.methods.goalAmount().call());
-      console.log("---------Accounts:---------", accounts);
-      console.log("---------data---------");
+      console.log("---------Account:---------", userAccount);
       console.log(fundName, image, description, goalAmount);
       const totalDonation = await instance.methods.totalDonations().call();
       await cc
@@ -98,15 +128,15 @@ const FundraiserCard = ({ fundraiser }) => {
       // {to change} add the address also
       const userDonation = await instance.methods
         .myDonations()
-        .call({ from: accounts[0] });
+        .call({ from: userAccount });
       setUserDonations(userDonation);
-      const isUser = accounts[0];
+      const isUser = userAccount;
       const isOwner = await instance.methods.owner().call();
       console.log("Owner:", isOwner);
       console.log("User:", isUser);
       if (isOwner === isUser) {
         setIsOwner(true);
-        console.log("OWNER", accounts[0]);
+        console.log("OWNER", userAccount);
       }
     } catch (error) {
       console.error(error);
@@ -116,7 +146,7 @@ const FundraiserCard = ({ fundraiser }) => {
   // const setBeneficiary = async () => {
   //   await contract.methods
   //     .setBeneficiary(newBeneficiary)
-  //     .send({ from: accounts[0] });
+  //     .send({ from: userAccount });
   //   alert(`Fundraiser Beneficiary Changed`);
   //   setOpen(false);
   // };
@@ -294,7 +324,7 @@ const FundraiserCard = ({ fundraiser }) => {
           name={fundName}
           description={description}
           goalAmount={goalAmount}
-          account={accounts[0]}
+          account={userAccount}
           isOwner={isOwner}
           renderDonationsList={renderDonationsList()}
         />
