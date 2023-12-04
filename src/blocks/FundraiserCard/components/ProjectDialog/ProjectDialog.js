@@ -52,6 +52,7 @@ const ProjectDialog = ({
   const [isDonate, setisDonate] = useState(false);
   const [hash, setHash] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
+  const [loginState, setLoginState] =useState("")
   const submitFunds = async () => {
     setLoadingDonate(true);
     setisDonate(true);
@@ -75,6 +76,9 @@ const ProjectDialog = ({
     setLoadingDonate(false);
   };
   const requestFunds = async () => {
+    const loginstate = sessionStorage.getItem('Role')
+    console.log(sessionStorage)
+    setLoginState(loginstate)
     setLoadingRequest(true);
     setisRequest(true);
     const ethTotal = amount / exchangeRate;
@@ -195,6 +199,7 @@ const ProjectDialog = ({
                   </Box>
                 </Box>
                 <Box marginTop={2}>
+
                   <Typography>
                     Donate:
                     <Typography component={"span"} fontWeight={700}>
@@ -246,6 +251,7 @@ const ProjectDialog = ({
                   direction={{ xs: "column", sm: "row" }}
                   spacing={2}
                 >
+                  {loginState ==='0'?(
                   <LoadingButton
                     variant={"contained"}
                     color={"primary"}
@@ -256,8 +262,9 @@ const ProjectDialog = ({
                     fullWidth
                   >
                     Donate
-                  </LoadingButton>
-
+                  </LoadingButton>): null}
+                  
+                  {loginState ==='1'?(
                   <LoadingButton
                     variant={"contained"}
                     color={"primary"}
@@ -268,7 +275,7 @@ const ProjectDialog = ({
                     fullWidth
                   >
                     Request
-                  </LoadingButton>
+                  </LoadingButton>): null}
                   {isOwner && (
                     <Button
                       color={"primary"}

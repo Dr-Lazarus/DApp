@@ -274,14 +274,8 @@ export const Login = () => {
     async function () {
       if (role) {
         try {
-
-        //   const web3 = new Web3(
-        //     new Web3.providers.HttpProvider(
-        //         "https://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ"
-        //     )
-        // );
-        const provider = await detectEthereumProvider();
-        const web3Provider = new providers.Web3Provider(provider);
+          const provider = await web3Modal.connect();
+          const web3Provider = new providers.Web3Provider(provider);
           const signer = web3Provider.getSigner();
           const address = await signer.getAddress();
           const network = await web3Provider.getNetwork();
@@ -315,6 +309,7 @@ export const Login = () => {
   const RoleDialog = React.memo(() => {
     const handleSubmit = () => {
       setSubmitting(true);
+      setShowRoleDialog(false)
     };
 
     return (
@@ -346,7 +341,7 @@ export const Login = () => {
       </Dialog>
     );
   });
- 
+
   const disconnect = useCallback(
 
     async function () {
@@ -360,7 +355,7 @@ export const Login = () => {
       setAnchorEl(null);
       sessionStorage.setItem("Address", " ")
       sessionStorage.setItem("Role", "3")
-      const ROLE1=sessionStorage.getItem('Role')
+      const ROLE1 = sessionStorage.getItem('Role')
       setChecklogin(ROLE1)
       // sessionStorage.setItem("isLoggedIn", false)
       console.log(sessionStorage)
@@ -373,7 +368,7 @@ export const Login = () => {
   // here so that when a user switches accounts or networks, we can update the
   // local React state with that new information.
   useEffect(() => {
-    const ROLE=sessionStorage.getItem('Role')
+    const ROLE = sessionStorage.getItem('Role')
     setChecklogin(ROLE)
     if (provider?.on) {
       const handleAccountsChanged = (accounts) => {
@@ -418,7 +413,7 @@ export const Login = () => {
 
   return (
     <div className="container" >
-      {checklogin ==='0' ||checklogin ==='1' || checklogin ==='2'   ? (
+      {checklogin === '0' || checklogin === '1' || checklogin === '2' ? (
         <Account
           icon="https://firebasestorage.googleapis.com/v0/b/virtualground-meta.appspot.com/o/nft%2Ficon.png?alt=media&token=51904b60-2b20-47aa-9502-67f4aabc8061"
           address={ellipseAddress(address)}
