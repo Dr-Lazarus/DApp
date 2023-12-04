@@ -16,11 +16,7 @@ const ViewDonations = () => {
   const [data, setData] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  const web3 = new Web3(
-    new Web3.providers.HttpProvider(
-      "https://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ"
-    )
-  );
+  const web3 = new Web3("wss://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ");
 
   const convertWeiToUsd = async (weiAmount) => {
     const ethAmount = web3.utils.fromWei(weiAmount, "ether");
@@ -36,9 +32,9 @@ const ViewDonations = () => {
   };
 
   const init = async () => {
-    const provider = await detectEthereumProvider();
-    if (provider) {
-      web3 = new Web3(provider);
+    // const provider = await detectEthereumProvider();
+    // if (provider) {
+    //   web3 = new Web3(provider);
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = FundraiserFactory.networks[networkId];
       const accounts = await web3.eth.getAccounts();
@@ -46,6 +42,8 @@ const ViewDonations = () => {
         FundraiserFactory.abi,
         deployedNetwork && deployedNetwork.address
       );
+
+      console.log(fundsinstance,'idk man')
 
       setAccounts(accounts);
       const funds = await fundsinstance.methods.fundraisers(1000, 0).call();
@@ -58,11 +56,14 @@ const ViewDonations = () => {
         );
         setContract(fundContract);
 
+        console.log(fundAddress,'is my')
+
         // Listen for DonationReceived and RequestApproved events
         let num = 0;
         fundContract.events
           .DonationReceived({ fromBlock: 0 })
           .on("data", async (event) => {
+            console.log(event,"event")
             const donationData = {
               projectName: event.returnValues.fundName,
               ngoName: event.returnValues.ngoAddress,
@@ -90,9 +91,9 @@ const ViewDonations = () => {
       });
 
       setIsDataLoaded(true);
-    } else {
-      console.error("Ethereum provider not found");
-    }
+    // } else {
+    //   console.error("Ethereum provider not found");
+    // }
   };
 
   useLayoutEffect(() => {
