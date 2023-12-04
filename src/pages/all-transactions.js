@@ -1,4 +1,3 @@
-// YourPage.js
 import React, { useState, useLayoutEffect } from "react";
 import DataTable from "views/DataTable";
 import { useTheme } from "@mui/material/styles";
@@ -8,7 +7,7 @@ import Web3 from "web3";
 const cc = require("cryptocompare");
 import detectEthereumProvider from "@metamask/detect-provider";
 
-const ViewDonations = () => {
+const AllTransactions = () => {
   const theme = useTheme();
   const [funds, setFunds] = useState([]);
   const [contract, setContract] = useState(null);
@@ -114,4 +113,4 @@ const ViewDonations = () => {
   );
 };
 
-export default ViewDonations;
+export default AllTransactions;

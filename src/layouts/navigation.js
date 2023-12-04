@@ -4,12 +4,12 @@ const pages = [
     href: "/",
   },
   {
-    title: "Create Campaign",
-    href: "/create",
+    title: "Create Project",
+    href: "/create-project",
   },
   {
     title: "All Transactions",
-    href: "/view-donations",
+    href: "/all-transactions",
   },
   {
     title: "Requests",
@@ -17,11 +17,11 @@ const pages = [
   },
   {
     title: "My Donations",
-    href: "/mydonations",
+    href: "/my-donations",
   },
   {
-    title: "View My Requests",
-    href: "/view-requests",
+    title: "My Requests",
+    href: "/my-requests",
   },
 
   // {

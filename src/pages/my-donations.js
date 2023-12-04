@@ -8,8 +8,6 @@ import Web3 from "web3";
 const cc = require("cryptocompare");
 import detectEthereumProvider from "@metamask/detect-provider";
 
-
-
 const MyDonations = () => {
     const theme = useTheme();
     const [funds, setFunds] = useState([]);

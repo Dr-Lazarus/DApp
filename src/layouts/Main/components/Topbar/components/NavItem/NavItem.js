@@ -25,9 +25,9 @@ const NavItem = ({ items, colorInvert = false }) => {
   return (
     <Box>
       {items.map((p, i) => (
-        (role === '2' && p.title === "Create Campaign"
+        (role === '2' && p.title === "Create Project"
           || role === '2' && p.title === "Requests" ||
-          role === '1' && p.title === "View My Requests"
+          role === '1' && p.title === "My Requests"
           ||
           role === '0' && p.title === "My Donations"
           || (role === '0' || role === '1' || role === '2' || role === '3' || role === null) && p.title === "Home"

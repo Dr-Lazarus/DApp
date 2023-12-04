@@ -8,7 +8,7 @@ const cc = require("cryptocompare");
 import detectEthereumProvider from "@metamask/detect-provider";
 import ViewRequestTable from "views/ViewRequestTable";
 const statusEnum = { 0: "Pending", 1: "Approved", 2: "Rejected" };
-const ViewRequests = () => {
+const MyRequests = () => {
     const theme = useTheme();
     const [funds, setFunds] = useState([]);
     const [contract, setContract] = useState(null);
@@ -114,7 +114,7 @@ const ViewRequests = () => {
     );
 };
 
-export default ViewRequests;
+export default MyRequests;
 
 // requestData.push({
 //     projectName: proj_name,
