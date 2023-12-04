@@ -25,7 +25,6 @@ import {
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import DialogBox from "blocks/DialogBox";
 import { LoadingButton } from "@mui/lab";
-import { RoleInstance } from "twilio/lib/rest/chat/v1/service/role";
 
 const ProjectDialog = ({
   onClose,
