@@ -4,6 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import FundraiserFactory from "contracts/FundraiserFactory.json";
 import FundraiserContract from "contracts/Fundraiser.json";
 import Web3 from "web3";
+import detectEthereumProvider from "@metamask/detect-provider";
 const cc = require("cryptocompare");
 
 const ViewRequests = () => {
@@ -39,61 +40,66 @@ const ViewRequests = () => {
 
   const init = async () => {
     try {
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = FundraiserFactory.networks[networkId];
-      const accounts = await web3.eth.getAccounts();
-      const fundsinstance = new web3.eth.Contract(
-        FundraiserFactory.abi,
-        deployedNetwork && deployedNetwork.address
-      );
-
-      console.log(fundsinstance, 'idk man')
-
-      setAccounts(accounts);
-      const funds = await fundsinstance.methods.fundraisers(1000, 0).call();
-      setFunds(funds);
-
-      let requestData = [];
-
-      for (const fundAddress of funds) {
-        const fundContract = new web3.eth.Contract(
-          FundraiserContract.abi,
-          fundAddress
+      const provider = await detectEthereumProvider();
+      if (provider) {
+        web3 = new Web3(provider);
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = FundraiserFactory.networks[networkId];
+        const accounts = await web3.eth.getAccounts();
+        const fundsinstance = new web3.eth.Contract(
+          FundraiserFactory.abi,
+          deployedNetwork && deployedNetwork.address
         );
 
-        const fngo = await fundContract.methods.ngoAddress().call();
-        console.log("fngo:", fngo);
-        console.log('ad', accounts)
-        // const useraddress = "0x6A0560385DeC22E29cB606e2707e1aD13Fdd7333";
-        // if (fngo !== useraddress) {
-        //   continue;
-        // }
+        console.log('Fund Instance:', fundsinstance,)
 
-        const requests = await fundContract.methods.allRequests().call();
-        const proj_name = await fundContract.methods.fundName().call();
-        const totalDonation = await fundContract.methods
-          .totalDonations()
-          .call();
+        setAccounts(accounts);
+        const funds = await fundsinstance.methods.fundraisers(1000, 0).call();
+        setFunds(funds);
 
-        for (let i = 0; i < requests.amounts.length; i++) {
-          if (requests.ngoAddresses[i] == accounts[0]) {
-            requestData.push({
-              projectName: proj_name,
-              requestID: requests.requestID[i],
-              requestedAmount: requests.amounts[i],
-              requestedAmountUSD: await convertWeiToUsd(requests.amounts[i]),
-              availableAmount: totalDonation,
-              availableAmountUSD: await convertWeiToUsd(totalDonation),
-              beneficiaryHash: requests.beneficiaries[i],
-              status: requests.statuses[i],
-              fundInstance: fundContract,
-            });
+        let requestData = [];
+
+        for (const fundAddress of funds) {
+          const fundContract = new web3.eth.Contract(
+            FundraiserContract.abi,
+            fundAddress
+          );
+
+          const fngo = await fundContract.methods.ngoAddress().call();
+          console.log("fngo:", fngo);
+          console.log('ad', accounts)
+          // const useraddress = "0x6A0560385DeC22E29cB606e2707e1aD13Fdd7333";
+          // if (fngo !== useraddress) {
+          //   continue;
+          // }
+
+          const requests = await fundContract.methods.allRequests().call();
+          const proj_name = await fundContract.methods.fundName().call();
+          const totalDonation = await fundContract.methods
+            .totalDonations()
+            .call();
+          console.log("[Logs] Account User:", accounts[0])
+          for (let i = 0; i < requests.amounts.length; i++) {
+            console.log("[Logs] NGO Address:", requests.ngoAddresses[i])
+            if (requests.ngoAddresses[i] == accounts[0]) {
+              requestData.push({
+                projectName: proj_name,
+                requestID: requests.requestID[i],
+                requestedAmount: requests.amounts[i],
+                requestedAmountUSD: await convertWeiToUsd(requests.amounts[i]),
+                availableAmount: totalDonation,
+                availableAmountUSD: await convertWeiToUsd(totalDonation),
+                beneficiaryHash: requests.beneficiaries[i],
+                status: requests.statuses[i],
+                fundInstance: fundContract,
+              });
+            }
           }
         }
-      }
 
-      setData(requestData);
-      setIsDataLoaded(true);
+        setData(requestData);
+        setIsDataLoaded(true);
+      }
     } catch (error) {
       console.error(error);
     }

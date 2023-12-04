@@ -26,147 +26,147 @@ import detectEthereumProvider from "@metamask/detect-provider";
 
 
 import Web3Modal from "web3modal";
-const contractAddress = "0xa4834f6C208c21434dDce909247E56329bB0C0F4";
+const contractAddress = "0x9F8AD91Fa30B00679be1FEfD621c1de25fE23B9a";
 const contractABI = [
   {
-    inputs: [],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   },
   {
-    anonymous: false,
-    inputs: [
+    "anonymous": false,
+    "inputs": [
       {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
-        indexed: false,
-        internalType: "enum UserAccessControl.UserRole",
-        name: "role",
-        type: "uint8",
-      },
+        "indexed": false,
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
+      }
     ],
-    name: "UserRegistered",
-    type: "event",
+    "name": "UserRegistered",
+    "type": "event"
   },
   {
-    inputs: [],
-    name: "admin",
-    outputs: [
+    "inputs": [],
+    "name": "admin",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-    constant: true,
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "users",
-    outputs: [
+    "name": "users",
+    "outputs": [
       {
-        internalType: "enum UserAccessControl.UserRole",
-        name: "role",
-        type: "uint8",
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
       },
       {
-        internalType: "bool",
-        name: "isRegistered",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "isRegistered",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-    constant: true,
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "user",
-        type: "address",
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
-        internalType: "enum UserAccessControl.UserRole",
-        name: "role",
-        type: "uint8",
-      },
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
+      }
     ],
-    name: "registerUser",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "registerUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
-    name: "isUserRegistered",
-    outputs: [
+    "name": "isUserRegistered",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-    constant: true,
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
     ],
-    name: "getUserRole",
-    outputs: [
+    "name": "getUserRole",
+    "outputs": [
       {
-        internalType: "enum UserAccessControl.UserRole",
-        name: "",
-        type: "uint8",
-      },
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "",
+        "type": "uint8"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-    constant: true,
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "user",
-        type: "address",
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
-        internalType: "enum UserAccessControl.UserRole",
-        name: "role",
-        type: "uint8",
-      },
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
+      }
     ],
-    name: "setUser",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
+    "name": "setUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
 ];
 
 async function storeUserAddress(walletAddress, role, provider) {

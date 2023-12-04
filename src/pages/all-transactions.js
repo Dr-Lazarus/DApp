@@ -34,65 +34,65 @@ const AllTransactions = () => {
     // const provider = await detectEthereumProvider();
     // if (provider) {
     //   web3 = new Web3(provider);
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = FundraiserFactory.networks[networkId];
-      const accounts = await web3.eth.getAccounts();
-      const fundsinstance = new web3.eth.Contract(
-        FundraiserFactory.abi,
-        deployedNetwork && deployedNetwork.address
+    const networkId = await web3.eth.net.getId();
+    const deployedNetwork = FundraiserFactory.networks[networkId];
+    const accounts = await web3.eth.getAccounts();
+    const fundsinstance = new web3.eth.Contract(
+      FundraiserFactory.abi,
+      deployedNetwork && deployedNetwork.address
+    );
+
+    console.log(fundsinstance, 'idk man')
+
+    setAccounts(accounts);
+    const funds = await fundsinstance.methods.fundraisers(1000, 0).call();
+    setFunds(funds);
+
+    funds.forEach((fundAddress) => {
+      const fundContract = new web3.eth.Contract(
+        FundraiserContract.abi,
+        fundAddress
       );
+      setContract(fundContract);
 
-      console.log(fundsinstance,'idk man')
+      console.log(fundAddress, 'is my')
 
-      setAccounts(accounts);
-      const funds = await fundsinstance.methods.fundraisers(1000, 0).call();
-      setFunds(funds);
+      // Listen for DonationReceived and RequestApproved events
+      let num = 0;
+      fundContract.events
+        .DonationReceived({ fromBlock: 0 })
+        .on("data", async (event) => {
+          console.log(event, "event")
+          const donationData = {
+            projectName: event.returnValues.fundName,
+            ngoName: event.returnValues.ngoAddress,
+            sendOrRecAddr: event.returnValues.donor,
+            amount: await convertWeiToUsd(event.returnValues.value),
+            type: "Donation",
+            date: new Date(event.returnValues.date * 1000).toLocaleString()
 
-      funds.forEach((fundAddress) => {
-        const fundContract = new web3.eth.Contract(
-          FundraiserContract.abi,
-          fundAddress
-        );
-        setContract(fundContract);
+          };
+          setData((prevData) => [...prevData, donationData]);
+        })
+        .on("error", console.error);
 
-        console.log(fundAddress,'is my')
+      fundContract.events
+        .RequestApproved({ fromBlock: 0 })
+        .on("data", async (event) => {
+          const requestApprovedData = {
+            projectName: event.returnValues.fundName,
+            ngoName: event.returnValues.ngoAddress,
+            sendOrRecAddr: event.returnValues.beneficiary,
+            amount: await convertWeiToUsd(event.returnValues.value),
+            type: "Beneficiary Aid",
+            date: new Date(event.returnValues.date * 1000).toLocaleString()
+          };
+          setData((prevData) => [...prevData, requestApprovedData]);
+        })
+        .on("error", console.error);
+    });
 
-        // Listen for DonationReceived and RequestApproved events
-        let num = 0;
-        fundContract.events
-          .DonationReceived({ fromBlock: 0 })
-          .on("data", async (event) => {
-            console.log(event,"event")
-            const donationData = {
-              projectName: event.returnValues.fundName,
-              ngoName: event.returnValues.ngoAddress,
-              sendOrRecAddr: event.returnValues.donor,
-              amount: await convertWeiToUsd(event.returnValues.value),
-              type: "Donation",
-              date: new Date(event.returnValues.date * 1000).toLocaleString()
-
-            };
-            setData((prevData) => [...prevData, donationData]);
-          })
-          .on("error", console.error);
-
-        fundContract.events
-          .RequestApproved({ fromBlock: 0 })
-          .on("data", async (event) => {
-            const requestApprovedData = {
-              projectName: event.returnValues.fundName,
-              ngoName: event.returnValues.ngoAddress,
-              sendOrRecAddr: event.returnValues.beneficiary,
-              amount: await convertWeiToUsd(event.returnValues.value),
-              type: "Beneficiary Support",
-              date: new Date(event.returnValues.date * 1000).toLocaleString()
-            };
-            setData((prevData) => [...prevData, requestApprovedData]);
-          })
-          .on("error", console.error);
-      });
-
-      setIsDataLoaded(true);
+    setIsDataLoaded(true);
     // } else {
     //   console.error("Ethereum provider not found");
     // }
