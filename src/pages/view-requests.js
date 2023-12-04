@@ -79,6 +79,9 @@ const ViewRequests = () => {
                     .call();
 
                 for (let i = 0; i < requests.amounts.length; i++) {
+                    console.log(requests.amounts)
+                    console.log("amount",requests.amounts[i])
+                    console.log("amount",typeof(requests.amounts[i]))
                     requestData.push({
                         projectName: proj_name,
                         ngoName: 'sss',

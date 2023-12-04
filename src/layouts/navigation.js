@@ -20,6 +20,11 @@ const pages = [
     href: "/view-requests",
   },
 
+  {
+    title: "My Donations",
+    href: "/mydonations",
+  },
+
   // {
   //   title: 'Projects',
   //   href: '/projects',
