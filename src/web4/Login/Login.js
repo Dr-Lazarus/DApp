@@ -22,6 +22,8 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providers } from "ethers";
 const ethers = require("ethers");
 import React from "react";
+import detectEthereumProvider from "@metamask/detect-provider";
+
 
 import Web3Modal from "web3modal";
 const contractAddress = "0xa4834f6C208c21434dDce909247E56329bB0C0F4";
@@ -198,10 +200,10 @@ async function storeUserAddress(walletAddress, role, provider) {
       const role = await contract.getUserRole(walletAddress);
       console.log(`User already registered: ${walletAddress}`);
       console.log("The user is alreadt registssered with role:", role);
-      localStorage.setItem("Address", walletAddress);
-      localStorage.setItem("Role", role);
-      localStorage.setItem("IsLoggedIn", true)
-      console.log(localStorage);
+      sessionStorage.setItem("Address", walletAddress);
+      sessionStorage.setItem("Role", role);
+      sessionStorage.setItem("IsLoggedIn", true)
+      console.log(sessionStorage);
     }
   } catch (error) {
     console.error("Error storing user address:", error);
@@ -266,14 +268,20 @@ export const Login = () => {
   const [showRoleDialog, setShowRoleDialog] = useState(false);
   const [role, setRole] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [checklogin, setChecklogin] = useState('');
   // const [nric, setNric] = useState('');
-
   const connect = useCallback(
     async function () {
       if (role) {
         try {
-          const provider = await web3Modal.connect();
-          const web3Provider = new providers.Web3Provider(provider);
+
+        //   const web3 = new Web3(
+        //     new Web3.providers.HttpProvider(
+        //         "https://polygon-mumbai.g.alchemy.com/v2/vfU1nY87ym-xqIkiT9wHvu6BNiYyyMcQ"
+        //     )
+        // );
+        const provider = await detectEthereumProvider();
+        const web3Provider = new providers.Web3Provider(provider);
           const signer = web3Provider.getSigner();
           const address = await signer.getAddress();
           const network = await web3Provider.getNetwork();
@@ -289,6 +297,7 @@ export const Login = () => {
             address,
             chainId: network.chainId,
           });
+          window.location.reload();
         } catch (error) {
           alert(error.message);
         }
@@ -337,8 +346,9 @@ export const Login = () => {
       </Dialog>
     );
   });
-
+ 
   const disconnect = useCallback(
+
     async function () {
       await web3Modal.clearCachedProvider();
       if (provider?.disconnect && typeof provider.disconnect === "function") {
@@ -348,10 +358,13 @@ export const Login = () => {
         type: "RESET_WEB3_PROVIDER",
       });
       setAnchorEl(null);
-      localStorage.setItem("Address", " ")
-      localStorage.setItem("Role", "3")
-      // localStorage.setItem("isLoggedIn", false)
-      console.log(localStorage)
+      sessionStorage.setItem("Address", " ")
+      sessionStorage.setItem("Role", "3")
+      const ROLE1=sessionStorage.getItem('Role')
+      setChecklogin(ROLE1)
+      // sessionStorage.setItem("isLoggedIn", false)
+      console.log(sessionStorage)
+      window.location.reload();
     },
     [provider]
   );
@@ -360,6 +373,8 @@ export const Login = () => {
   // here so that when a user switches accounts or networks, we can update the
   // local React state with that new information.
   useEffect(() => {
+    const ROLE=sessionStorage.getItem('Role')
+    setChecklogin(ROLE)
     if (provider?.on) {
       const handleAccountsChanged = (accounts) => {
         // eslint-disable-next-line no-console
@@ -402,8 +417,8 @@ export const Login = () => {
   };
 
   return (
-    <div className="container">
-      {web3Provider ? (
+    <div className="container" >
+      {checklogin ==='0' ||checklogin ==='1' || checklogin ==='2'   ? (
         <Account
           icon="https://firebasestorage.googleapis.com/v0/b/virtualground-meta.appspot.com/o/nft%2Ficon.png?alt=media&token=51904b60-2b20-47aa-9502-67f4aabc8061"
           address={ellipseAddress(address)}

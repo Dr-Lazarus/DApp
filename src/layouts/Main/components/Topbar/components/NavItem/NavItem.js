@@ -14,9 +14,9 @@ const NavItem = ({ items, colorInvert = false }) => {
 
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
-    const userAddress = localStorage.getItem('Address');
-    const Role = localStorage.getItem('Role');
-    // const Loggedin =localStorage.getItem('IsLoggedIn');
+    const userAddress = sessionStorage.getItem('Address');
+    const Role = sessionStorage.getItem('Role');
+    // const Loggedin =sessionStorage.getItem('IsLoggedIn');
     setRole(Role)
     // setLoggedin(Loggedin)
    
