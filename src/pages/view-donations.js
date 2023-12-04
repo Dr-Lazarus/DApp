@@ -70,6 +70,8 @@ const ViewDonations = () => {
               sendOrRecAddr: event.returnValues.donor,
               amount: await convertWeiToUsd(event.returnValues.value),
               type: "Donation",
+              date: new Date(event.returnValues.date * 1000).toLocaleString()
+
             };
             setData((prevData) => [...prevData, donationData]);
           })
@@ -84,6 +86,7 @@ const ViewDonations = () => {
               sendOrRecAddr: event.returnValues.beneficiary,
               amount: await convertWeiToUsd(event.returnValues.value),
               type: "Beneficiary Support",
+              date: new Date(event.returnValues.date * 1000).toLocaleString()
             };
             setData((prevData) => [...prevData, requestApprovedData]);
           })

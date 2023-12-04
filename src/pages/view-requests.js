@@ -80,6 +80,7 @@ const ViewRequests = () => {
 
         for (let i = 0; i < requests.amounts.length; i++) {
           if (requests.beneficiaries[i] == accounts[0]) {
+            console.log(requests)
             requestData.push({
               projectName: proj_name,
               requestID: requests.requestID[i],
@@ -88,6 +89,7 @@ const ViewRequests = () => {
               availableAmount: totalDonation,
               beneficiaryHash: requests.beneficiaries[i],
               status: statusEnum[String(requests.statuses[i])],
+            //   date: new Date(requests.date[i] * 1000).toLocaleString()
             });
             console.log("Request Data:", requestData[i]);
           }

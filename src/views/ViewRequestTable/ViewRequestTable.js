@@ -32,6 +32,13 @@ const ViewRequestTable = ({ data }) => {
     // return ngoMatch && projectMatch;
   });
 
+  //use this after getting date
+
+  const filteredAndSortedData = data
+    .filter((row) => row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) || projectFilter === '')
+    .sort((a, b) => b.date - a.date); // Sort by date in descending order
+
+
   return (
     <Main>
       <Container>
@@ -62,7 +69,7 @@ const ViewRequestTable = ({ data }) => {
             <TableBody>
               {filteredData.map((row, index) => (
                 <TableRow key={index}>
-                  {/* <TableCell>{row.ngoName}</TableCell> */}
+                  {/* <TableCell>{row.date}</TableCell> */}
                   <TableCell>{row.projectName}</TableCell>
                   <TableCell>{row.amount}</TableCell>
                   <TableCell

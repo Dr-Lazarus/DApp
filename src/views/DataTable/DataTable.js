@@ -27,17 +27,10 @@ const DataTable = ({ data }) => {
   // },[data1])
 
   // Function to filter data based on NGO and project name
-  const filteredData = data.filter((row) => {
-    const ngoMatch =
-      row.ngoName.toLowerCase().includes(ngoFilter.toLowerCase()) ||
-      ngoFilter === '';
+  const filteredAndSortedData = data
+    .filter((row) => row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) || projectFilter === '')
+    .sort((a, b) => b.date - a.date); // Sort by date in descending order
 
-    const projectMatch =
-      row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) ||
-      projectFilter === '';
-
-    return ngoMatch && projectMatch;
-  });
 
   return (
     <Main>
@@ -60,6 +53,7 @@ const DataTable = ({ data }) => {
           <Table>
             <TableHead>
               <TableRow>
+              <TableCell>Date</TableCell>
                 <TableCell>Project Name</TableCell>
                 {/* <TableCell>NGO Name</TableCell> */}
                 <TableCell>Amount</TableCell>
@@ -68,8 +62,9 @@ const DataTable = ({ data }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData.map((row, index) => (
+              {filteredAndSortedData.map((row, index) => (
                 <TableRow key={index}>
+                  <TableCell>{row.date}</TableCell>
                   <TableCell>{row.projectName}</TableCell>
                   {/* <TableCell>{row.ngoName}</TableCell> */}
                   <TableCell style={{ color: row.type === 'Donation' ? 'green' : 'red' }}>
