@@ -1,157 +1,171 @@
-import { useCallback, useEffect, useReducer, useState, useLayoutEffect } from 'react';
-import { IconButton, Dialog, DialogActions, Button, DialogContent, DialogTitle, TextField, MenuItem } from '@mui/material';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import Account from './components/Account';
-import { ellipseAddress, getChainData } from './lib/utilities';
-import WalletConnectProvider from '@walletconnect/web3-provider';
-import { providers } from 'ethers';
-const ethers = require('ethers')
-import React from "react"
+import {
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+  useLayoutEffect,
+} from "react";
+import {
+  IconButton,
+  Dialog,
+  DialogActions,
+  Button,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import Account from "./components/Account";
+import { ellipseAddress, getChainData } from "./lib/utilities";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { providers } from "ethers";
+const ethers = require("ethers");
+import React from "react";
 
-import Web3Modal from 'web3modal';
-const contractAddress = "0xa4834f6C208c21434dDce909247E56329bB0C0F4"
+import Web3Modal from "web3modal";
+const contractAddress = "0xa4834f6C208c21434dDce909247E56329bB0C0F4";
 const contractABI = [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
+        indexed: true,
+        internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
-        "indexed": false,
-        "internalType": "enum UserAccessControl.UserRole",
-        "name": "role",
-        "type": "uint8"
-      }
+        indexed: false,
+        internalType: "enum UserAccessControl.UserRole",
+        name: "role",
+        type: "uint8",
+      },
     ],
-    "name": "UserRegistered",
-    "type": "event"
+    name: "UserRegistered",
+    type: "event",
   },
   {
-    "inputs": [],
-    "name": "admin",
-    "outputs": [
+    inputs: [],
+    name: "admin",
+    outputs: [
       {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
     ],
-    "name": "users",
-    "outputs": [
+    name: "users",
+    outputs: [
       {
-        "internalType": "enum UserAccessControl.UserRole",
-        "name": "role",
-        "type": "uint8"
+        internalType: "enum UserAccessControl.UserRole",
+        name: "role",
+        type: "uint8",
       },
       {
-        "internalType": "bool",
-        "name": "isRegistered",
-        "type": "bool"
-      }
+        internalType: "bool",
+        name: "isRegistered",
+        type: "bool",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
+        internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
-        "internalType": "enum UserAccessControl.UserRole",
-        "name": "role",
-        "type": "uint8"
-      }
+        internalType: "enum UserAccessControl.UserRole",
+        name: "role",
+        type: "uint8",
+      },
     ],
-    "name": "registerUser",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "registerUser",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
     ],
-    "name": "isUserRegistered",
-    "outputs": [
+    name: "isUserRegistered",
+    outputs: [
       {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
     ],
-    "name": "getUserRole",
-    "outputs": [
+    name: "getUserRole",
+    outputs: [
       {
-        "internalType": "enum UserAccessControl.UserRole",
-        "name": "",
-        "type": "uint8"
-      }
+        internalType: "enum UserAccessControl.UserRole",
+        name: "",
+        type: "uint8",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
+        internalType: "address",
+        name: "user",
+        type: "address",
       },
       {
-        "internalType": "enum UserAccessControl.UserRole",
-        "name": "role",
-        "type": "uint8"
-      }
+        internalType: "enum UserAccessControl.UserRole",
+        name: "role",
+        type: "uint8",
+      },
     ],
-    "name": "setUser",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-]
-
+    name: "setUser",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
 
 async function storeUserAddress(walletAddress, role, provider) {
   const signer = provider.getSigner();
@@ -159,7 +173,7 @@ async function storeUserAddress(walletAddress, role, provider) {
 
   // Parse the role based on the enum UserRole
   let parsedRole;
-  console.log("The role is", role)
+  console.log("The role is", role);
   if (role.toLowerCase() === "beneficiary") {
     parsedRole = 1;
   } else if (role.toLowerCase() === "donor") {
@@ -181,16 +195,15 @@ async function storeUserAddress(walletAddress, role, provider) {
       await transaction.wait();
       console.log(`User registered: ${walletAddress} with role: ${parsedRole}`);
     } else {
-      const role = await contract.getUserRole(walletAddress)
+      const role = await contract.getUserRole(walletAddress);
       console.log(`User already registered: ${walletAddress}`);
-      console.log("The user is alreadt registered with role:" ,role)
-      localStorage.setItem('Address', walletAddress);
-      localStorage.setItem('Role', role);
-      console.log(localStorage)
-
+      console.log("The user is alreadt registssered with role:", role);
+      localStorage.setItem("Address", walletAddress);
+      localStorage.setItem("Role", role);
+      console.log(localStorage);
     }
   } catch (error) {
-    console.error('Error storing user address:', error);
+    console.error("Error storing user address:", error);
   }
 }
 export const providerOptions = {
@@ -202,16 +215,13 @@ export const providerOptions = {
   },
 };
 let web3Modal;
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   web3Modal = new Web3Modal({
-    network: 'mumbai', // optional
+    network: "mumbai", // optional
     cacheProvider: true,
     providerOptions, // required
   });
-
-
 }
-
 
 const initialState = {
   provider: null,
@@ -222,7 +232,7 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'SET_WEB3_PROVIDER':
+    case "SET_WEB3_PROVIDER":
       return {
         ...state,
         provider: action.provider,
@@ -230,17 +240,17 @@ function reducer(state, action) {
         address: action.address,
         chainId: action.chainId,
       };
-    case 'SET_ADDRESS':
+    case "SET_ADDRESS":
       return {
         ...state,
         address: action.address,
       };
-    case 'SET_CHAIN_ID':
+    case "SET_CHAIN_ID":
       return {
         ...state,
         chainId: action.chainId,
       };
-    case 'RESET_WEB3_PROVIDER':
+    case "RESET_WEB3_PROVIDER":
       return initialState;
     default:
       throw new Error();
@@ -253,46 +263,56 @@ export const Login = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { provider, web3Provider, address, chainId } = state;
   const [showRoleDialog, setShowRoleDialog] = useState(false);
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   // const [nric, setNric] = useState('');
 
-  const connect = useCallback(async function () {
-    try{ 
-      const provider = await web3Modal.connect();
-      const web3Provider = new providers.Web3Provider(provider);
-      const signer = web3Provider.getSigner();
-      const address = await signer.getAddress();
-      const network = await web3Provider.getNetwork();
-  
-  
-      console.log(role)
-      console.log(role, address)
-      await storeUserAddress(address, role, web3Provider);
-      
-      dispatch({
-        type: 'SET_WEB3_PROVIDER',
-        provider,
-        web3Provider,
-        address,
-        chainId: network.chainId,
-      });
+  const connect = useCallback(
+    async function () {
+      if (role) {
+        try {
+          const provider = await web3Modal.connect();
+          const web3Provider = new providers.Web3Provider(provider);
+          const signer = web3Provider.getSigner();
+          const address = await signer.getAddress();
+          const network = await web3Provider.getNetwork();
+
+          console.log(role);
+          console.log(role, address);
+          await storeUserAddress(address, role, web3Provider);
+
+          dispatch({
+            type: "SET_WEB3_PROVIDER",
+            provider,
+            web3Provider,
+            address,
+            chainId: network.chainId,
+          });
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+    },
+    [role]
+  );
+
+  useEffect(() => {
+    if (submitting) {
+      connect();
     }
-    catch (error){
-      alert(error.message);
-    }
-   
-  }, []);
+  }, [submitting, connect]);
 
   const RoleDialog = React.memo(() => {
-    const handleSubmit = async () => {
-      // connect to the wallet
-      await connect();
-      setShowRoleDialog(false);
+    const handleSubmit = () => {
+      setSubmitting(true);
     };
 
     return (
-      <Dialog open={showRoleDialog} onClose={() => setShowRoleDialog(false)}
-        style={{ width: '80%', height: '70%', margin: 'auto' }}>
+      <Dialog
+        open={showRoleDialog}
+        onClose={() => setShowRoleDialog(false)}
+        style={{ width: "80%", height: "70%", margin: "auto" }}
+      >
         <DialogTitle>Registration</DialogTitle>
         <DialogContent>
           <TextField
@@ -302,8 +322,10 @@ export const Login = () => {
             onChange={(e) => setRole(e.target.value)}
             fullWidth
           >
-            {['Donor', 'Beneficiary', 'NGO'].map((option) => (
-              <MenuItem key={option} value={option}>{option}</MenuItem>
+            {["Donor", "Beneficiary", "NGO"].map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
             ))}
           </TextField>
         </DialogContent>
@@ -318,17 +340,17 @@ export const Login = () => {
   const disconnect = useCallback(
     async function () {
       await web3Modal.clearCachedProvider();
-      if (provider?.disconnect && typeof provider.disconnect === 'function') {
+      if (provider?.disconnect && typeof provider.disconnect === "function") {
         await provider.disconnect();
       }
       dispatch({
-        type: 'RESET_WEB3_PROVIDER',
+        type: "RESET_WEB3_PROVIDER",
       });
       setAnchorEl(null);
       // localStorage.setItem("Address", " ")
       // localStorage.setItem("Role", " ")
     },
-    [provider],
+    [provider]
   );
 
   // A `provider` should come with EIP-1193 events. We'll listen for those events
@@ -338,9 +360,9 @@ export const Login = () => {
     if (provider?.on) {
       const handleAccountsChanged = (accounts) => {
         // eslint-disable-next-line no-console
-        console.log('accountsChanged', accounts);
+        console.log("accountsChanged", accounts);
         dispatch({
-          type: 'SET_ADDRESS',
+          type: "SET_ADDRESS",
           address: accounts[0],
         });
       };
@@ -352,20 +374,20 @@ export const Login = () => {
 
       const handleDisconnect = (error) => {
         // eslint-disable-next-line no-console
-        console.log('disconnect', error);
+        console.log("disconnect", error);
         disconnect();
       };
 
-      provider.on('accountsChanged', handleAccountsChanged);
-      provider.on('chainChanged', handleChainChanged);
-      provider.on('disconnect', handleDisconnect);
+      provider.on("accountsChanged", handleAccountsChanged);
+      provider.on("chainChanged", handleChainChanged);
+      provider.on("disconnect", handleDisconnect);
 
       // Subscription Cleanup
       return () => {
         if (provider.removeListener) {
-          provider.removeListener('accountsChanged', handleAccountsChanged);
-          provider.removeListener('chainChanged', handleChainChanged);
-          provider.removeListener('disconnect', handleDisconnect);
+          provider.removeListener("accountsChanged", handleAccountsChanged);
+          provider.removeListener("chainChanged", handleChainChanged);
+          provider.removeListener("disconnect", handleDisconnect);
         }
       };
     }
@@ -385,7 +407,11 @@ export const Login = () => {
           handleLogout={disconnect}
         />
       ) : (
-        <IconButton color="primary" onClick={handleOpenRoleDialog} size="medium">
+        <IconButton
+          color="primary"
+          onClick={handleOpenRoleDialog}
+          size="medium"
+        >
           <AccountBalanceWalletIcon fontSize="large" />
         </IconButton>
       )}
