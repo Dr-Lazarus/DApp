@@ -21,13 +21,12 @@ const ViewRequests = () => {
   );
   const convertWeiToUsd = async (weiAmount) => {
     const ethAmount = web3.utils.fromWei(weiAmount, "ether"); // Convert Wei to ETH
-
     try {
       const prices = await cc.price("ETH", ["USD"]);
       const exchangeRate = prices.USD; // Get the ETH to USD exchange rate
       const usdAmount = ethAmount * exchangeRate; // Convert ETH to USD
-      //return parseFloat(usdAmount.toFixed(2));
-      return weiAmount;
+      return parseFloat(usdAmount.toFixed(2));
+      //return weiAmount;
     } catch (error) {
       console.error("Error fetching exchange rate:", error);
       return 0; // Return 0 or handle the error as needed
@@ -71,16 +70,18 @@ const ViewRequests = () => {
 
         const requests = await fundContract.methods.allRequests().call();
         const proj_name = await fundContract.methods.fundName().call();
-        const totalDonation = await convertWeiToUsd(
-          await fundContract.methods.totalDonations().call()
-        );
+        const totalDonation = await fundContract.methods
+          .totalDonations()
+          .call();
 
         for (let i = 0; i < requests.amounts.length; i++) {
           requestData.push({
             projectName: proj_name,
             requestID: requests.requestID[i],
-            requestedAmount: await convertWeiToUsd(requests.amounts[i]),
+            requestedAmount: requests.amounts[i],
+            requestedAmountUSD: await convertWeiToUsd(requests.amounts[i]),
             availableAmount: totalDonation,
+            availableAmountUSD: await convertWeiToUsd(totalDonation),
             beneficiaryHash: requests.beneficiaries[i],
             status: requests.statuses[i],
             fundInstance: fundContract,
