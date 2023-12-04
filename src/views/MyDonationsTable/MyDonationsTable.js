@@ -52,6 +52,7 @@ const MyDonationsTable = ({ data }) => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>Date</TableCell>
                 <TableCell>Project Name</TableCell>
                 {/* <TableCell>NGO Name</TableCell> */}
                 <TableCell>Amount</TableCell>
@@ -62,10 +63,11 @@ const MyDonationsTable = ({ data }) => {
             <TableBody>
               {filteredAndSortedData.map((row, index) => (
                 <TableRow key={index}>
+                  <TableCell>{row.date}</TableCell>
                   <TableCell>{row.projectName}</TableCell>
                   {/* <TableCell>{row.ngoName}</TableCell> */}
                   {/* <TableCell style={{ color: row.type === 'Donation' ? 'green' : 'red' }}> */}
-                    {/* {row.amount} */}
+                  {/* {row.amount} */}
                   {/* </TableCell> */}
                   <TableCell>{row.amount}</TableCell>
                   {/* <TableCell>{row.type}</TableCell> */}

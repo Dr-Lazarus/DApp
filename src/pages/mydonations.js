@@ -26,7 +26,7 @@ const MyDonations = () => {
     );
     const convertWeiToUsd = async (weiAmount) => {
         console.log('i got', weiAmount)
-        console.log(typeof(weiAmount))
+        console.log(typeof (weiAmount))
         const ethAmount = web3.utils.fromWei(weiAmount, "ether"); // Convert Wei to ETH
         try {
             const prices = await cc.price("ETH", ["USD"]);
@@ -76,30 +76,30 @@ const MyDonations = () => {
                 console.log(await fundContract.methods.fundName().call())
                 const requests = await fundContract.methods.myDonations().call({ from: accounts[0] });
                 const count = await fundContract.methods.myDonationsCount().call({ from: accounts[0] });
-                 
 
-                console.log('my req is',requests)
-                console.log("values",requests.values)
-                console.log("values",requests.values.length)
-                console.log("values",requests.values[0])
+
+                console.log('my req is', requests)
+                console.log("values", requests.values)
+                console.log("values", requests.values.length)
+                console.log("values", requests.values[0])
 
 
                 // for(let i=0;i<requests.length<i++){
-                    
+
                 // }
-                for(let i=0; i < requests.values.length;i++){
-                    console.log('my req is',requests)
-                    console.log("values1",requests.values)
-                    console.log("values1",requests.values.length)
-                    console.log("values1",requests.values[i])
+                for (let i = 0; i < requests.values.length; i++) {
+                    console.log('my req is', requests)
+                    console.log("values1", requests.values)
+                    console.log("values1", requests.values.length)
+                    console.log("values1", requests.values[i])
                     console.log(i)
                     // Number(requests.values[i])
                     requestData.push({
                         projectName: requests.fundNames[0],
                         amount: await convertWeiToUsd(requests.values[i]),
-                        date: new Date(requests.dates[0] * 1000).toLocaleString()
+                        date: new Date(requests.dates[i] * 1000).toLocaleString()
                     })
-                }                
+                }
 
                 // {info or to do} why use instance inste bm    ad of contract
                 // getting properties of the project

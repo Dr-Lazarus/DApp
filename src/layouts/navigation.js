@@ -8,7 +8,7 @@ const pages = [
     href: "/create",
   },
   {
-    title: "View Donations",
+    title: "All Transactions",
     href: "/view-donations",
   },
   {
