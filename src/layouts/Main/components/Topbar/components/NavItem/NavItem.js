@@ -8,21 +8,28 @@ import Typography from '@mui/material/Typography';
 const NavItem = ({ items, colorInvert = false }) => {
   const theme = useTheme();
   const [activeLink, setActiveLink] = useState('');
-  let role = null;
+  const role = localStorage.getItem('Role');
+  console.log(typeof role)
+  console.log(role ==='0' || role ==='1'||role ==='2' )
+
   
 
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
     const userAddress = localStorage.getItem('Address');
-    role = localStorage.getItem('Role');
-    console.log(userAddress)
-    console.log(role)
+   
   }, []);
 
   return (
     <Box>
       {items.map((p, i) => (
-        (role == 2 && p.title =="Create Campaign" && p.title == "Requests") ? null:(
+        (role ==='2' && p.title === "Create Campaign" 
+        || role ==='2' && p.title === "Requests" || 
+        role ==='1' && p.title === "View My Requests"
+        || (role ==='0' || role ==='1'||role ==='2'  )&& p.title === "Home"
+        || (role ==='0' || role ==='1'||role ==='2'  )&& p.title === "View Donations"
+        
+        ) ? (
         <Button
           component={'a'}
           href={p.href==="Register" ?null : p.href}
@@ -60,7 +67,7 @@ const NavItem = ({ items, colorInvert = false }) => {
               </Typography>
             </Box>
           )}
-        </Button>)
+        </Button>):null
       ))}
     </Box>
   );

@@ -4,7 +4,7 @@ const pages = [
     href: "/",
   },
   {
-    title: "Create Campaign ",
+    title: "Create Campaign",
     href: "/create",
   },
   {
