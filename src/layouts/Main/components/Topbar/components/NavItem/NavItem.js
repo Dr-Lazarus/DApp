@@ -28,6 +28,8 @@ const NavItem = ({ items, colorInvert = false }) => {
         (role ==='2' && p.title === "Create Campaign" 
         || role ==='2' && p.title === "Requests" || 
         role ==='1' && p.title === "View My Requests"
+        || 
+        role ==='2' && p.title === "My Donations"
         || (role ==='0' || role ==='1'||role ==='2' || role ==='3'  )&& p.title === "Home"
         || (role ==='0' || role ==='1'||role ==='2' || role ==='3'   )&& p.title === "View Donations"
         
