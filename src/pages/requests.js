@@ -42,15 +42,15 @@ const ViewRequests = () => {
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = FundraiserFactory.networks[networkId];
       const accounts = await web3.eth.getAccounts();
-      const instance = new web3.eth.Contract(
+      const fundsinstance = new web3.eth.Contract(
         FundraiserFactory.abi,
         deployedNetwork && deployedNetwork.address
       );
 
-      setContract(instance);
-      setAccounts(accounts);
+      console.log(fundsinstance, 'idk man')
 
-      const funds = await instance.methods.fundraisers(1000, 0).call();
+      setAccounts(accounts);
+      const funds = await fundsinstance.methods.fundraisers(1000, 0).call();
       setFunds(funds);
 
       let requestData = [];
@@ -63,6 +63,7 @@ const ViewRequests = () => {
 
         const fngo = await fundContract.methods.ngoAddress().call();
         console.log("fngo:", fngo);
+        console.log('ad', accounts)
         // const useraddress = "0x6A0560385DeC22E29cB606e2707e1aD13Fdd7333";
         // if (fngo !== useraddress) {
         //   continue;
@@ -75,17 +76,19 @@ const ViewRequests = () => {
           .call();
 
         for (let i = 0; i < requests.amounts.length; i++) {
-          requestData.push({
-            projectName: proj_name,
-            requestID: requests.requestID[i],
-            requestedAmount: requests.amounts[i],
-            requestedAmountUSD: await convertWeiToUsd(requests.amounts[i]),
-            availableAmount: totalDonation,
-            availableAmountUSD: await convertWeiToUsd(totalDonation),
-            beneficiaryHash: requests.beneficiaries[i],
-            status: requests.statuses[i],
-            fundInstance: fundContract,
-          });
+          if (requests.ngoAddresses[i] == accounts[0]) {
+            requestData.push({
+              projectName: proj_name,
+              requestID: requests.requestID[i],
+              requestedAmount: requests.amounts[i],
+              requestedAmountUSD: await convertWeiToUsd(requests.amounts[i]),
+              availableAmount: totalDonation,
+              availableAmountUSD: await convertWeiToUsd(totalDonation),
+              beneficiaryHash: requests.beneficiaries[i],
+              status: requests.statuses[i],
+              fundInstance: fundContract,
+            });
+          }
         }
       }
 

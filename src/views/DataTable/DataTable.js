@@ -29,7 +29,7 @@ const DataTable = ({ data }) => {
   // Function to filter data based on NGO and project name
   const filteredAndSortedData = data
     .filter((row) => row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) || projectFilter === '')
-    .sort((a, b) => b.date - a.date); // Sort by date in descending order
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());// Sort by date in descending order
 
 
   return (
@@ -53,7 +53,7 @@ const DataTable = ({ data }) => {
           <Table>
             <TableHead>
               <TableRow>
-              <TableCell>Date</TableCell>
+                <TableCell>Date</TableCell>
                 <TableCell>Project Name</TableCell>
                 {/* <TableCell>NGO Name</TableCell> */}
                 <TableCell>Amount</TableCell>
