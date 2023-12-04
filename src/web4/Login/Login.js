@@ -9,7 +9,7 @@ const ethers = require('ethers')
 import React from "react"
 
 import Web3Modal from 'web3modal';
-const contractAddress = "0x9d7D611701dBe07e95C4E3F2623559dB365B3115"
+const contractAddress = "0xa4834f6C208c21434dDce909247E56329bB0C0F4"
 const contractABI = [
   {
     "inputs": [],
@@ -98,24 +98,6 @@ const contractABI = [
         "internalType": "address",
         "name": "user",
         "type": "address"
-      },
-      {
-        "internalType": "enum UserAccessControl.UserRole",
-        "name": "role",
-        "type": "uint8"
-      }
-    ],
-    "name": "setUser",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
       }
     ],
     "name": "isUserRegistered",
@@ -149,8 +131,27 @@ const contractABI = [
     "stateMutability": "view",
     "type": "function",
     "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "enum UserAccessControl.UserRole",
+        "name": "role",
+        "type": "uint8"
+      }
+    ],
+    "name": "setUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 ]
+
 
 async function storeUserAddress(walletAddress, role, provider) {
   const signer = provider.getSigner();
@@ -158,7 +159,7 @@ async function storeUserAddress(walletAddress, role, provider) {
 
   // Parse the role based on the enum UserRole
   let parsedRole;
-  console.log("The role is",role)
+  console.log("The role is", role)
   if (role.toLowerCase() === "beneficiary") {
     parsedRole = 1;
   } else if (role.toLowerCase() === "donor") {
@@ -172,9 +173,7 @@ async function storeUserAddress(walletAddress, role, provider) {
 
   try {
     // Check if the user is registered
-    console.log("this line is ran")
     const isRegistered = await contract.isUserRegistered(walletAddress);
-    console.log(isRegistered)
 
     if (!isRegistered) {
       // If not registered, call the smart contract to register
@@ -301,7 +300,7 @@ export const Login = () => {
             label="Select Role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            fullWidth
+            // fullWidth
           >
             {['Donor', 'Beneficiary', 'NGO'].map((option) => (
               <MenuItem key={option} value={option}>{option}</MenuItem>
@@ -326,8 +325,8 @@ export const Login = () => {
         type: 'RESET_WEB3_PROVIDER',
       });
       setAnchorEl(null);
-      localStorage.setItem("Address", " ")
-      localStorage.setItem("Role", " ")
+      // localStorage.setItem("Address", " ")
+      // localStorage.setItem("Role", " ")
     },
     [provider],
   );
