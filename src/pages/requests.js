@@ -63,6 +63,7 @@ const ViewRequests = () => {
 
         const fngo = await fundContract.methods.ngoAddress().call();
         console.log("fngo:", fngo);
+        console.log('ad',accounts)
         // const useraddress = "0x6A0560385DeC22E29cB606e2707e1aD13Fdd7333";
         // if (fngo !== useraddress) {
         //   continue;
