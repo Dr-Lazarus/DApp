@@ -2,11 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract UserAccessControl {
-    enum UserRole {
-        Donor,
-        Beneficiary,
-        NGO
-    }
+    enum UserRole { Donor, Beneficiary, NGO }
 
     struct User {
         UserRole role;
@@ -22,7 +18,7 @@ contract UserAccessControl {
         admin = msg.sender;
     }
 
-    modifier onlyAdmin() {
+    modifier onlyAdmin {
         require(msg.sender == admin, "Not authorized");
         _;
     }
@@ -30,27 +26,27 @@ contract UserAccessControl {
     function registerUser(address user, UserRole role) public onlyAdmin {
         require(!users[user].isRegistered, "User already registered");
         users[user] = User(role, true);
+        emit UserRegistered(user, role);
+    }
+
+   
+    function isUserRegistered(address user) public view returns (bool) {
+        return users[user].isRegistered;
+    }
+
+    function getUserRole(address user) public view returns (UserRole) {
+        require(users[user].isRegistered, "User not registered.");
+        return users[user].role;
+
+
+
+        
     }
 
     function setUser(address user, UserRole role) public {
         require(!users[user].isRegistered, "User already registered");
         users[user] = User(role, true);
-    }
-
-    function register(address user, UserRole role) public {
-        // 确保用户尚未注册
-        require(!users[user].isRegistered, "User already registered.");
-
-        // 注册用户
-        users[user] = User(role, true);
-
-        // 触发注册事件
         emit UserRegistered(user, role);
     }
 
-    // 获取用户角色
-    function getUserRole(address user) public view returns (UserRole) {
-        require(users[user].isRegistered, "User not registered.");
-        return users[user].role;
-    }
 }

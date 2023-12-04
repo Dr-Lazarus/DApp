@@ -13,19 +13,16 @@ const NavItem = ({ items, colorInvert = false }) => {
 
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
-  }, []);
-
-  useLayoutEffect(() => {
-    const userAddress = sessionStorage.getItem('userAddress');
-    role = sessionStorage.getItem('role');
-    console.log("role")
+    const userAddress = localStorage.getItem('Address');
+    role = localStorage.getItem('Role');
+    console.log(userAddress)
     console.log(role)
-  }, [])
+  }, []);
 
   return (
     <Box>
       {items.map((p, i) => (
-        (role != 'NGO' && p.title =="Create Campaign") ? null:(
+        (role == 2 && p.title =="Create Campaign") ? null:(
         <Button
           component={'a'}
           href={p.href==="Register" ?null : p.href}
