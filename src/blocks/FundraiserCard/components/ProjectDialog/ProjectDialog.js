@@ -103,9 +103,9 @@ const ProjectDialog = ({
     } catch (error) {
       console.log(error);
       alert("Error donating");
-      setLoadingRequest(true);
+      setLoadingRequest(false);
     }
-    setLoadingRequest(true);
+    setLoadingRequest(false);
   };
   return (
 
