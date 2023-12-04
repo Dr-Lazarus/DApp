@@ -21,6 +21,7 @@ contract Fundraiser is Ownable, ReentrancyGuard {
         address payable beneficiary;
         address ngoAddress;
         RequestStatus status;
+        string fileAddress;
     }
 
     enum RequestStatus {
@@ -115,7 +116,8 @@ contract Fundraiser is Ownable, ReentrancyGuard {
             uint256[] memory amounts,
             address[] memory beneficiaries,
             address[] memory ngoAddresses,
-            RequestStatus[] memory statuses
+            RequestStatus[] memory statuses,
+            string[] memory fileAddresses
         )
     {
         uint256 count = _requests.length;
@@ -132,6 +134,7 @@ contract Fundraiser is Ownable, ReentrancyGuard {
             beneficiaries[i] = request.beneficiary;
             ngoAddresses[i] = request.ngoAddress;
             statuses[i] = request.status;
+            fileAddresses[i] = request.fileAddress;
         }
     }
 
@@ -162,7 +165,8 @@ contract Fundraiser is Ownable, ReentrancyGuard {
 
     function createRequest(
         address payable _beneficiary,
-        uint256 _requestAmount
+        uint256 _requestAmount,
+        string memory fileAddress
     ) public {
         require(
             totalDonations >= _requestAmount,
@@ -174,7 +178,9 @@ contract Fundraiser is Ownable, ReentrancyGuard {
                 amount: _requestAmount,
                 beneficiary: _beneficiary,
                 ngoAddress: ngoAddress,
-                status: RequestStatus.Pending
+                status: RequestStatus.Pending,
+                fileAddress: fileAddress
+
             })
         );
         emit RequestCreated(

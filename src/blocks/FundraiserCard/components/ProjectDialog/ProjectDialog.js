@@ -18,13 +18,30 @@ import {
 } from "@mui/material";
 import {
   Favorite,
+  AttachFile,
+  AddPhotoAlternate,
   ManageAccounts,
+  Send,
   CurrencyExchange,
   Close,
 } from "@mui/icons-material";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import DialogBox from "blocks/DialogBox";
 import { LoadingButton } from "@mui/lab";
+import { create } from "ipfs-http-client";
+const projectId = process.env.INFURA_IPFS_ID;
+const projectSecret = process.env.INFURA_IPFS_SECRET;
+const auth =
+  "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
+
+const client = create({
+  host: "ipfs.infura.io",
+  port: 5001,
+  protocol: "https",
+  headers: {
+    authorization: auth,
+  },
+});
 
 const ProjectDialog = ({
   onClose,
@@ -55,7 +72,28 @@ const ProjectDialog = ({
   const [hash, setHash] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [loginState, setLoginState] = useState("")
+  const [requiredFiles, setRequiredFiles] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [openIm, setOpenIm] = useState(false);
+  
 
+  async function saveToIpfs(e) {
+    const file = e.target.files[0];
+    try {
+      const added = await client.add(file, {
+        progress: (prog) => console.log(`received: ${prog}`),
+      });
+      const fileUrl = `https://ac12644.infura-ipfs.io/ipfs/${added.path}`;
+      setRequiredFiles(fileUrl);
+      setOpenIm(true);
+      console.log("file url setted",fileUrl)
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+      setLoading(false);
+      setAlertOpen(true);
+    }
+  }
+  
  
   
   const submitFunds = async () => {
@@ -90,22 +128,32 @@ const ProjectDialog = ({
     const ethTotal = amount / exchangeRate;
     const request = web3.utils.toWei(ethTotal.toString());
     try {
-      const requestTransaction = await contract.methods
+
+      if (requiredFiles!=""){
+        const requestTransaction = await contract.methods
         .createRequest(account, request)
         .send({
           from: account,
           gas: 650000,
         });
-      console.log("[Logs]requestTransaction:", requestTransaction);
-      setHash(requestTransaction.transactionHash);
-      setDialogBoxOpen(true);
-      setAlertOpen(true);
+        console.log("[Logs]requestTransaction:", requestTransaction);
+        setHash(requestTransaction.transactionHash);
+        setDialogBoxOpen(true);
+        setAlertOpen(true);   
+      }
+      else{
+        console.log("[Logs]requestTransaction:", requestTransaction);
+        alert("File Upload is Required");
+      }
+      setLoadingRequest(false);
+   
+      
     } catch (error) {
       console.log(error);
       alert("Error donating");
-      setLoadingRequest(true);
+      setLoadingRequest(false);
     }
-    setLoadingRequest(true);
+    // setLoadingRequest(true);
   };
   return (
 
@@ -153,7 +201,7 @@ const ProjectDialog = ({
                 >
                   <img src={image} alt={name} />
                 </Box>
-                {renderDonationsList}
+                {/* {renderDonationsList} */}
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -271,6 +319,8 @@ const ProjectDialog = ({
                     </LoadingButton>) : null}
 
                   {role === '1' ? (
+
+              <Grid>
                     <LoadingButton
                       variant={"contained"}
                       color={"primary"}
@@ -281,7 +331,57 @@ const ProjectDialog = ({
                       fullWidth
                     >
                       Request
-                    </LoadingButton>) : null}
+                    </LoadingButton>
+                    <Typography
+                    variant={"subtitle2"}
+                    sx={{ marginBottom: 2, display: "flex", alignItems: "center" }}
+                    fontWeight={700}
+                  >
+                    <AttachFile fontSize="medium" />
+                    Upload a File *
+                  </Typography>
+                  <input
+
+                    type="file"
+                    name="images"
+                    accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    id="upload"
+                    onChange={saveToIpfs}
+                    style={{ display: "none", cursor: "pointer" }}
+                                        
+                  />
+                  <IconButton aria-label="upload" size="small">
+                    <label htmlFor="upload">
+                      <AddPhotoAlternate fontSize="large" />
+                    </label>
+                  </IconButton>
+                  <Collapse in={open}>
+              <Alert
+                severity="success"
+                sx={{ mt: 1 }}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpenIm(false);
+                    }}
+                  >
+                    <Close fontSize="inherit" />
+                  </IconButton>
+                }
+              >
+                File uploaded successfully!
+              </Alert>
+            </Collapse>
+                    
+                  </Grid>
+                    
+                    )
+                    
+                    
+                    : null}
                   {isOwner && (
                     <Button
                       color={"primary"}
