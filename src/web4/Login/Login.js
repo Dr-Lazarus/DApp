@@ -300,7 +300,7 @@ export const Login = () => {
             label="Select Role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            // fullWidth
+            fullWidth
           >
             {['Donor', 'Beneficiary', 'NGO'].map((option) => (
               <MenuItem key={option} value={option}>{option}</MenuItem>

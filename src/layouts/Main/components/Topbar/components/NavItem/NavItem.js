@@ -22,7 +22,7 @@ const NavItem = ({ items, colorInvert = false }) => {
   return (
     <Box>
       {items.map((p, i) => (
-        (role == 2 && p.title =="Create Campaign") ? null:(
+        (role == 2 && p.title =="Create Campaign" && p.title == "Requests") ? null:(
         <Button
           component={'a'}
           href={p.href==="Register" ?null : p.href}

@@ -19,27 +19,29 @@ const ViewRequestTable = ({ data }) => {
 
   // Function to filter data based on NGO and project name
   const filteredData = data.filter((row) => {
-    const ngoMatch =
-      row.ngoName.toLowerCase().includes(ngoFilter.toLowerCase()) ||
-      ngoFilter === '';
+    // const ngoMatch =
+    //   row.ngoName.toLowerCase().includes(ngoFilter.toLowerCase()) ||
+    //   ngoFilter === '';
 
     const projectMatch =
       row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) ||
       projectFilter === '';
 
-    return ngoMatch && projectMatch;
+    return projectMatch;
+
+    // return ngoMatch && projectMatch;
   });
 
   return (
     <Main>
       <Container>
         {/* Filter input fields */}
-        <TextField
+        {/* <TextField
           label="Filter by NGO"
           value={ngoFilter}
           onChange={(e) => setNgoFilter(e.target.value)}
           margin="normal"
-        />
+        /> */}
         <TextField
           label="Filter by Project Name"
           value={projectFilter}
@@ -51,7 +53,7 @@ const ViewRequestTable = ({ data }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>NGO Name</TableCell>
+                {/* <TableCell>NGO Name</TableCell> */}
                 <TableCell>Project Name</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Status</TableCell>
@@ -60,7 +62,7 @@ const ViewRequestTable = ({ data }) => {
             <TableBody>
               {filteredData.map((row, index) => (
                 <TableRow key={index}>
-                  <TableCell>{row.ngoName}</TableCell>
+                  {/* <TableCell>{row.ngoName}</TableCell> */}
                   <TableCell>{row.projectName}</TableCell>
                   <TableCell>{row.amount}</TableCell>
                   <TableCell style={{ color: row.status === 'Approved' ? 'green' : 'red' }}>{row.status}</TableCell>
