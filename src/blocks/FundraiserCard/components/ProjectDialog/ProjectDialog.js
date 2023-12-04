@@ -56,6 +56,8 @@ const ProjectDialog = ({
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [loginState, setLoginState] = useState("")
 
+  console.log('goals',goalAmount)
+
 
 
   const submitFunds = async () => {
@@ -179,14 +181,14 @@ const ProjectDialog = ({
                   alignItems={"center"}
                   justifyContent={"space-between"}
                 >
-                  <Typography>
+                  {/* <Typography>
                     Raised:{" "}
                     <Typography component={"span"} fontWeight={700}>
                       ${totalDonations || 0} ≈ {totalDonationsEth} ETH
                     </Typography>
-                  </Typography>
+                  </Typography> */}
 
-                  <Box
+                  {/* <Box
                     display={"flex"}
                     alignItems={"center"}
                     padding={1}
@@ -203,17 +205,17 @@ const ProjectDialog = ({
                         ? goalAmount - totalDonations
                         : 0}
                     </Typography>
-                  </Box>
+                  </Box> */}
                 </Box>
                 <Box marginTop={2}>
 
-                  <Typography>
+                  {/* <Typography>
                     Donate:
                     <Typography component={"span"} fontWeight={700}>
                       ${amount} ≈ {parseFloat(amount / exchangeRate).toFixed(4)}{" "}
                       ETH
                     </Typography>
-                  </Typography>
+                  </Typography> */}
 
                   <Stack
                     marginTop={1}
