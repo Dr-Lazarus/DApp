@@ -56,8 +56,8 @@ const ProjectDialog = ({
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
   const [loginState, setLoginState] = useState("")
 
- 
-  
+
+
   const submitFunds = async () => {
     // const loginstate = sessionStorage.getItem('Role')
     // console.log(sessionStorage)
@@ -153,7 +153,7 @@ const ProjectDialog = ({
                 >
                   <img src={image} alt={name} />
                 </Box>
-                {renderDonationsList}
+                {/* {renderDonationsList} */}
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -228,8 +228,8 @@ const ProjectDialog = ({
                           borderRadius: 1,
                           padding: 1,
                           border: `2px solid ${amount === item
-                              ? theme.palette.primary.main
-                              : theme.palette.divider
+                            ? theme.palette.primary.main
+                            : theme.palette.divider
                             }`,
                           cursor: "pointer",
                         }}
@@ -282,7 +282,7 @@ const ProjectDialog = ({
                     >
                       Request
                     </LoadingButton>) : null}
-                  {isOwner && (
+                  {/* {isOwner && (
                     <Button
                       color={"primary"}
                       startIcon={<CurrencyExchange />}
@@ -296,7 +296,7 @@ const ProjectDialog = ({
                       {" "}
                       Withdraw
                     </Button>
-                  )}
+                  )} */}
                 </Stack>
                 {isRequest && (
                   <DialogBox
