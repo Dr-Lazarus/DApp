@@ -32,7 +32,7 @@ contract("UserAccessControl", accounts => {
   it("Emit User Register Event", async () => {
     const role = 0; 
     const newUser = accounts[3]
-    const tx = await userAccessControl.register(newUser, role);
+    const tx = await userAccessControl.registerUser(newUser, role);
     // Check that the UserRegistered event was emitted
     assert.equal(tx.logs[0].event, "UserRegistered",);
     // Check the parameters of the UserRegistered event
