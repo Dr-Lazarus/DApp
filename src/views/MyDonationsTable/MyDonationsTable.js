@@ -29,8 +29,8 @@ const MyDonationsTable = ({ data }) => {
   // Function to filter and sort data based on Project Name and Date
   const filteredAndSortedData = data
     .filter((row) => row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) || projectFilter === '')
-    .sort((a, b) => b.date - a.date); // Sort by date in descending order
-
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    
   return (
     <Main>
       <Container>
