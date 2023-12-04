@@ -144,7 +144,7 @@ function checkEmittedEvents(instance, num, requestData, convertWeiToUsd, setData
             fromBlock: 0,
         })
         .on("data", async (event) => {
-            console.log("Donation Received:", event.returnValues);
+            console.log("Approve Received:", event.returnValues);
             console.log('COUNTTTFF', num);
             num += 1;
             console.log('my size', event.length, event.returnValues.length, 'thtta sll');
