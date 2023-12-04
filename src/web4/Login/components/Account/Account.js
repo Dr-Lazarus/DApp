@@ -14,13 +14,6 @@ import {
 
 import MenuPopover from 'components/MenuPopover';
 
-const MENU_OPTIONS = [
-  {
-    label: 'My Donations',
-    route: '/my-donations',
-  },
-];
-
 function Account({ address, icon, handleLogout }) {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(null);
@@ -75,19 +68,6 @@ function Account({ address, icon, handleLogout }) {
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
-
-        <Stack sx={{ p: 1 }}>
-          {MENU_OPTIONS.map((option) => (
-            <MenuItem
-              key={option.label}
-              component={Link}
-              href={option.route}
-              onClick={handleClose}
-            >
-              {option.label}
-            </MenuItem>
-          ))}
-        </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 

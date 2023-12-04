@@ -25,6 +25,7 @@ import {
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import DialogBox from "blocks/DialogBox";
 import { LoadingButton } from "@mui/lab";
+import { RoleInstance } from "twilio/lib/rest/chat/v1/service/role";
 
 const ProjectDialog = ({
   onClose,
@@ -42,6 +43,8 @@ const ProjectDialog = ({
   withdrawFunds,
   isOwner,
   renderDonationsList,
+  role
+
 }) => {
   const theme = useTheme();
   const [amount, setAmount] = useState(5);
@@ -52,8 +55,14 @@ const ProjectDialog = ({
   const [isDonate, setisDonate] = useState(false);
   const [hash, setHash] = useState("");
   const [dialogBoxOpen, setDialogBoxOpen] = useState(false);
-  const [loginState, setLoginState] =useState("")
+  const [loginState, setLoginState] = useState("")
+
+ 
+  
   const submitFunds = async () => {
+    // const loginstate = sessionStorage.getItem('Role')
+    // console.log(sessionStorage)
+    // setLoginState(loginstate)
     setLoadingDonate(true);
     setisDonate(true);
     const ethTotal = amount / exchangeRate;
@@ -76,9 +85,7 @@ const ProjectDialog = ({
     setLoadingDonate(false);
   };
   const requestFunds = async () => {
-    const loginstate = sessionStorage.getItem('Role')
-    console.log(sessionStorage)
-    setLoginState(loginstate)
+
     setLoadingRequest(true);
     setisRequest(true);
     const ethTotal = amount / exchangeRate;
@@ -102,6 +109,7 @@ const ProjectDialog = ({
     setLoadingRequest(true);
   };
   return (
+
     <Dialog onClose={onClose} open={open} maxWidth={"lg"}>
       <Box paddingY={{ xs: 1, sm: 2 }} paddingX={{ xs: 2, sm: 4 }}>
         <Box
@@ -220,11 +228,10 @@ const ProjectDialog = ({
                         sx={{
                           borderRadius: 1,
                           padding: 1,
-                          border: `2px solid ${
-                            amount === item
+                          border: `2px solid ${amount === item
                               ? theme.palette.primary.main
                               : theme.palette.divider
-                          }`,
+                            }`,
                           cursor: "pointer",
                         }}
                       >
@@ -251,31 +258,31 @@ const ProjectDialog = ({
                   direction={{ xs: "column", sm: "row" }}
                   spacing={2}
                 >
-                  {loginState ==='0'?(
-                  <LoadingButton
-                    variant={"contained"}
-                    color={"primary"}
-                    size={"large"}
-                    startIcon={<Favorite />}
-                    loading={loadingDonate}
-                    onClick={submitFunds}
-                    fullWidth
-                  >
-                    Donate
-                  </LoadingButton>): null}
-                  
-                  {loginState ==='1'?(
-                  <LoadingButton
-                    variant={"contained"}
-                    color={"primary"}
-                    size={"large"}
-                    startIcon={<MonetizationOnIcon />}
-                    loading={loadingRequest}
-                    onClick={requestFunds}
-                    fullWidth
-                  >
-                    Request
-                  </LoadingButton>): null}
+                  {role === '0' ? (
+                    <LoadingButton
+                      variant={"contained"}
+                      color={"primary"}
+                      size={"large"}
+                      startIcon={<Favorite />}
+                      loading={loadingDonate}
+                      onClick={submitFunds}
+                      fullWidth
+                    >
+                      Donate
+                    </LoadingButton>) : null}
+
+                  {role === '1' ? (
+                    <LoadingButton
+                      variant={"contained"}
+                      color={"primary"}
+                      size={"large"}
+                      startIcon={<MonetizationOnIcon />}
+                      loading={loadingRequest}
+                      onClick={requestFunds}
+                      fullWidth
+                    >
+                      Request
+                    </LoadingButton>) : null}
                   {isOwner && (
                     <Button
                       color={"primary"}

@@ -327,6 +327,7 @@ const FundraiserCard = ({ fundraiser }) => {
           account={userAccount}
           isOwner={isOwner}
           renderDonationsList={renderDonationsList()}
+              role = {sessionStorage.getItem('Role')}
         />
       </Box>
     </Grid>
