@@ -1,7 +1,7 @@
 // DataTable.js
-import React, { useState } from 'react';
-import Main from 'layouts/Main';
-import Container from 'components/Container';
+import React, { useState } from "react";
+import Main from "layouts/Main";
+import Container from "components/Container";
 import {
   Table,
   TableBody,
@@ -11,11 +11,11 @@ import {
   TableRow,
   Paper,
   TextField,
-} from '@mui/material';
+} from "@mui/material";
 
 const ViewRequestTable = ({ data }) => {
-  const [ngoFilter, setNgoFilter] = useState('');
-  const [projectFilter, setProjectFilter] = useState('');
+  const [ngoFilter, setNgoFilter] = useState("");
+  const [projectFilter, setProjectFilter] = useState("");
 
   // Function to filter data based on NGO and project name
   const filteredData = data.filter((row) => {
@@ -25,7 +25,7 @@ const ViewRequestTable = ({ data }) => {
 
     const projectMatch =
       row.projectName.toLowerCase().includes(projectFilter.toLowerCase()) ||
-      projectFilter === '';
+      projectFilter === "";
 
     return projectMatch;
 
@@ -65,7 +65,18 @@ const ViewRequestTable = ({ data }) => {
                   {/* <TableCell>{row.ngoName}</TableCell> */}
                   <TableCell>{row.projectName}</TableCell>
                   <TableCell>{row.amount}</TableCell>
-                  <TableCell style={{ color: row.status === 'Approved' ? 'green' : 'red' }}>{row.status}</TableCell>
+                  <TableCell
+                    style={{
+                      color:
+                        row.status === "Approved"
+                          ? "green"
+                          : row.status === "Rejected"
+                          ? "red"
+                          : "black",
+                    }}
+                  >
+                    {row.status}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
