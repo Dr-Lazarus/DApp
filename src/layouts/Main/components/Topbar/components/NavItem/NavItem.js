@@ -30,8 +30,8 @@ const NavItem = ({ items, colorInvert = false }) => {
         role ==='1' && p.title === "View My Requests"
         || 
         role ==='0' && p.title === "My Donations"
-        || (role ==='0' || role ==='1'||role ==='2' || role ==='3'  )&& p.title === "Home"
-        || (role ==='0' || role ==='1'||role ==='2' || role ==='3'   )&& p.title === "View Donations"
+        || (role ==='0' || role ==='1'||role ==='2' || role ==='3' || role === null )&& p.title === "Home"
+        || (role ==='0' || role ==='1'||role ==='2' || role ==='3' || role === null  )&& p.title === "View Donations"
         
         ) ? (
         <Button
