@@ -200,6 +200,7 @@ async function storeUserAddress(walletAddress, role, provider) {
       console.log("The user is alreadt registssered with role:", role);
       localStorage.setItem("Address", walletAddress);
       localStorage.setItem("Role", role);
+      localStorage.setItem("IsLoggedIn", true)
       console.log(localStorage);
     }
   } catch (error) {
@@ -347,8 +348,10 @@ export const Login = () => {
         type: "RESET_WEB3_PROVIDER",
       });
       setAnchorEl(null);
-      // localStorage.setItem("Address", " ")
-      // localStorage.setItem("Role", " ")
+      localStorage.setItem("Address", " ")
+      localStorage.setItem("Role", "3")
+      // localStorage.setItem("isLoggedIn", false)
+      console.log(localStorage)
     },
     [provider]
   );

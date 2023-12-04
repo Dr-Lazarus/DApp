@@ -8,15 +8,17 @@ import Typography from '@mui/material/Typography';
 const NavItem = ({ items, colorInvert = false }) => {
   const theme = useTheme();
   const [activeLink, setActiveLink] = useState('');
-  const role = localStorage.getItem('Role');
-  console.log(typeof role)
-  console.log(role ==='0' || role ==='1'||role ==='2' )
-
+  const [role, setRole] = useState('')
+  // const [loggedin, setLoggedin] = useState('')
   
 
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
     const userAddress = localStorage.getItem('Address');
+    const Role = localStorage.getItem('Role');
+    // const Loggedin =localStorage.getItem('IsLoggedIn');
+    setRole(Role)
+    // setLoggedin(Loggedin)
    
   }, []);
 
@@ -26,8 +28,8 @@ const NavItem = ({ items, colorInvert = false }) => {
         (role ==='2' && p.title === "Create Campaign" 
         || role ==='2' && p.title === "Requests" || 
         role ==='1' && p.title === "View My Requests"
-        || (role ==='0' || role ==='1'||role ==='2'  )&& p.title === "Home"
-        || (role ==='0' || role ==='1'||role ==='2'  )&& p.title === "View Donations"
+        || (role ==='0' || role ==='1'||role ==='2' || role ==='3'  )&& p.title === "Home"
+        || (role ==='0' || role ==='1'||role ==='2' || role ==='3'   )&& p.title === "View Donations"
         
         ) ? (
         <Button
