@@ -97,7 +97,7 @@ Below are instructions to get started:
    INFURA_IPFS_ID=<your_infura_ipfs_id>
    INFURA_IPFS_SECRET=<your_infura_ipfs_secret>
    CONTRACT_ADDRESS=<deployed_contract_address>
-
+```
 
 4. Run application
    ```sh
