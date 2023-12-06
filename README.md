@@ -56,10 +56,13 @@ https://mumbai.polygonscan.com/address/0xE548f98dbF408cDD633F3cb7085C0550d8D3403
 - **Approve or Reject Requests**: NGOs have the authority to review, approve, or reject funding requests from beneficiaries.
 - **View Requests**: View List of Requests belong to every NGO
 
-<img src="images/Prev1.png" width="45%"></img>
-<img src="images/Prev2.png" width="45%"></img>
-<img src="images/Prev3.png" width="45%"></img>
-<img src="images/Prev4.png" width="45%"></img>
+<img src="images/HeartLedger/ListedProjects.png" width="45%"></img>
+<img src="images/HeartLedger/Registration Page.png" width="45%"></img>
+<img src="images/HeartLedger/CreateProject.png" width="45%"></img>
+<img src="images/HeartLedger/DonatePage.png" width="45%"></img>
+<img src="images/HeartLedger/RequestViewPage.png" width="45%"></img>
+<img src="images/HeartLedger/TransactionListPage.png" width="45%"></img>
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -88,7 +91,7 @@ Below are instructions to get started:
    ```
 3. Add environment variables, also you will require dedicated subdomain for IPFS from infura
 
-   ```
+
   PRIVATE_KEY=
   POLYSCAN_API_KEY=
   MNEMONIC_KEY=
@@ -96,7 +99,7 @@ Below are instructions to get started:
   INFURA_IPFS_ID=
   INFURA_IPFS_SECRET=
   CONTRACT_ADDRESS=0xE548f98dbF408cDD633F3cb7085C0550d8D3403b
-   ```
+
 
 4. Run application
    ```sh
