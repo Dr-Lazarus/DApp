@@ -2,6 +2,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
+   <img src="images/Heartledger/HeartLedgerLogo.png" width="45%"></img>
    <h1 align="center">
     HeartLedger
   </h1>
@@ -56,12 +57,12 @@ https://mumbai.polygonscan.com/address/0xE548f98dbF408cDD633F3cb7085C0550d8D3403
 - **Approve or Reject Requests**: NGOs have the authority to review, approve, or reject funding requests from beneficiaries.
 - **View Requests**: View List of Requests belong to every NGO
 
-<img src="images/HeartLedger/ListedProjects.png" width="45%"></img>
-<img src="images/HeartLedger/Registration Page.png" width="45%"></img>
-<img src="images/HeartLedger/CreateProject.png" width="45%"></img>
-<img src="images/HeartLedger/DonatePage.png" width="45%"></img>
-<img src="images/HeartLedger/RequestViewPage.png" width="45%"></img>
-<img src="images/HeartLedger/TransactionListPage.png" width="45%"></img>
+<img src="images/Heartledger/ListedProjects.png" width="45%"></img>
+<img src="images/Heartledger/Registration Page.png" width="45%"></img>
+<img src="images/Heartledger/CreateProject.png" width="45%"></img>
+<img src="images/Heartledger/DonatePage.png" width="45%"></img>
+<img src="images/Heartledger/RequestViewPage.png" width="45%"></img>
+<img src="images/Heartledger/TransactionListPage.png" width="45%"></img>
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
