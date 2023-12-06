@@ -14,7 +14,7 @@
 ## About The Project
 
 <p align="left">
-   Cryptocurrency-based fundraising campaign for a better distribtuion on the Polygon network. Accept donations in MATIC, provide donors with receipts, NGO to create and manage campaigns, and beneficiary to request and withdraw funds.
+   Cryptocurrency-based fundraising campaign for a better distribution on the Polygon network. Accept donations in MATIC, provide donors with receipts, NGO to create and manage campaigns, and beneficiary to request and withdraw funds.
 </p>
 
 #### Network
