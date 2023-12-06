@@ -3,9 +3,6 @@
 <br />
 <div align="center">
    <img src="images/Heartledger/HeartLedgerLogo.png" width="45%"></img>
-   <h1 align="center">
-    HeartLedger
-  </h1>
 
   <p align="center">
     Transparent & Decentralised Fundraising DApp
@@ -93,13 +90,13 @@ Below are instructions to get started:
 3. Add environment variables, also you will require dedicated subdomain for IPFS from infura
 
 
-  PRIVATE_KEY=
-  POLYSCAN_API_KEY=
-  MNEMONIC_KEY=
-  INFURA_API_KEY=
-  INFURA_IPFS_ID=
-  INFURA_IPFS_SECRET=
-  CONTRACT_ADDRESS=0xE548f98dbF408cDD633F3cb7085C0550d8D3403b
+PRIVATE_KEY=<your_private_key>
+POLYSCAN_API_KEY=<your_polyscan_api_key>
+MNEMONIC_KEY=<your_mnemonic_key>
+INFURA_API_KEY=<your_infura_api_key>
+INFURA_IPFS_ID=<your_infura_ipfs_id>
+INFURA_IPFS_SECRET=<your_infura_ipfs_secret>
+CONTRACT_ADDRESS=<deployed_contract_address>
 
 
 4. Run application
