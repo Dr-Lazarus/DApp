@@ -29,7 +29,7 @@ Contract is deployed on Polygon mumbai network
 
 https://mumbai.polygonscan.com/address/0xE548f98dbF408cDD633F3cb7085C0550d8D3403b
 
-### ⚙️Functions:
+
 # How to Use the Platform
 
 ## 1. View All Projects & Transactions
@@ -88,7 +88,7 @@ Below are instructions to get started:
    ```
 3. Add environment variables, also you will require dedicated subdomain for IPFS from infura
 
-   ```sh
+   ```
   PRIVATE_KEY=
   POLYSCAN_API_KEY=
   MNEMONIC_KEY=
