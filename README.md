@@ -89,14 +89,14 @@ Below are instructions to get started:
    ```
 3. Add environment variables, also you will require dedicated subdomain for IPFS from infura
 
-
-PRIVATE_KEY=<your_private_key>
-POLYSCAN_API_KEY=<your_polyscan_api_key>
-MNEMONIC_KEY=<your_mnemonic_key>
-INFURA_API_KEY=<your_infura_api_key>
-INFURA_IPFS_ID=<your_infura_ipfs_id>
-INFURA_IPFS_SECRET=<your_infura_ipfs_secret>
-CONTRACT_ADDRESS=<deployed_contract_address>
+```env
+   PRIVATE_KEY=<your_private_key>
+   POLYSCAN_API_KEY=<your_polyscan_api_key>
+   MNEMONIC_KEY=<your_mnemonic_key>
+   INFURA_API_KEY=<your_infura_api_key>
+   INFURA_IPFS_ID=<your_infura_ipfs_id>
+   INFURA_IPFS_SECRET=<your_infura_ipfs_secret>
+   CONTRACT_ADDRESS=<deployed_contract_address>
 
 
 4. Run application
