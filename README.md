@@ -1,33 +1,22 @@
-<!-- PROJECT SHIELDS -->
-
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="images/crypto-charity-dark.png">
-  <img alt="Text changing depending on mode. Light: 'So light!' Dark: 'So dark!'" src="images/crypto-charity-light.png" width="240" height="40">
-</picture>
+   <h1 align="center">
+    HeartLedger
+  </h1>
 
   <p align="center">
-    Be the change you want to see in the world.
+    Transparent & Decentralised Fundraising DApp
   </p>
   
-  
-  <a href="https://medium.com/better-programming/building-crypto-charity-dapp-for-crowdfunding-using-next-js-solidity-ipfs-and-truffle-6a7d75d81ead">Read full article on Medium</a> 
 </div>
 
-<!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
 <p align="left">
-    Raise fund for social work in crypto built on polygon network. Create fundraising campaign, donate MATIC, generate a receipt, and withdraw the amount.
+   Cryptocurrency-based fundraising campaign for a better distribtuion on the Polygon network. Accept donations in MATIC, provide donors with receipts, NGO to create and manage campaigns, and beneficiary to request and withdraw funds.
 </p>
 
 #### Network
@@ -35,17 +24,37 @@
 Contract is deployed on Polygon mumbai network
 
 ```sh
-0x6e5bDb0E72597779b968C5Ff16Cc83D6C20C82D7
+0xE548f98dbF408cDD633F3cb7085C0550d8D3403b
 ```
 
-https://mumbai.polygonscan.com/address/0x6e5bDb0E72597779b968C5Ff16Cc83D6C20C82D7
+https://mumbai.polygonscan.com/address/0xE548f98dbF408cDD633F3cb7085C0550d8D3403b
 
 ### ⚙️Functions:
+# How to Use the Platform
 
-- create a fundraising campaign
-- users can donate in MATIC💰
-- beneficiary can withdraw the donated amount💲
-- donor can view last donations and generate receipt🧾
+## 1. View All Projects & Transactions
+- **Explore Projects**: Easily browse through all available projects listed on the platform.
+- **View Transactionss**: View all transactions including donations and approved requests
+
+## 2. Interact with a Project
+- **Project Details**: Select any project to view its detailed information and progress.
+
+## 3. For NGOs
+- **Registration and Login**: NGOs can register and log in to access specialized features.
+- **Create a Campaign**: After logging in, NGOs can initiate new fundraising campaigns, specifying their goals and requirements.
+
+## 4. For Donors
+- **Registration and Login**: Donors need to register and log in to make contributions.
+- **Create Donation**: Once logged in, donors can contribute to any active campaign of their choice.
+-  **View Requests**: View List of Donations belong to every Donor
+
+## 5. For Beneficiaries
+- **Registration and Login**: Beneficiaries should register and log in to request funds.
+- **Request Funds**: After logging in, beneficiaries can submit requests for funding from available projects by any NGOs.
+
+## 6. Campaign Management for NGOs
+- **Approve or Reject Requests**: NGOs have the authority to review, approve, or reject funding requests from beneficiaries.
+- **View Requests**: View List of Requests belong to every NGO
 
 <img src="images/Prev1.png" width="45%"></img>
 <img src="images/Prev2.png" width="45%"></img>
@@ -71,166 +80,243 @@ Below are instructions to get started:
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/ac12644/Crypto-Charity.git
+   git clone [https://github.com/ac12644/Crypto-Charity.git](https://github.com/Dr-Lazarus/DApp/edit/integration/README.md)
    ```
 2. Install packages
    ```sh
-   yarn
+   npm install
    ```
 3. Add environment variables, also you will require dedicated subdomain for IPFS from infura
 
    ```sh
-   MNEMONIC_KEY=
-   INFURA_API_KEY=
-   INFURA_IPFS_ID=
-   INFURA_IPFS_SECRET=
+  PRIVATE_KEY=
+  POLYSCAN_API_KEY=
+  MNEMONIC_KEY=
+  INFURA_API_KEY=
+  INFURA_IPFS_ID=
+  INFURA_IPFS_SECRET=
+  CONTRACT_ADDRESS=0xE548f98dbF408cDD633F3cb7085C0550d8D3403b
    ```
 
 4. Run application
    ```sh
-   yarn run dev
+   npm run dev
    ```
 
 ### Specification
 
 #### Solidity Functions
 
-1. Create new fundraiser
+1. NGO Create a new fundraiser
 
 ```solidity
 function createFundraiser(
-    string memory name,
-    string memory image,
-    string memory description,
-    uint256 goalAmount,
-    address payable beneficiary
-  ) public {
-    Fundraiser fundraiser = new Fundraiser(
-      name,
-      image,
-      description,
-      goalAmount,
-      beneficiary,
-      msg.sender
-    );
-    _fundraisers.push(fundraiser);
-    emit FundraiserCreated(fundraiser, msg.sender);
-  }
-```
-
-2. Set new beneficiary
-
-```solidity
- function setBeneficiary(address payable _beneficiary) public onlyOwner {
-    beneficiary = _beneficiary;
-  }
-```
-
-3. Return your donations
-
-```solidity
-  function myDonations() public view returns (
-      uint256[] memory values,
-      uint256[] memory dates
-  )
-
-  {
-    uint256 count = myDonationsCount();
-    values = new uint256[](count);
-    dates = new uint256[](count);
-    for (uint256 i = 0; i < count; i++) {
-        Donation storage donation = _donations[msg.sender][i];
-        values[i] = donation.value;
-        dates[i] = donation.date;
+        string memory name,
+        string memory image,
+        string memory description,
+        uint256 goalAmount
+    ) public {
+        Fundraiser fundraiser = new Fundraiser(
+            name,
+            image,
+            description,
+            goalAmount,
+            msg.sender // Passing msg.sender as the custodian
+        );
+        _fundraisers.push(fundraiser);
+        emit FundraiserCreated(fundraiser, msg.sender);
     }
-    return (values, dates);
-  }
 ```
 
-4. Beneficiary can withdraw amount to beneficiary address defined when creating fundraiser
+2. Beneficiary Create Request
 
 ```solidity
-function withdraw() public onlyOwner {
-      uint256 balance = address(this).balance;
-      beneficiary.transfer(balance);
-      emit Withdraw(balance);
-  }
+function createRequest(
+        address payable _beneficiary,
+        uint256 _requestAmount
+    ) public {
+        require(
+            totalDonations >= _requestAmount,
+            "Insufficient funds for request"
+        );
+
+        _requests.push(
+            FundsRequest({
+                amount: _requestAmount,
+                beneficiary: _beneficiary,
+                ngoAddress: ngoAddress,
+                status: RequestStatus.Pending
+            })
+        );
+        emit RequestCreated(
+            _beneficiary,
+            _requestAmount,
+            ngoAddress,
+            fundName,
+            block.timestamp
+        );
+    }
 ```
 
-5. Allow users to donate
+3. NGO Approve and Transfer Request
 
 ```solidity
-function donate() public payable {
-    Donation memory donation = Donation({
-      value: msg.value,
-      date: block.timestamp
-    });
-    _donations[msg.sender].push(donation);
-    totalDonations = totalDonations.add(msg.value);
-    donationsCount++;
+  function approveRequest(uint256 requestId) public onlyOwner nonReentrant {
+        require(requestId < _requests.length, "Invalid request ID");
+        FundsRequest storage request = _requests[requestId];
+        require(
+            request.status == RequestStatus.Pending,
+            "Request is not pending"
+        );
+        require(
+            address(this).balance >= request.amount,
+            "Insufficient contract balance"
+        );
+        totalDonations = totalDonations.sub(request.amount);
+        request.status = RequestStatus.Approved;
+        request.beneficiary.transfer(request.amount);
 
-    emit DonationReceived(msg.sender, msg.value);
-  }
-
+        emit RequestApproved(
+            request.beneficiary,
+            request.amount,
+            request.ngoAddress,
+            fundName,
+            block.timestamp
+        );
+    }
 ```
 
-6. Return list of fundraisers with [limit] one can define number of fundraiser to be fetched
+4. NGO Reject Request
 
 ```solidity
-function fundraisers(uint256 limit, uint256 offset)
-    public
-    view
-    returns (Fundraiser[] memory coll)
-  {
-    require(offset <= fundraisersCount(), 'offset out of bounds');
+    function rejectRequest(uint256 requestId) public onlyOwner {
+        require(requestId < _requests.length, "Invalid request ID");
+        FundsRequest storage request = _requests[requestId];
+        require(
+            request.status == RequestStatus.Pending,
+            "Request is not pending"
+        );
 
-    uint256 size = fundraisersCount() - offset;
-    size = size < limit ? size : limit;
-    size = size < maxLimit ? size : maxLimit;
-    coll = new Fundraiser[](size);
+        request.status = RequestStatus.Rejected;
 
-    for (uint256 i = 0; i < size; i++) {
-      coll[i] = _fundraisers[offset + i];
+        emit RequestRejected(
+            request.beneficiary,
+            request.amount,
+            request.ngoAddress,
+            fundName,
+            block.timestamp
+        );
+    }
+```
+
+5. Donor Create Donation
+
+```solidity
+
+    function donate() public payable {
+        Donation memory donation = Donation({
+            value: msg.value,
+            date: block.timestamp,
+            donor: msg.sender,
+            fundName: fundName,
+            ngoAddress: ngoAddress
+        });
+        _userDonations[msg.sender].push(donation);
+        donationsCount++;
+        totalDonations = totalDonations.add(msg.value);
+        emit DonationReceived(
+            msg.sender,
+            msg.value,
+            block.timestamp,
+            fundName,
+            ngoAddress
+        );
     }
 
-    return coll;
-  }
 ```
 
-<!-- CONTRIBUTING -->
+6. Return List of Projects/Campaigns
 
-## Contributing
+```solidity
+ function fundraisers(
+        uint256 limit,
+        uint256 offset
+    ) public view returns (Fundraiser[] memory coll) {
+        require(offset <= fundraisersCount(), "offset out of bounds");
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+        uint256 size = fundraisersCount() - offset;
+        size = size < limit ? size : limit;
+        size = size < maxLimit ? size : maxLimit;
+        coll = new Fundraiser[](size);
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+        for (uint256 i = 0; i < size; i++) {
+            coll[i] = _fundraisers[offset + i];
+        }
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+        return coll;
+    }
+```
+7. Return list of donations
 
-<p align="right">(<a href="#top">back to top</a>)</p>
- 
- 
-<!-- LICENSE -->
-## License
+```solidity
+function myDonations()
+        public
+        view
+        returns (
+            uint256[] memory values,
+            uint256[] memory dates,
+            string[] memory fundNames,
+            address[] memory ngoAddresses
+        )
+    {
+        uint256 count = myDonationsCount();
+        values = new uint256[](count);
+        dates = new uint256[](count);
+        fundNames = new string[](count);
+        ngoAddresses = new address[](count);
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+        for (uint256 i = 0; i < count; i++) {
+            Donation storage donation = _userDonations[msg.sender][i];
+            values[i] = donation.value;
+            dates[i] = donation.date;
+            fundNames[i] = donation.fundName;
+            ngoAddresses[i] = donation.ngoAddress;
+        }
+    }
+```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- MARKDOWN LINKS & IMAGES -->
+7. Return list of requests
 
-[forks-shield]: https://img.shields.io/github/forks/ac12644/Crypto-Charity?style=for-the-badge
-[forks-url]: https://github.com/ac12644/Crypto-Charity/network/members
-[stars-shield]: https://img.shields.io/github/stars/ac12644/Crypto-Charity?style=for-the-badge
-[stars-url]: https://github.com/ac12644/Crypto-Charity/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ac12644/Crypto-Charity?style=for-the-badge
-[issues-url]: https://github.com/ac12644/Crypto-Charity/issues
-[license-shield]: https://img.shields.io/github/license/ac12644/Crypto-Charity?style=for-the-badge
-[license-url]: https://github.com/ac12644/Crypto-Charity/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/ac12644/
+```solidity
+ function allRequests()
+        external
+        view
+        returns (
+            uint256[] memory requestID,
+            uint256[] memory amounts,
+            address[] memory beneficiaries,
+            address[] memory ngoAddresses,
+            RequestStatus[] memory statuses
+        )
+    {
+        uint256 count = _requests.length;
+        requestID = new uint256[](count); // Initialize the requestID array
+        amounts = new uint256[](count);
+        beneficiaries = new address[](count);
+        ngoAddresses = new address[](count);
+        statuses = new RequestStatus[](count);
+
+        for (uint256 i = 0; i < count; i++) {
+            FundsRequest storage request = _requests[i];
+            requestID[i] = i; // Set the request ID
+            amounts[i] = request.amount;
+            beneficiaries[i] = request.beneficiary;
+            ngoAddresses[i] = request.ngoAddress;
+            statuses[i] = request.status;
+        }
+    }
+```
+
+
+
